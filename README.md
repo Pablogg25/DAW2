@@ -80,7 +80,7 @@ A lo largo del año académico trabajaré en las siguientes materias clave:
 ## 📝 Última actividad
 
 <!--START_SECTION:activity-->
-- Consulta los últimos commits, issues y PRs [aquí](https://github.com/Pablogg25/DAW2/commits/main).
+
 <!--END_SECTION:activity-->
 
 ---
