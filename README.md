@@ -5,7 +5,7 @@ Aquí encontrarás todo lo que voy aprendiendo y desarrollando en esta etapa cla
 
 ![Desarrollo Web](https://img.shields.io/badge/Desarrollo-Web-blue?style=for-the-badge&logo=javascript)
 
---
+---
 
 ## 👤 Sobre mí
 
