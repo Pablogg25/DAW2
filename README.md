@@ -18,31 +18,37 @@ Aquí encontrarás todo lo que voy aprendiendo y desarrollando en esta etapa cla
 
 ## 📚 Asignaturas del Segundo Curso
 
-A lo largo del año académico trabajaré en las siguientes materias clave:
+---
 
-- 🎨 **Diseño de interfaces web:**  
-  UX/UI, accesibilidad, responsive design, maquetación avanzada con CSS3 y Bootstrap.
+🎨 **DIW (Diseño de interfaces WEB)**
+> Aprende a crear páginas web atractivas, accesibles y funcionales usando HTML, CSS y técnicas de diseño moderno.
 
-- 💻 **Desarrollo web en entorno cliente:**  
-  JavaScript avanzado, manipulación del DOM, AJAX, consumo de APIs, frameworks y librerías JS.
+💻 **DWEC (Desarrollo web en entorno cliente)**
+> Domina JavaScript y frameworks para crear aplicaciones interactivas que funcionan en el navegador.
 
-- 🖥️ **Desarrollo web en entorno servidor:**  
-  Backend con PHP, gestión de bases de datos (MySQL), creación de APIs REST, seguridad, autenticación.
+🖥️ **DWES (Desarrollo web en entorno servidor)**
+> Descubre cómo crear el backend de una web, gestionar bases de datos y construir APIs seguras y eficientes.
 
-- ☁️ **Despliegue de aplicaciones web:**  
-  Publicación en servidores, configuración de entornos, Git y GitHub, integración continua (CI/CD).
+☁️ **DAW (Despliegue de aplicaciones WEB)**
+> Aprende a publicar tus proyectos en servidores, configurar entornos y automatizar procesos con herramientas profesionales.
 
-- 🧭 **Itinerario personal para la empleabilidad II:**  
-  Portafolio profesional, preparación de CV, entrevistas y orientación laboral.
+🧭 **IPE2 (Itinerario para la empleabilidad 2)**
+> Prepárate para el mundo laboral: portafolio, CV, entrevistas y orientación profesional.
 
-- 🏭 **Digitalización aplicada a los sectores productivos:**  
-  Transformación digital, tendencias tecnológicas y casos prácticos en empresas reales.
+🚩 **PROYI (Proyecto Intermodular – Proyecto LOE)**
+> Proyecto final integrador donde aplicarás todos los conocimientos adquiridos en el ciclo.
 
-- ⚡ **Módulo profesional optativo:**  
-  Asignatura elegida según oferta del centro.
+🌱 **SOST (Sostenibilidad)**
+> Conoce la importancia de la sostenibilidad y cómo aplicarla en el desarrollo tecnológico y empresarial.
 
-- 🚩 **Proyecto intermodular:**  
-  Proyecto final integrador usando conocimientos de todas las asignaturas.
+🌍 **ING P (Inglés Profesional)**
+> Mejora tu inglés técnico y profesional para desenvolverte en el sector TIC internacional.
+
+🔗 **DIGAS (Digitalización)**
+> Explora la transformación digital y su impacto en los sectores productivos y la sociedad.
+
+⚙️ **IDEVO (DevOps)**
+> Descubre metodologías y herramientas para la integración y entrega continua en proyectos de software.
 
 ---
 
