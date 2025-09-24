@@ -83,14 +83,6 @@ Aquí encontrarás todo lo que voy aprendiendo y desarrollando en esta etapa cla
 
 ---
 
-## 📝 Última actividad
-
-<!--START_SECTION:activity-->
-
-<!--END_SECTION:activity-->
-
----
-
 ## 📬 Contacto
 
 ¿Te gustaría colaborar o dejar alguna sugerencia?  
