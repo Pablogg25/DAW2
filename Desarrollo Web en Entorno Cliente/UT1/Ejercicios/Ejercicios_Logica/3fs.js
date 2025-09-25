@@ -1,5 +1,5 @@
 function dibujarRectangulo(alto, ancho) {
-    let rectangulo = new Array(alto);
+    let rectangulo = new Array(altura);
 
     for (let i = 0; i < alto; i++) {
 
@@ -20,5 +20,5 @@ function dibujarRectangulo(alto, ancho) {
     }
     return rectangulo;
 }
-
+let x = dibujarRectangulo(7, 9);
 console.log(dibujarRectangulo(7, 9));

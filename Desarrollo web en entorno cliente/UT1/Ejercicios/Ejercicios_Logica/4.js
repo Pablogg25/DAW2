@@ -1,22 +1,15 @@
 "use strict";
-// Función que recibe un número y devuelve un array con las líneas de un triángulo de altura n
-function dibujarTriangulo(n) {
-    let resultado = [];
-    for (let i = 1; i <= n; i++) {
-        resultado.push("*".repeat(i));
-    }
-    return resultado;
-}
+let lado = '';
+let numero = [prompt('Escribe numero')];
+function crearTriangulo(altura) {
+    let triangulo = [];
+    for (let fila = 0; fila < altura; fila++) {
+        let cadena = '';
+        for (let x = 0; x < altura - fila - 1; x++) {
+            cadena += ' ';
 
-// Código auxiliar para probar la función
-document.addEventListener("DOMContentLoaded", function() {
-    let altura = parseInt(prompt("Introduce la altura del triángulo:"));
-    if (!isNaN(altura) && altura > 0) {
-        let triangulo = dibujarTriangulo(altura);
-        alert(triangulo.join("\n"));
-        // También puedes mostrarlo en consola:
-        console.log(triangulo.join("\n"));
-    } else {
-        alert("Por favor, introduce un número válido mayor que 0.");
+        }
+
+
     }
-});
+}

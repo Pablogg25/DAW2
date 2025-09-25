@@ -1,22 +1,26 @@
-"use strict";
+let min = 0, max = 0, suma = 0, media = 0, total = 0;
+let numero = 0;
 
-// Solicita números al usuario hasta que introduce un 0 y muestra máximo, mínimo, suma, media y total
-let numeros = [];
-let num;
-do {
-    num = parseFloat(prompt("Introduce un número (0 para terminar):"));
-    if (num !== 0 && !isNaN(num)) {
-        numeros.push(num);
+//se puede hacer con do while
+numero = Number(prompt('Introduce un numero, si es 0 sale', 1));
+max = numero;
+min = numero;
+while (numero !== 0) {
+    suma = suma + numero;
+    if (numero >= max) {
+        max = numero;
+    } if (numero <= min) {
+        min = numero;
     }
-} while (num !== 0);
+    total++;
+    numero = Number(prompt('Introduce un numero, si es 0 sale', 1));
 
-if (numeros.length > 0) {
-    let maximo = Math.max(...numeros);
-    let minimo = Math.min(...numeros);
-    let suma = numeros.reduce((a, b) => a + b, 0);
-    let media = suma / numeros.length;
-    let total = numeros.length;
-    alert(`Máximo: ${maximo}\nMínimo: ${minimo}\nSuma: ${suma}\nMedia: ${media}\nTotal de números: ${total}`);
-} else {
-    alert("No se introdujeron números.");
+
+}
+if (total > 0) {
+    media = suma / total;
+    alert(`El minimo es ${min} el  maximo es ${max} la suma es ${suma} la media es ${media} el total de numeros introducidos es ${total} `);
+}
+else {
+    alert('No se introdujeron numeros')
 }
