@@ -1,22 +1,38 @@
-function dibujarRombo(diagonal) {
-    if (diagonal < 1 || diagonal % 2 === 0) {
-        throw new Error('La diagonal debe ser un número impar mayor que 0');
+function dibujarRombo(h) {
+    let forma = [];
+    let mitad = (h - 1) / 2;
+    // Parte superior y centro
+    for (let i = 0; i <= mitad; i++) {
+        let linea = '';
+        for (let j = 0; j < mitad - i; j++) {
+            linea += '_';
+        }
+        for (let k = 0; k < 2 * i + 1; k++) {
+            linea += '*';
+        }
+        for (let j = 0; j < mitad - i; j++) {
+            linea += '_';
+        }
+        forma[i] = linea;
     }
-    const rombo = [];
-    const mitad = Math.floor(diagonal / 2);
-    for (let i = 0; i < diagonal; i++) {
-        let espacios = Math.abs(mitad - i);
-        let asteriscos = diagonal - 2 * espacios;
-        rombo.push(' '.repeat(espacios) + '*'.repeat(asteriscos));
+    // Parte inferior
+    for (let i = mitad - 1; i >= 0; i--) {
+        let linea = '';
+        for (let j = 0; j < mitad - i; j++) {
+            linea += '_';
+        }
+        for (let k = 0; k < 2 * i + 1; k++) {
+            linea += '*';
+        }
+        for (let j = 0; j < mitad - i; j++) {
+            linea += '_';
+        }
+        forma[h - 1 - i] = linea;
     }
-    return rombo;
+    // Mostrar el rombo
+    for (let i = 0; i < forma.length; i++) {
+        console.log(forma[i]);
+    }
 }
 
-// Código de prueba
-try {
-    const diagonal = 7; // Cambia este valor para probar otros tamaños
-    const resultado = dibujarRombo(diagonal);
-    resultado.forEach(linea => console.log(linea));
-} catch (e) {
-    console.error(e.message);
-}
+dibujarRombo(7);
