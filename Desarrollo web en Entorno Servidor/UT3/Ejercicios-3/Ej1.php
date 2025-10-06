@@ -4,48 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Tabla de Escolarización por Comunidad Autónoma</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f6fa;
-            display: flex;
-            justify-content: center;
-            padding: 30px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 70%;
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #0077b6;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        caption {
-            caption-side: top;
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #023e8a;
-        }
-    </style>
 </head>
 
 <body>
@@ -75,8 +33,8 @@
     ];
 
     // Mostrar tabla
-    echo "<table>";
-    echo "<caption>Escolarización por cada 1000 habitantes</caption>";
+    echo "<table border='1'>";
+    echo "<caption><strong>Escolarización por cada 1000 habitantes</strong></caption>";
     echo "<tr><th>Comunidad Autónoma</th><th>Número de alumnos (por 1000 hab.)</th><th>% Escolarización</th></tr>";
 
     foreach ($datos as $fila) {
