@@ -1,5 +1,6 @@
 function dibujarZelda(n) {
     // Triángulo superior
+
     for (let i = 1; i <= n; i++) {
         let linea = '';
         // Espacios a la izquierda
