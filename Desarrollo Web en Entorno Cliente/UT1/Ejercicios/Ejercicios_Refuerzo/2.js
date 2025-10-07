@@ -11,4 +11,4 @@ function fibonacci(n) {
     return fibonacci;
 }
 
-console.log(fibonacci(10));
+console.log(fibonacci(1));
