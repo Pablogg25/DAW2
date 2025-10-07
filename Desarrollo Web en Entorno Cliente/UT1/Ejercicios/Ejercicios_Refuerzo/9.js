@@ -1,5 +1,5 @@
 function Marco(frase) {
-    let palabras = frase.split();
+    let palabras = frase.split(" ");
 
     let maxLong = 0;
     for (let i = 0; i < palabras.length; i++) {
@@ -17,7 +17,7 @@ function Marco(frase) {
     for (let i = 0; i < palabras.length; i++) {
         let palabra = palabras[i];
         let espacios = "";
-        for (let j = palabras.length; j < maxLong; j++) {
+        for (let j = palabra.length; j < maxLong; j++) {
             espacios += " ";
         }
         console.log("* " + palabra + espacios + " *")
