@@ -4,8 +4,10 @@ $letrasDNI = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', '
 
 function calcularDNI($dni, $letrasDNI)
 {
-    $resto = $dni % 23;
-    $letra = $letrasDNI[$resto];
+    if (is_int($dni) && $dni . strlen(9)) {
+        $resto = $dni % 23;
+        $letra = $letrasDNI[$resto];
+    }
     return $letra;
 };
 $dni = 72220220;
