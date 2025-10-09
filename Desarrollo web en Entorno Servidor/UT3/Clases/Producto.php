@@ -22,6 +22,16 @@ class Producto
         echo "El producto con codigo " . $this->codigo . " con nombre " . $this->nombre . " tiene " . $this->PVP . " PVP";
     }
 
+    public function __get($nombre)
+    {
+        return $this->nombre;
+    }
+
+    public function __set($nombre, $valor)
+    {
+        return $this->nombre = $nombre;
+    }
+
     public function setCodigo($codigo)
     {
         $this->codigo = $codigo;
