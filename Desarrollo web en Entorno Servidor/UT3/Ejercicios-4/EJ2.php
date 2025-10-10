@@ -20,4 +20,12 @@ class Coche
         $this->velocidad = $this->velocidad - $frena;
         if ($this->velocidad > 120 || $this->velocidad < 0) $this->velocidad = 100;
     }
+
+    public function getMatricula(){
+        return $this->matricula;
+    }
+
+    public function getVelocidad(){
+        return $this->velocidad;
+    }
 }
