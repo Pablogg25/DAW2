@@ -1,5 +1,41 @@
+/* Tipografia, Alineado Centrado, Color de fondo */
 body{
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     background-color: #f7f7f7;
+}
+
+#contenedor{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+
+}
+
+table{
+    border-collapse: collapse;
+}
+
+.color {
+  width: 120px;
+  height: 120px;
+  border: 2px solid #555;
+  border-radius: 10px;
+  background-color: #999;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+#verde.active { background-color: limegreen; }
+#rojo.active { background-color: red; }
+#azul.active { background-color: dodgerblue; }
+#amarillo.active { background-color: gold; }
+
+#control {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+  text-align: left;
 }
