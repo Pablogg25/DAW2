@@ -1,14 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercadillo</title>
+    <title>Mercadillo - Inventario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            padding: 5px;
+            margin-top: 5px;
+            width: 95%;
+        }
+
+        button {
+            margin-top: 10px;
+            margin-right: 5px;
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #resultado {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
+    <h1>🛍️ Mercadillo - Gestión de Inventario</h1>
 
+    <!-- Formulario principal -->
+    <form id="formulario">
+        <label>Nombre del producto:</label>
+        <input type="text" id="nombre">
+
+        <label>Cantidad:</label>
+        <input type="number" id="cantidad">
+
+        <label>Precio:</label>
+        <input type="number" id="precio" step="0.01">
+
+        <label>Categoría:</label>
+        <input type="text" id="categoria">
+
+        <!-- Botones -->
+        <button type="button" id="btnAgregar">Agregar</button>
+        <button type="button" id="btnEliminar">Eliminar</button>
+        <button type="button" id="btnBuscar">Buscar</button>
+        <button type="button" id="btnActualizar">Actualizar</button>
+        <button type="button" id="btnOrdenar">Ordenar por precio</button>
+        <button type="button" id="btnFiltrar">Filtrar por categoría</button>
+        <button type="button" id="btnMostrar">Mostrar inventario</button>
+    </form>
+
+    <!-- Zona de resultados -->
+    <div id="resultado">
+        <h2>Resultado:</h2>
+        <div id="salida">Sin datos todavía...</div>
+    </div>
+
+    <!-- 🔗 Aquí enlazamos tu archivo JS -->
+    <script src="Mercadillo.js"></script>
+
+    <!-- Interfaz (solo la parte visual, sin repetir tus funciones) -->
+    <script>
+        window.addEventListener("load", () => {
+            const salida = document.getElementById("salida");
+
+            // Función auxiliar: crea una tabla HTML con los resultados
+            function mostrarTabla(datos) {
+                if (!datos || datos.length === 0) {
+                    salida.innerHTML = "<p>No hay resultados.</p>";
+                    return;
+                }
+                let html = "<table><tr>";
+                for (let clave in datos[0]) html += "<th>" + clave + "</th>";
+                html += "</tr>";
+                datos.forEach(obj => {
+                    html += "<tr>";
+                    for (let clave in obj) html += "<td>" + obj[clave] + "</td>";
+                    html += "</tr>";
+                });
+                html += "</table>";
+                salida.innerHTML = html;
+            }
+
+            // --- Asociar botones a las funciones de Mercadillo.js ---
+            document.getElementById("btnAgregar").addEventListener("click", () => {
+                agregarProducto(nombre.value, cantidad.value, precio.value, categoria.value);
+                mostrarTabla(imprimirInventario());
+            });
+
+            document.getElementById("btnEliminar").addEventListener("click", () => {
+                if (confirm("¿Eliminar " + nombre.value + "?")) {
+                    eliminarProducto(nombre.value);
+                    mostrarTabla(imprimirInventario());
+                }
+            });
+
+            document.getElementById("btnBuscar").addEventListener("click", () => {
+                const prod = buscarProducto(nombre.value);
+                if (prod) mostrarTabla([{ nombre: nombre.value, ...prod }]);
+                else salida.innerHTML = "<p>Producto no encontrado.</p>";
+            });
+
+            document.getElementById("btnActualizar").addEventListener("click", () => {
+                actualizarInventario(nombre.value, cantidad.value);
+                mostrarTabla(imprimirInventario());
+            });
+
+            document.getElementById("btnOrdenar").addEventListener("click", () => {
+                mostrarTabla(ordenarProductosPorPrecio());
+            });
+
+            document.getElementById("btnFiltrar").addEventListener("click", () => {
+                mostrarTabla(filtrarProductorPorCategoria(categoria.value));
+            });
+
+            document.getElementById("btnMostrar").addEventListener("click", () => {
+                mostrarTabla(imprimirInventario());
+            });
+        });
+    </script>
 </body>
 
 </html>
