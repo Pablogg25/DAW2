@@ -6,12 +6,12 @@ const simon = (function(){
     let jugando = false;
 
     // Funcion que devuelve la secuencia que se va a mostrar
-    function obtenerSecuenia(){
+    function getSecuencia(){
         return secuencia;
     }
 
     // Funcion que devuelve el ultimo color pulsado 
-    function obtenerColorPulsado(){
+    function establecerColorPulsado(){
     if(!jugando) return;
     if(color === secuencia[posicion]){
         posicion++;
@@ -37,7 +37,7 @@ const simon = (function(){
     }
 
     // Funcion que devuelve la posicion actual 
-    function getPosicionActual(){
+    function getPosicion(){
         return posicion;
     }
     // Funcion que inicia el juego para que se empiecen a ver los colores etc...
@@ -60,13 +60,32 @@ const simon = (function(){
         MostrarSecuencia();
     }
 
-    // Exposición pública
-  return {
-    obtenerSecuencia,
-    establecerColorPulsado,
-    obtenerMejorRacha,
-    obtenerPosicion,
-    iniciarJuego,
-    obtenerEstado
+// Exposición pública
+    return {
+        getSecuencia,
+        establecerColorPulsado,
+        getMejorRacha,
+        getPosicion,
+        iniciarJuego,
+        getEstado
   };
 })();
+
+//Interfaz
+window.addEventListener("load",()=>{
+    const botones = document.querySelector(".color");
+    const btnComenzar = document.getElementById("btnComenzar");
+    const mejor = document.getElementById("mejorRacha");
+    const progreso = document.getElementById("rachaActual");
+    const tiempoOn = document.getElementById("tiempoOn");
+    const tiempoOff = document.getElementById("tiempoOff");
+
+    let mostrarSecuencia= false;
+
+    function iluminar(color,duracion){
+        const btn = document.getElementById(color);
+        btn.classList.add("active");
+        setTimeout(() => btn.classList.remove("active"), duracion);
+    }
+}
+)
