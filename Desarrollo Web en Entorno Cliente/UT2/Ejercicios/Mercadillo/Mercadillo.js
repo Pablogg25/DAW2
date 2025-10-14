@@ -91,7 +91,7 @@ function filtrarProductorPorCategoria(categoria) {
    let lista = [];
    for (let nombre in inventario) {
       let prod = inventario[nombre]
-      if (prod.categoria === categoria) {
+      if (prod.categoria.toLowerCase() === categoria.toLowerCase()) {
          lista.push({
             nombre: prod.nombre,
             cantidad: prod.cantidad,
