@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon</title>
+    <link rel="stylesheet" href="simon.css">
+</head>
+<body>
+    <h1>SIMON DICE</h1>
+    <div id="contenedor">
+        <div id="juego">
+            <!-- Tabla de colores -->
+             <table>
+                <tr>
+                    <td><button id="verde" class="color"></button></td>
+                    <td><button id="rojo" class="color"></button></td>
+                </tr>
+                <tr>
+                    <td><button id="amarillo" class="color"></button></td>
+                    <td><button id="azul" class="color"></button></td>
+                </tr>
+             </table>
+        </div>
+        <div id="control">
+            <!-- Panel de control -->
+            <label>Tiempo de encendido (Milisegundos)</label>
+            <input type="number" id="tiempoOn" value="700"><br><br>
+            <label>Tiempo entre luces (Milisegundos):</label>
+            <input type="number" id="tiempoOff" value="300"><br><br>
+            <button id="btnComenzar">Comenzar</button><br><br>
+            <p><b>Mejor racha:</b> <span id="mejorRacha">0</span></p>
+            <p><b>Progreso:</b> <span id="rachaActual">0 de 0</span></p>
+        </div>
+    </div>
+    <script src="simon.js"></script>
+</body>
+</html>
