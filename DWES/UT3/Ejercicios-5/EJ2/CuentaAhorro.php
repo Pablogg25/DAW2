@@ -15,4 +15,6 @@ class CuentaAhorro extends Cuenta
     {
         $this->saldo = $this->saldo + ($this->saldo * $this->intereses);
     }
+
+    function mostrar() {}
 }
