@@ -3,80 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="Mercadillo.css">
     <title>Mercadillo - Inventario</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
+    <!-- 🔗 Aquí enlazamos tu archivo JS -->
+    <script src="Mercadillo.js"></script>
 
-        h1 {
-            text-align: center;
-        }
-
-        form {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #ccc;
-            max-width: 600px;
-            margin: 0 auto 20px;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-
-        input {
-            padding: 5px;
-            margin-top: 5px;
-            width: 95%;
-        }
-
-        button {
-            margin-top: 10px;
-            margin-right: 5px;
-            padding: 8px 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #resultado {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #ccc;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th,
-        td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-    </style>
 </head>
 
 <body>
@@ -111,9 +42,6 @@
         <h2>Resultado:</h2>
         <div id="salida">Sin datos todavía...</div>
     </div>
-
-    <!-- 🔗 Aquí enlazamos tu archivo JS -->
-    <script src="Mercadillo.js"></script>
 
     <!-- Interfaz (solo la parte visual, sin repetir tus funciones) -->
     <script>

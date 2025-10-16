@@ -86,7 +86,8 @@ function imprimirInventario() {
    return lista;
 }
 
-/* Devuelve una lista con los productos de una categoría. Muestra el “nombre”, “cantidad”, “precio”*/
+/* Devuelve una lista con los productos de una categoría.
+   Muestra el “nombre”, “cantidad”, “precio”*/
 function filtrarProductorPorCategoria(categoria) {
    let lista = [];
    for (let nombre in inventario) {
