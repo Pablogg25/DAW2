@@ -66,6 +66,7 @@
                 salida.innerHTML = html;
             }
 
+            // Mejor dentro de los metodos en vez usar nombre.value guardarlo previamente en una variable EJEMPLO: $txtNombre=getElementById(nombre);
             // --- Asociar botones a las funciones de Mercadillo.js ---
             document.getElementById("btnAgregar").addEventListener("click", () => {
                 agregarProducto(nombre.value, cantidad.value, precio.value, categoria.value);
