@@ -1,9 +1,9 @@
 <?php
 class Cuenta
 {
-    private int $numero;
-    private string $titular;
-    private float $saldo;
+    protected int $numero;
+    protected string $titular;
+    protected float $saldo;
 
     function __construct($numero, $titular, $saldo)
     {
