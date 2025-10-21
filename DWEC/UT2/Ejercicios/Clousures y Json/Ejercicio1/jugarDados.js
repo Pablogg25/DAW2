@@ -3,7 +3,7 @@ function jugarDados(numeroLados) {
     return Math.floor(Math.random() * numeroLados) + 1;
   }
   return function () {
-    return [tirarDado, tirarDado];
+    return [tirarDado(), tirarDado()];
   };
 }
 
@@ -20,9 +20,9 @@ window.addEventListener("load", () => {
   let victoriasMaquina = 0;
   let victoriasUsuario = 0;
 
-  btnIniciar.addEventListener("click", () => {
-    const lados = Number(ladosInput.value);
-    const tiradas = Number(tiradasInput.value);
+  $btnIniciar.addEventListener("click", () => {
+    const lados = Number($ladosInput.value);
+    const tiradas = Number($tiradasInput.value);
     if (lados < 2 || tiradas < 1) {
       alert("Introduce Valores validos");
       return;
@@ -45,24 +45,24 @@ window.addEventListener("load", () => {
     const usuario = tirarDados();
     const maquina = tirarDados();
 
-    const sumaJugador = jugador[0] + jugador[1];
+    const sumaUsuario = usuario[0] + usuario[1];
     const sumaMaquina = maquina[0] + maquina[1];
 
     let texto = `<b>Tirada ${tiradasActuales}:</b><br>
-                 Jugador: ${jugador.join(" + ")} = ${sumaJugador}<br>
+                 Jugador: ${usuario.join(" + ")} = ${sumaUsuario}<br>
                  Máquina: ${maquina.join(" + ")} = ${sumaMaquina}<br>`;
 
-    if (sumaJugador > sumaMaquina) {
+    if (sumaUsuario > sumaMaquina) {
       victoriasJugador++;
       texto += "Victoria del Jugador";
-    } else if (sumaMaquina > sumaJugador) {
+    } else if (sumaMaquina > sumaUsuario) {
       victoriasMaquina++;
       texto += "Victoria de la maquina";
     } else {
       texto += "Empate";
     }
 
-    $resultado.innerHTML = "<p>${$texto}</p>";
+    $resultado.innerHTML = `<p>${texto}</p>`;
 
     if (tiradasActuales === tiradasTotales) {
       resultado.innerHTML += `<hr><h3>Resultado final</h3>
