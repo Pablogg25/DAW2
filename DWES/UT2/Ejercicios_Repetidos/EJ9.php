@@ -1,14 +1,14 @@
 <?php
-function parImpar($numero){
-    if($numero%2===0) return true;
+function parImpar($numero)
+{
+    if ($numero % 2 === 0) return true;
     return false;
 }
 
 $numero = 10;
 
-if(parImpar($numero)){
+if (parImpar($numero)) {
     echo 'Es par';
-}else{
+} else {
     echo 'Es impar';
 }
-?>
