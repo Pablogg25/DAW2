@@ -48,7 +48,7 @@ const simon = (function() {
     } else {
       // fallo
       console.log("Fallo en la posición", posicion);
-      alert("❌ ¡Has fallado! Secuencia reiniciada.");
+      alert("¡Has fallado! Secuencia reiniciada.");
       secuencia = [];
       posicion = 0;
       estado = "parado";
