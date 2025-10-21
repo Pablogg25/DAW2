@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jugar Dados</title>
+    <link rel="stylesheet" href="jugarDados.css" />
+    <script src="jugarDados.js"></script>
+  </head>
+  <body>
+    <div id="contenedor">
+      <h1>Juego de Dados</h1>
+      <label>Lados del dado:</label>
+      <input type="number" id="lados" value="6" /><br />
+
+      <label>Número de tiradas:</label>
+      <input type="number" id="tiradas" value="5" /><br />
+
+      <button id="btnIniciar">Iniciar Partida</button>
+      <button id="btnTirar" disabled>Tirar</button>
+
+      <div id="resultado"></div>
+    </div>
+  </body>
+</html>
