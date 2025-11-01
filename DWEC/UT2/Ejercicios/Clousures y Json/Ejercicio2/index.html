@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Yedra</title>
+  </head>
+  <body>
+    <h2>Gestión Académica - Yedra</h2>
+
+    <button onclick="verSuspensos()">Ver suspensos</button>
+    <button onclick="verEstadisticas()">Ver estadísticas</button>
+    <button onclick="exportar()">Exportar JSON</button>
+
+    <br /><br />
+
+    <textarea
+      id="entrada"
+      rows="6"
+      cols="40"
+      placeholder="Pega JSON aquí"
+    ></textarea
+    ><br />
+    <button onclick="importar()">Importar JSON</button>
+
+    <h3>Resultado:</h3>
+    <pre id="salida"></pre>
+
+    <script src="yedra.js"></script>
+    <script>
+      function verSuspensos() {
+        let r = $yedra.suspensos();
+        document.getElementById("salida").innerText = JSON.stringify(
+          r,
+          null,
+          2
+        );
+      }
+
+      function verEstadisticas() {
+        let r = $yedra.estadisticas();
+        document.getElementById("salida").innerText = JSON.stringify(
+          r,
+          null,
+          2
+        );
+      }
+
+      function exportar() {
+        let r = $yedra.exportarJSON();
+        document.getElementById("salida").innerText = r;
+      }
+
+      function importar() {
+        let texto = document.getElementById("entrada").value;
+        $yedra.importarJSON(texto);
+      }
+    </script>
+  </body>
+</html>
