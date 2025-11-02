@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="Mercadillo.css" />
+    <title>Mercadillo - Inventario</title>
+    <!-- 🔗 Aquí enlazamos tu archivo JS -->
+    <script src="Mercad1illo.js"></script>
+  </head>
+
+  <body>
+    <h1>🛍️ Mercadillo - Gestión de Inventario</h1>
+
+    <!-- Formulario principal -->
+    <form id="formulario">
+      <label>Nombre del producto:</label>
+      <input type="text" id="nombre" />
+
+      <label>Cantidad:</label>
+      <input type="number" id="cantidad" />
+
+      <label>Precio:</label>
+      <input type="number" id="precio" step="0.01" />
+
+      <label>Categoría:</label>
+      <input type="text" id="categoria" />
+
+      <!-- Botones -->
+      <button type="button" id="btnAgregar">Agregar</button>
+      <button type="button" id="btnEliminar">Eliminar</button>
+      <button type="button" id="btnBuscar">Buscar</button>
+      <button type="button" id="btnActualizar">Actualizar</button>
+      <button type="button" id="btnOrdenar">Ordenar por precio</button>
+      <button type="button" id="btnFiltrar">Filtrar por categoría</button>
+      <button type="button" id="btnMostrar">Mostrar inventario</button>
+    </form>
+
+    <!-- Zona de resultados -->
+    <div id="resultado">
+      <h2>Resultado:</h2>
+      <div id="salida">Sin datos todavía...</div>
+    </div>
+  </body>
+
+  <script>
+    window.addEventListener("load", () => {
+      const salida = document.getElementById("salida");
+
+      // Función auxiliar: crea una tabla HTML con los resultados
+      function mostrarTabla(datos) {
+        if (!datos || datos.length === 0) {
+          salida.innerHTML = "<p>No hay resultados.</p>";
+          return;
+        }
+        let html = "<table><tr>";
+        for (let clave in datos[0]) html += "<th>" + clave + "</th>";
+        html += "</tr>";
+        datos.forEach((obj) => {
+          html += "<tr>";
+          for (let clave in obj) html += "<td>" + obj[clave] + "</td>";
+          html += "</tr>";
+        });
+        html += "</table>";
+        salida.innerHTML = html;
+      }
+
+      // Mejor dentro de los metodos en vez usar nombre.value guardarlo previamente en una variable EJEMPLO: $txtNombre=getElementById(nombre);
+      // --- Asociar botones a las funciones de Mercadillo.js ---
+      document.getElementById("btnAgregar").addEventListener("click", () => {
+        agregarProducto(
+          nombre.value,
+          cantidad.value,
+          precio.value,
+          categoria.value
+        );
+        mostrarTabla(imprimirInventario());
+      });
+
+      document.getElementById("btnEliminar").addEventListener("click", () => {
+        if (confirm("¿Eliminar " + nombre.value + "?")) {
+          eliminarProducto(nombre.value);
+          mostrarTabla(imprimirInventario());
+        }
+      });
+
+      document.getElementById("btnBuscar").addEventListener("click", () => {
+        const prod = buscarProducto(nombre.value);
+        if (prod) mostrarTabla([{ nombre: nombre.value, ...prod }]);
+        else salida.innerHTML = "<p>Producto no encontrado.</p>";
+      });
+
+      document.getElementById("btnActualizar").addEventListener("click", () => {
+        actualizarInventario(nombre.value, cantidad.value);
+        mostrarTabla(imprimirInventario());
+      });
+
+      document.getElementById("btnOrdenar").addEventListener("click", () => {
+        mostrarTabla(ordenarProductosPorPrecio());
+      });
+
+      document.getElementById("btnFiltrar").addEventListener("click", () => {
+        mostrarTabla(filtrarProductorPorCategoria(categoria.value));
+      });
+
+      document.getElementById("btnMostrar").addEventListener("click", () => {
+        mostrarTabla(imprimirInventario());
+      });
+    });
+  </script>
+</html>
