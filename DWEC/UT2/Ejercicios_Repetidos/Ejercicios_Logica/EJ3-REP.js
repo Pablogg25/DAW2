@@ -1,9 +1,7 @@
 function dibujarRectangulo(n) {
   let rectangulo = [];
-
   for (let i = 0; i < n; i++) {
     let linea = "";
-
     for (let j = 0; j < n; j++) {
       if (i === 0 || i === n - 1 || j === 0 || j === n - 1) {
         linea += "*";
@@ -11,14 +9,11 @@ function dibujarRectangulo(n) {
         linea += " ";
       }
     }
-
     rectangulo[rectangulo.length] = linea;
   }
-
   return rectangulo;
 }
-
-let lado = parseInt(prompt("Introduzca el lado del rectángulo"));
+let lado = parseInt(prompt("Introducza el alto del rectangulo"));
 
 let figura = dibujarRectangulo(lado);
 
