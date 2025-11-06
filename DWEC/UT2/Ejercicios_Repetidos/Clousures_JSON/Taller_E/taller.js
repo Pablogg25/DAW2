@@ -400,6 +400,7 @@ function menu() {
         break;
     }
   } while (op !== "0");
+  setTimeout(0);
 }
 
 // arrancar el menú
