@@ -1,124 +1,127 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Contacto - Hard Enduro World Portal</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header>
-      <h1>HARD ENDURO WORLD PORTAL</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">INICIO</a></li>
-          <li><a href="eventos.html">EVENTOS</a></li>
-          <li><a href="contacto.html">CONTACTO</a></li>
-          <li>
-            <a href="sobre-nosotros.html" class="active">SOBRE NOSOTROS</a>
-          </li>
-        </ul>
-        <select id="language">
+      <div class="header-inner">
+        <a href="index.html" class="site-title">
+          <img src="img/logo.png" alt="Logo" />
+          <h1>HARD ENDURO WORLD PORTAL</h1>
+        </a>
+
+        <nav>
+          <ul>
+            <li><a href="index.html">INICIO</a></li>
+            <li><a href="eventos.html">EVENTOS</a></li>
+            <li><a href="contacto.html" class="active">CONTACTO</a></li>
+            <li><a href="sobre-nosotros.html">SOBRE NOSOTROS</a></li>
+          </ul>
+        </nav>
+
+        <select id="language" aria-label="Idioma">
           <option value="es">Español</option>
           <option value="en">English</option>
         </select>
-      </nav>
+      </div>
     </header>
 
-    <main>
-      <form>
-        <label for="name">Nombre</label>
-        <input type="text" id="name" name="name" />
+    <main class="container">
+      <h2 class="center">Contacto</h2>
 
-        <label for="email">Correo Electrónico</label>
-        <input type="email" id="email" name="email" />
+      <form action="#" method="post" aria-label="Formulario de contacto">
+        <label for="name">Nombre</label>
+        <input id="name" name="name" type="text" required />
+
+        <label for="email">Correo electrónico</label>
+        <input id="email" name="email" type="email" required />
+
+        <label for="subject">Asunto</label>
+        <input id="subject" name="subject" type="text" />
 
         <label for="message">Mensaje</label>
-        <textarea id="message" name="message"></textarea>
+        <textarea id="message" name="message" required></textarea>
 
-        <button type="submit">Enviar</button>
+        <button class="btn" type="submit">Enviar mensaje</button>
       </form>
 
-      <div class="social-links">
-        <a href="https://www.facebook.com/HardEnduroWorld" target="_blank">
-          <i class="fab fa-facebook fa-2x"></i>
-        </a>
-        <a href="https://twitter.com/HardEnduroWorld" target="_blank">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-        <a href="https://www.instagram.com/HardEnduroWorld" target="_blank">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
-        <a href="mailto:info@hardenduroworldportal.es">
-          <i class="fas fa-envelope fa-2x"></i>
-        </a>
+      <hr class="hr-subtle" />
+
+      <div class="center small">
+        <p>También puedes escribirnos por redes sociales:</p>
+        <div class="social-links" aria-label="Redes sociales">
+          <a
+            href="https://www.facebook.com/HardEnduroWorld"
+            target="_blank"
+            rel="noopener"
+          >
+            <img src="img/facebook.png" alt="Facebook" />
+          </a>
+          <a
+            href="https://twitter.com/HardEnduroWorld"
+            target="_blank"
+            rel="noopener"
+          >
+            <img src="img/twitter.png" alt="Twitter" />
+          </a>
+          <a
+            href="https://www.instagram.com/HardEnduroWorld"
+            target="_blank"
+            rel="noopener"
+          >
+            <img src="img/instagram.png" alt="Instagram" />
+          </a>
+          <a href="mailto:info@hardenduroworldportal.es">
+            <img src="img/email.png" alt="Email" />
+          </a>
+        </div>
       </div>
     </main>
 
     <footer>
-      <p>
-        <a href="#">Política de Privacidad</a> |
-        <a href="#">Política de Cookies</a>
-      </p>
+      <div class="footer-inner">
+        <div class="footer-left">
+          <p>
+            <a href="#">Política de Privacidad</a> |
+            <a href="#">Política de Cookies</a>
+          </p>
+        </div>
 
-      <div class="social-links">
-        <a
-          href="https://www.facebook.com/HardEnduroWorld"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Facebook"
-        >
-          <img
-            src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg"
-            alt="Facebook"
-            width="28"
-            height="28"
-            style="margin: 0 8px; vertical-align: middle"
-          />
-        </a>
-        <a
-          href="https://twitter.com/HardEnduroWorld"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Twitter"
-        >
-          <img
-            src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg"
-            alt="Twitter"
-            width="28"
-            height="28"
-            style="margin: 0 8px; vertical-align: middle"
-          />
-        </a>
-        <a
-          href="https://www.instagram.com/HardEnduroWorld"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram"
-        >
-          <img
-            src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg"
-            alt="Instagram"
-            width="28"
-            height="28"
-            style="margin: 0 8px; vertical-align: middle"
-          />
-        </a>
-        <a
-          href="mailto:info@hardenduroworldportal.es"
-          aria-label="Correo electrónico"
-        >
-          <img
-            src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gmail.svg"
-            alt="Gmail"
-            width="28"
-            height="28"
-            style="margin: 0 8px; vertical-align: middle"
-          />
-        </a>
+        <div class="footer-right">
+          <div class="social-links" aria-label="Redes sociales">
+            <a
+              href="https://www.facebook.com/HardEnduroWorld"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="img/facebook.png" alt="Facebook" />
+            </a>
+            <a
+              href="https://twitter.com/HardEnduroWorld"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="img/twitter.png" alt="Twitter" />
+            </a>
+            <a
+              href="https://www.instagram.com/HardEnduroWorld"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="img/instagram.png" alt="Instagram" />
+            </a>
+            <a href="mailto:info@hardenduroworldportal.es">
+              <img src="img/email.png" alt="Email" />
+            </a>
+          </div>
+        </div>
+
+        <p class="small">Autor: Pablo González García</p>
       </div>
-
-      <p>Autor: Pablo González García</p>
     </footer>
   </body>
 </html>
