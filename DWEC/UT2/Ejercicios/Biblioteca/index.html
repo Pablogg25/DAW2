@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Gestión Bibliotecas</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <button data-action="list-autores">Autores</button>
+        <button data-action="list-libros">Libros</button>
+        <button data-action="list-bibliotecas">Bibliotecas</button>
+      </nav>
+      <form id="buscador">
+        <input name="q" placeholder="Buscar..." />
+        <select name="tipo">
+          <option value="libro">Libro</option>
+          <option value="autor">Autor</option>
+        </select>
+        <button type="submit">Buscar</button>
+      </form>
+    </header>
+
+    <main id="app"></main>
+
+    <script type="module" src="js/gestor/gestorBiblioteca.js"></script>
+  </body>
+</html>

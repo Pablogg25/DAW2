@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creación de libros</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- FORMULARIO PARA CREAR LIBROS -->
+    <section class="crear-libro">
+      <h2>CREA TU LIBRO</h2>
+      <form data-form="crear-libro" novalidate>
+        <div class="field">
+          <label>Introduzca el titulo del libro:</label>
+          <input type="text" name="Titulo" required />
+        </div>
+        <br />
+        <div class="field">
+          <label>Introduzca el ISBN:</label>
+          <input name="ISBN" type="text" />
+        </div>
+        <br />
+        <div class="field">
+          <label>Autor(ID)</label>
+          <!-- Aqui tendran que salir los nombres de los autores y el resto de elementos de los autores en hidden -->
+          <select name="Autor" id="Autor"></select>
+        </div>
+        <br />
+        <div class="field">
+          <label>Biblioteca (ID)</label>
+          <!-- Aqui tendran que salir los nombres de las bibliotecas y el resto de elementos de las blibliotecas en hidden -->
+          <select name="Biblioteca" id="Biblioteca"></select>
+        </div>
+        <br />
+        <div class="actions">
+          <button type="submit" class="btn primary">Crear</button>
+          <button type="button" data-action="cancelar" class="btn">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>
