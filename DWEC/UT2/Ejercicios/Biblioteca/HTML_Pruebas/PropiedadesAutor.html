@@ -1,0 +1,22 @@
+<h2>Autor: ${this._esc(this.nombre)}</h2>
+<p><strong>ID:</strong> ${this.autorId}</p>
+<p><strong>Nacionalidad:</strong> ${this._esc(this.nacionalidad)}</p>
+<p><strong>Biografía:</strong> ${this._esc(this.biografia)}</p>
+<h3>Libros publicados</h3>
+<table class="list-table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Título</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${filas}
+  </tbody>
+</table>
+<h4>Añadir libro (título)</h4>
+<form id="form-autor-anadir-libro" data-autor="${this.autorId}">
+  <input name="titulo" required />
+  <button type="submit">Añadir</button>
+</form>

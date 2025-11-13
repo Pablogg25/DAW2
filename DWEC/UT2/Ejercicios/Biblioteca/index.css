@@ -1,0 +1,37 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 18px;
+}
+nav {
+  margin-bottom: 12px;
+}
+nav button {
+  margin-right: 6px;
+}
+.list-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.list-table th,
+.list-table td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: left;
+}
+.menu-action {
+  margin-right: 6px;
+}
+.small {
+  font-size: 0.9em;
+  color: #666;
+}
+.error {
+  color: #b00;
+}
+#app {
+  margin-top: 12px;
+}
+.btn {
+  padding: 6px 10px;
+  cursor: pointer;
+}
