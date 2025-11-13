@@ -109,9 +109,10 @@ function h($s) {
     return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); 
 }
 
-/* fmt: formatea números con 2 decimales y separadores europeos
+/* fmt: formatea números con 2 decimales y separadores europeos "," para decimales y "." para los miles
    - number_format((float)$n, 2, ',', '.') => "1.234,56"
 */
+
 function fmt($n) { 
     return number_format((float)$n, 2, ',', '.'); 
 }
