@@ -1,5 +1,5 @@
 <?php
-// conversor.php
+// ejercicio1.php
 // Coloca este fichero en tu servidor PHP y ábrelo en el navegador.
 // Usa método POST al enviar el formulario a sí mismo ($_SERVER['PHP_SELF']).
 
