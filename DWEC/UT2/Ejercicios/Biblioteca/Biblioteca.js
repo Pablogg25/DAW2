@@ -1,4 +1,4 @@
-class Biblioteca {
+export default class Biblioteca {
   constructor({ bibliotecaId = null, nombre = "", ubicacion = "" } = {}) {
     this.bibliotecaId = bibliotecaId;
     this.nombre = nombre;

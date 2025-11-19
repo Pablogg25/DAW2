@@ -1,4 +1,4 @@
-const datos = {
+export const datosIniciales = {
   autores: [
     {
       autorId: 1,
@@ -201,4 +201,4 @@ const datos = {
   ],
 };
 
-export default datos;
+export default datosIniciales;
