@@ -6,7 +6,10 @@ class GestorTareas {
     this.#tareas = datos;
   }
 
-  #siguienteTareaId() {}
+  #siguienteTareaId() {
+    if (this.#tareas.length === 0) return 1;
+    return Math.max(...this.#tareas.map((t) => t.tareaId)) + 1;
+  }
 
   generarHTMLListado() {
     let resultado = `
@@ -24,26 +27,67 @@ class GestorTareas {
         <div>${t.tareaId}</div>
         <div>${t.titulo}</div>
         <div>${t.duracion}</div>
-        <div>${t.compleatada}</div>
-        <div><button data-accion="ver">Ver</button data-accion="borrar"><button>Borrar</button></div>
+        <div>${t.completada}</div>
+        <div><button data-accion="ver">Ver</button><button data-accion="borrar">Borrar</button></div>
       </div>`;
     });
     resultado += `</div>`;
     return resultado;
   }
 
-  generarHTMLFormulario(tareaId = 0) {}
+  generarHTMLFormulario(tareaId = 0) {
+    const tarea = this.#tareas.find((t) => t.tareaId == tareaId);
+    const titulo = tarea ? tarea.titulo : "";
+    const duracion = tarea ? tarea.duracion : "";
+    const completada = tarea ? tarea.completada : false;
+
+    return `<form>
+    <input type="hidden" name="tareaId" id="tareaId" value="${
+      tarea ? tarea.tareaId : ""
+    }" />
+    <div>
+      <label for="titulo">Titulo</label>
+      <input type="text" id="titulo" name="titulo" value="${titulo}" />
+    </div>
+    <div>
+      <label for="duracion">Duracion</label>
+      <input type="number" id="duracion" name="duracion" value="${duracion}" />
+    </div>
+    <div>
+      <label for="completada">Completada</label>
+      <input type="checkbox" id="completada" name="completada" ${
+        completada ? "checked" : ""
+      } />
+    </div>
+    <div><button type="button" data-accion="guardar">Guardar</button></div>
+  </form>`;
+  }
 
   borrarTarea(tareaId) {
-    let indice = this.#tareas.filter((x) => x.tareaId == tareaId);
-    if (indice != -1) {
+    let indice = this.#tareas.findIndex((x) => x.tareaId == tareaId);
+    if (indice !== -1) {
       this.#tareas.splice(indice, 1);
     }
   }
 
-  crearTarea(titulo, duracion, completada) {}
+  crearTarea(titulo, duracion, completada) {
+    const nueva = {
+      tareaId: this.#siguienteTareaId(),
+      titulo,
+      duracion,
+      completada,
+    };
+    this.#tareas.push(nueva);
+  }
 
-  editarTarea(tareaId, titulo, duracion, completada) {}
+  editarTarea(tareaId, titulo, duracion, completada) {
+    const tarea = this.#tareas.find((t) => t.tareaId == tareaId);
+    if (tarea) {
+      tarea.titulo = titulo;
+      tarea.duracion = duracion;
+      tarea.completada = completada;
+    }
+  }
 }
 /* Codigo auxiliar de intefaz del usuario */
 
@@ -69,6 +113,7 @@ function gestionarClick(evento) {
 
   switch (accion) {
     case "crear":
+      nuevoHTML = $gestor.generarHTMLFormulario();
       break;
     case "borrar":
       let borrar = confirm("¿Eliminar Tarea?");
@@ -81,10 +126,28 @@ function gestionarClick(evento) {
         fila.dataset["entidadId"] ?? fila.dataset["entidadid"]
       );
 
-      $gestor.borrar(entidadId);
+      $gestor.borrarTarea(entidadId);
       nuevoHTML = $gestor.generarHTMLListado();
       break;
     case "guardar":
+      const idInput = document.getElementById("tareaId");
+      const id = idInput && idInput.value ? parseInt(idInput.value) : 0;
+      const titulo = document.getElementById("titulo").value;
+      const completada = document.getElementById("completada").checked;
+      const duracion = parseInt(document.getElementById("duracion").value);
+      if (id) {
+        $gestor.editarTarea(id, titulo, duracion, completada);
+      } else {
+        $gestor.crearTarea(titulo, duracion, completada);
+      }
+      nuevoHTML = $gestor.generarHTMLListado();
+      break;
+    case "ver":
+      fila = boton.closest("[data-entidadId],[data-entidad]");
+      entidadId = parseInt(
+        fila.dataset["entidadId"] ?? fila.dataset["entidadId"]
+      );
+      nuevoHTML = $gestor.generarHTMLFormulario(entidadId);
       break;
     default:
       console.log("Accion no contemplada", accion);
