@@ -115,6 +115,7 @@ function gestionarClick(evento) {
     case "crear":
       nuevoHTML = $gestor.generarHTMLFormulario();
       break;
+
     case "borrar":
       let borrar = confirm("¿Eliminar Tarea?");
       if (borrar === false) {
@@ -129,6 +130,7 @@ function gestionarClick(evento) {
       $gestor.borrarTarea(entidadId);
       nuevoHTML = $gestor.generarHTMLListado();
       break;
+
     case "guardar":
       const idInput = document.getElementById("tareaId");
       const id = idInput && idInput.value ? parseInt(idInput.value) : 0;
@@ -142,13 +144,15 @@ function gestionarClick(evento) {
       }
       nuevoHTML = $gestor.generarHTMLListado();
       break;
+
     case "ver":
-      fila = boton.closest("[data-entidadId],[data-entidad]");
+      fila = boton.closest("[data-entidadId],[data-entidadid]");
       entidadId = parseInt(
-        fila.dataset["entidadId"] ?? fila.dataset["entidadId"]
+        fila.dataset["entidadId"] ?? fila.dataset["entidadid"]
       );
       nuevoHTML = $gestor.generarHTMLFormulario(entidadId);
       break;
+
     default:
       console.log("Accion no contemplada", accion);
       return;

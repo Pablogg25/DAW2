@@ -5,19 +5,19 @@ const datos = [
     tareaId: 1,
     titulo: "Preparar presentación",
     duracion: 45,
-    compleatada: false,
+    completada: false,
   },
   {
     tareaId: 2,
     titulo: "Enviar Informe",
     duracion: 20,
-    compleatada: true,
+    completada: true,
   },
   {
     tareaId: 3,
     titulo: "Revision de codigo",
     duracion: 60,
-    compleatada: false,
+    completada: false,
   },
 ];
 export default datos;
