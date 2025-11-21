@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>${this.#nombre}</h3>
+    <p>Nacionalidad: ${this.#nacionalidad}</p>
+    <p>Biografía: ${this.#biografia}</p>
+    <h4>Libros publicados</h4>
+    <ul>
+      ${this.#libros .map( (t) => `
+      <li>
+        ${t}
+        <button
+          data-accion="autor-del-libro"
+          data-entidad="autor"
+          data-id="${
+              this.#autorId
+            }"
+          data-titulo="${t}"
+        >
+          Eliminar
+        </button>
+      </li>
+      ` ) .join("")}
+    </ul>
+    <input type="text" id="autor-libro-titulo" placeholder="Nuevo título" />
+    <button
+      data-accion="autor-add-libro"
+      data-entidad="autor"
+      data-id="${
+        this.#autorId
+      }"
+    >
+      Añadir libro
+    </button>
+    <button
+      data-accion="editar"
+      data-entidad="autor"
+      data-id="${
+        this.#autorId
+      }"
+    >
+      Editar
+    </button>
+    <button
+      data-accion="borrar"
+      data-entidad="autor"
+      data-id="${
+        this.#autorId
+      }"
+    >
+      Borrar
+    </button>
+  </body>
+</html>

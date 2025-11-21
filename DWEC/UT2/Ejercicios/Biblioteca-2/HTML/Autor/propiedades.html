@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>${this.#titulo}</h3>
+    <p>ISBN: ${this.#ISBN}</p>
+    <p>AutorId: ${this.#autorId}</p>
+    <p>BibliotecaId: ${this.#bibliotecaId}</p>
+    <p>Disponible: ${this.estaDisponible ? "Sí" : "No"}</p>
+    <button
+      data-accion="editar"
+      data-entidad="libro"
+      data-id="${
+        this.#libroId
+      }"
+    >
+      Editar
+    </button>
+    <button
+      data-accion="borrar"
+      data-entidad="libro"
+      data-id="${
+        this.#libroId
+      }"
+    >
+      Borrar
+    </button>
+    <button
+      data-accion="listar-prestamos"
+      data-entidad="libro"
+      data-id="${
+        this.#libroId
+      }"
+    >
+      Ver préstamos
+    </button>
+    ${ this.estaDisponible ? `<button
+      data-accion="prestar"
+      data-entidad="libro"
+      data-id="${
+              this.#libroId
+            }"
+    >
+      Prestar</button
+    >` : `<button
+      data-accion="devolver"
+      data-entidad="libro"
+      data-id="${
+              this.#libroId
+            }"
+    >
+      Devolver</button
+    >` }
+  </body>
+</html>

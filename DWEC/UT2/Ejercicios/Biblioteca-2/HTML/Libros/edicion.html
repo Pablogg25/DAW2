@@ -1,0 +1,23 @@
+<form
+  id="form-libro"
+  data-entidad="libro"
+  data-accion="guardar"
+  data-id="${
+        this.#libroId
+      }"
+>
+  <div>
+    <label>Título</label
+    ><input name="titulo" value="La Casa de los Esp\u00edritus" />
+  </div>
+  <div><label>ISBN</label><input name="ISBN" value="ISBN-0025" /></div>
+  <div>
+    <label>Autor</label
+    ><select name="autorId"></select>
+  </div>
+  <div>
+    <label>Biblioteca</label
+    ><select name="bibliotecaId"></select>
+  </div>
+  <button type="submit">Guardar</button>
+</form>
