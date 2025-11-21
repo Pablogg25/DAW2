@@ -1,13 +1,15 @@
-import datosIniciales from "../Datos/datos";
-import { Libro } from "../Modelos/Libros";
-import { Autor } from "../Modelos/Autor";
-import { Biblioteca } from "../Modelos/Biblioteca";
+import datosIniciales from "../Datos/datos.js";
+import { Libro } from "../Modelos/Libros.js";
+import { Autor } from "../Modelos/Autor.js";
+import { Biblioteca } from "../Modelos/Biblioteca.js";
 
 const $biblio = (() => {
   // Estado interno (privado)
-  let autores = datosIniciales.map((a) => new Autor(a));
-  let libros = datosIniciales.map((l) => new Libro(l));
-  let biblioteca = datosIniciales.map((b) => new Biblioteca(b));
+  let autores = datosIniciales.autores.map((a) => new Autor(a));
+  let libros = datosIniciales.libros.map((l) => new Libro(l));
+  let bibliotecas = datosIniciales.bibliotecas.map(
+    (b) => new Biblioteca(b, libros)
+  );
 
   // Incrementales por clase (calculados al iniciar)
   let nextIds = {

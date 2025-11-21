@@ -1,14 +1,16 @@
-export class BibliotecaId {
+export class Biblioteca {
   #bibliotecaId;
   #nombre;
   #ubicacion;
   #libros;
-  constructor(bibliotecaId, nombre, ubicacion, librosAll = []) {
+
+  constructor({ bibliotecaId, nombre, ubicacion }, librosAll = []) {
     this.#bibliotecaId = bibliotecaId;
     this.#nombre = nombre;
     this.#ubicacion = ubicacion;
     this.#libros = librosAll.filter((l) => l.bibliotecaId === bibliotecaId);
   }
+
   get bibliotecaId() {
     return this.#bibliotecaId;
   }
@@ -33,6 +35,12 @@ export class BibliotecaId {
   }
 
   generarHTMLEdicion() {
+    const librosHtml = this.#libros.length
+      ? `<ul>${this.#libros
+          .map((l) => `<li>${l.titulo} (ID:${l.libroId})</li>`)
+          .join("")}</ul>`
+      : `<p>Sin libros en esta biblioteca.</p>`;
+
     return `
       <form id="form-biblioteca" data-entidad="biblioteca" data-accion="guardar" data-id="${
         this.#bibliotecaId
@@ -45,6 +53,8 @@ export class BibliotecaId {
         }" /></div>
         <button type="submit">Guardar</button>
       </form>
-      <h4>Libros en esta biblioteca</h4>`;
+      <h4>Libros en esta biblioteca</h4>
+      ${librosHtml}
+    `;
   }
 }
