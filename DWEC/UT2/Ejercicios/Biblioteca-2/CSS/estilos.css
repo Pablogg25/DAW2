@@ -1,0 +1,53 @@
+/* ===== Estilos de tabla ===== */
+.tabla {
+  border: 1px solid #000;
+  margin-top: 8px;
+}
+
+.fila {
+  display: flex;
+}
+
+.fila > div {
+  flex: 1;
+  border: 1px solid #000;
+  padding: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cabecera {
+  font-weight: bold;
+  background: #eee;
+}
+
+/* ===== Estilos de formulario ===== */
+label {
+  display: inline-block;
+  min-width: 80px;
+}
+
+form div {
+  margin-bottom: 4px;
+}
+
+input,
+select,
+textarea {
+  padding: 2px 4px;
+  border: 1px solid #000;
+}
+
+button {
+  min-width: 50px;
+  margin-right: 4px;
+  padding: 4px 8px;
+  border: 1px solid #000;
+  background: #f9f9f9;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ddd;
+}

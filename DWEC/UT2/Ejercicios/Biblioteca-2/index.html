@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Bibliotecas</title>
+    <link rel="stylesheet" href="./css/estilos.css" />
+    <script type="module" src="./app/gestorBiblioteca.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="menu">
+        <button
+          class="biblio-autor-listar"
+          data-accion="listar"
+          data-entidad="autor"
+        >
+          Autores
+        </button>
+        <button
+          class="biblio-libro-listar"
+          data-accion="listar"
+          data-entidad="libro"
+        >
+          Libros
+        </button>
+        <button
+          class="biblio-biblioteca-listar"
+          data-accion="listar"
+          data-entidad="biblioteca"
+        >
+          Bibliotecas
+        </button>
+      </nav>
+
+      <section class="buscador">
+        <form id="form-buscador">
+          <select name="tipo" id="buscador-tipo">
+            <option value="libro">Libros</option>
+            <option value="autor">Autores</option>
+          </select>
+          <input
+            type="text"
+            name="q"
+            id="buscador-q"
+            placeholder="Buscar por título o autor"
+          />
+          <button type="submit">Buscar</button>
+        </form>
+      </section>
+    </header>
+
+    <main id="app">
+      <!-- Aquí se inyecta el contenido dinámico -->
+      <p>Bienvenido a la gestión de bibliotecas. Usa el menú o el buscador.</p>
+    </main>
+  </body>
+</html>
