@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="estilos.css" />
+    <link rel="icon" href="#" />
+  </head>
+  <body>
+    <form>
+      <input type="hidden" name="tareaId" id="tareaId" value="2" />
+      <div>
+        <label for="titulo">Titulo</label>
+        <input type="text" id="titulo" name="titulo" value="Enviar iforme" />
+      </div>
+      <div>
+        <label for="duracion">Duracion</label>
+        <input type="number" id="duracion" name="duracion" value="20" />
+      </div>
+      <div>
+        <label for="completada">Completada</label>
+        <input type="checkbox" id="completada" name="completada" checked />
+      </div>
+      <div><button type="button" data-accion="guardar">Guardar</button></div>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="estilos.css" />
+    <link rel="icon" href="#" />
+  </head>
+  <body>
+    <div class="tabla">
+      <div class="fila cabecera">
+        <div>ID</div>
+        <div>TITULO</div>
+        <div>DURACION</div>
+        <div>COMPLETADA</div>
+        <div><button data-accion="crear">Crear</button></div>
+      </div>
+
+      <div class="fila" data-entidadId="1">
+        <div>1</div>
+        <div>Preparar presentacion</div>
+        <div>45</div>
+        <div>false</div>
+        <div><button data-accion="ver">Ver</button data-accion="borrar"><button>Borrar</button></div>
+      </div>
+
+      <div class="fila" data-entidadId="2">
+        <div>2</div>
+        <div>Enviar Informe</div>
+        <div>20</div>
+        <div>true</div>
+        <div><button data-accion="ver">Ver</button data-accion="borrar"><button>Borrar</button></div>
+      </div>
+      <div class="fila" data-entidadId="3">
+        <div>3</div>
+        <div>Revision de Codigo</div>
+        <div>60</div>
+        <div>false</div>
+        <div><button data-accion="ver">Ver</button data-accion="borrar"><button>Borrar</button></div>
+      </div>
+    </div>
+  </body>
+</html>
