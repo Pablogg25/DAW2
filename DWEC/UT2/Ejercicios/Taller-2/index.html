@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Taller Mecánico</title>
     <link rel="stylesheet" href="./CSS/estilos.css" />
-    <script src="./App/GestionMecanica.js"></script>
+    <!-- Importamos como módulo -->
+    <script type="module">
+      import { GestionMecanica } from "./App/GestionMecanica.js";
+
+      // Inicializamos la aplicación en el contenedor #app
+      const app = new GestionMecanica();
+      app.iniciarApp("#app");
+    </script>
   </head>
   <body>
     <main id="app">
-      <!-- Aqui se inyectara el codigo -->
+      <!-- Aquí se inyectará el código dinámico -->
     </main>
   </body>
 </html>
