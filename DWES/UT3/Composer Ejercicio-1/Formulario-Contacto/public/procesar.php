@@ -32,9 +32,9 @@ $cuerpo .= "Email: $email\n\n";
 $cuerpo .= "Mensaje:\n$mensaje";
 
 $enviado = $servicio->enviarCorreo(
-    "destinatario@ejemplo.com", 
-    "Nuevo mensaje desde el formulario",
-    $cuerpo
+    $email, 
+    $nombre,
+    $mensaje
 );
 
 // 4. Respuesta
