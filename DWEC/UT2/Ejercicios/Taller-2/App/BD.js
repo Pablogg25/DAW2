@@ -8,53 +8,132 @@ export class BD {
   #siguienteReparacionId;
 
   constructor(datosIniciales) {
-    this.#vehiculos = datosIniciales.vehiculos.map((v) => new Vehiculo(v));
-    this.#reparaciones = datosIniciales.reparaciones.map(
-      (r) => new Reparacion(r)
-    );
-    this.#siguienteVehiculoId = this.#vehiculos.length + 1;
-    this.#siguienteReparacionId = this.#reparaciones.length + 1;
-  }
-
-  get siguienteVehiculoId() {
-    return this.#siguienteVehiculoId;
-  }
-  get siguienteReparacionId() {
-    return this.#siguienteReparacionId;
+    this.#vehiculos = Array.isArray(datosIniciales?.vehiculos)
+      ? datosIniciales.vehiculos.slice()
+      : [];
+    this.#reparaciones = Array.isArray(datosIniciales?.reparaciones)
+      ? datosIniciales.reparaciones.slice()
+      : [];
+    this.#siguienteVehiculoId =
+      (this.#vehiculos.reduce(
+        (max, v) => Math.max(max, v.vehiculoId || 0),
+        0
+      ) || 0) + 1;
+    this.#siguienteReparacionId =
+      (this.#reparaciones.reduce(
+        (max, r) => Math.max(max, r.reparacionId || 0),
+        0
+      ) || 0) + 1;
   }
 
   obtenerVehiculos() {
-    return this.#vehiculos;
+    return this.#vehiculos.slice();
   }
 
+  // Buscar por vehiculoId | matricula | telefono
   obtenerVehiculo(filtro, valor) {
-    return this.#vehiculos.find((v) => String(v[filtro]) === String(valor));
-  }
-  crearVehiculo(vehiculo) {
-    vehiculo.vehiculoId = this.#siguienteVehiculoId;
-    this.#vehiculos.push(vehiculo);
+    const f = String(filtro || "")
+      .toLowerCase()
+      .trim();
+
+    if (f === "vehiculoid") {
+      const id = Number.parseInt(valor);
+      if (!Number.isFinite(id)) return null;
+      return this.#vehiculos.find((v) => v.vehiculoId === id) || null;
+    }
+
+    if (f === "matricula") {
+      const q = String(valor || "")
+        .trim()
+        .toLowerCase();
+      if (!q) return null;
+      return (
+        this.#vehiculos.find(
+          (v) =>
+            String(v.matricula || "")
+              .trim()
+              .toLowerCase() === q
+        ) || null
+      );
+    }
+
+    if (f === "telefono") {
+      const q = String(valor || "").trim();
+      if (!q) return null;
+      // propietario puede no existir; protegemos el acceso
+      return (
+        this.#vehiculos.find(
+          (v) => String(v.propietario?.telefono || "").trim() === q
+        ) || null
+      );
+    }
+
+    // Filtro no reconocido
+    return null;
   }
 
-  borrarVehiculo(id) {
-    this.#vehiculos = this.#vehiculos.filtrer((v) => v.vehiculoId !== id);
+  crearVehiculo(vehiculo) {
+    const nuevo = { ...vehiculo };
+    nuevo.vehiculoId = nuevo.vehiculoId || this.#siguienteVehiculoId++;
+    this.#vehiculos.push(nuevo);
+    return nuevo;
   }
-  obtenerReparaciones(filtro, valor) {
-    if (!filtro) return this.#reparaciones;
-    return this.#reparaciones.filter(
-      (r) => String(r[filtro]) === String(valor)
+
+  borrarVehiculo(vehiculoId) {
+    const idx = this.#vehiculos.findIndex((v) => v.vehiculoId === vehiculoId);
+    if (idx >= 0) this.#vehiculos.splice(idx, 1);
+  }
+
+  // Reparaciones (por si quieres filtrar por vehiculoId)
+  obtenerReparaciones(filtro = null, valor = null) {
+    const list = this.#reparaciones.slice();
+    if (!filtro) return list;
+
+    const f = String(filtro).toLowerCase().trim();
+
+    if (f === "fecha") {
+      const q = String(valor || "").trim();
+      return list.filter((r) => String(r.fecha || "").trim() === q);
+    }
+
+    if (f === "pagado") {
+      const q = Boolean(valor);
+      return list.filter((r) => Boolean(r.pagado) === q);
+    }
+
+    if (f === "terminado") {
+      const q = Boolean(valor);
+      return list.filter((r) => Boolean(r.terminado) === q);
+    }
+
+    // Ampliación útil: filtrar por vehiculoId aunque el enunciado no lo pida explícito
+    if (f === "vehiculoid") {
+      const id = Number.parseInt(valor);
+      if (!Number.isFinite(id)) return [];
+      return list.filter((r) => r.vehiculoId === id);
+    }
+
+    return list;
+  }
+
+  obtenerReparacion(reparacionId) {
+    return (
+      this.#reparaciones.find((r) => r.reparacionId === reparacionId) || null
     );
   }
-  obtenerReparacion(id) {
-    return this.#reparaciones.find((r) => r.reparacionId === id);
-  }
+
   crearReparacion(vehiculoId, reparacion) {
-    reparacion.reparacionId = this.#siguienteReparacionId++;
-    reparacion.vehiculoId = vehiculoId;
-    this.#reparaciones.push(reparacion);
+    const nueva = { ...reparacion };
+    nueva.reparacionId = nueva.reparacionId || this.#siguienteReparacionId++;
+    nueva.vehiculoId = vehiculoId;
+    this.#reparaciones.push(nueva);
+    return nueva;
   }
-  borrarReparacion(id) {
-    this.#reparaciones = this.#reparaciones.filter(
-      (r) => r.reparacionId !== id
+
+  borrarReparacion(reparacionId) {
+    const idx = this.#reparaciones.findIndex(
+      (r) => r.reparacionId === reparacionId
     );
+    if (idx >= 0) this.#reparaciones.splice(idx, 1);
   }
 }

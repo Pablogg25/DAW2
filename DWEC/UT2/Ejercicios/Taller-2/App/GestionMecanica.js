@@ -275,5 +275,113 @@ export class GestionMecanica {
           console.warn("Acción no reconocida:", accion);
       }
     });
+    // Formularios(guardar vehiculo, reparacion, buscar)
+    this.#contenedor.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      const form = ev.target;
+      const resultado = document.getElementById("resultado");
+
+      switch (form.id) {
+        case "form-buscar": {
+          const fd = new FormData(form);
+          const filtro = String(fd.get("filtro") || "").trim(); // "matricula" | "telefono"
+          const valor = String(fd.get("valor") || "").trim();
+          if (!valor) return;
+          const encontrado = this.#clienteBD.obtenerVehiculo(filtro, valor);
+          const lista = encontrado ? [encontrado] : [];
+          resultado.innerHTML = this.#generarHTMLVehiculos(lista);
+          break;
+        }
+
+        case "form-vehiculo": {
+          const fd = new FormData(form);
+          const vehiculoId = form.dataset.id ? parseInt(form.dataset.id) : null;
+
+          const vehiculo = {
+            vehiculoId,
+            matricula: String(fd.get("matricula") || "").trim(),
+            marca: String(fd.get("marca") || "").trim(),
+            modelo: String(fd.get("modelo") || "").trim(),
+            propietario: {
+              nombre: String(fd.get("propietarioNombre") || "").trim(),
+              telefono: String(fd.get("propietarioTelefono") || "").trim(),
+            },
+          };
+
+          if (!vehiculo.matricula || !vehiculo.propietario.telefono) {
+            alert("Matrícula y teléfono del propietario son obligatorios.");
+            return;
+          }
+
+          if (vehiculoId) {
+            // Si tu BD no tiene actualizarVehiculo, aplica borrar+crear
+            this.#clienteBD.borrarVehiculo(vehiculoId);
+            this.#clienteBD.crearVehiculo(vehiculo);
+          } else {
+            this.#clienteBD.crearVehiculo(vehiculo);
+          }
+
+          resultado.innerHTML = this.#generarHTMLVehiculos(
+            this.#clienteBD.obtenerVehiculos()
+          );
+          break;
+        }
+
+        case "form-reparacion": {
+          const fd = new FormData(form);
+          const reparacionId = form.dataset.id ? parseInt(form.dataset.id) : 0;
+          const vehiculoId = form.dataset.vehiculo
+            ? parseInt(form.dataset.vehiculo)
+            : 0;
+
+          const descripciones = fd
+            .getAll("descripcion[]")
+            .map((v) => String(v || "").trim());
+          const costes = fd
+            .getAll("coste[]")
+            .map((v) => parseFloat(String(v || "0")));
+
+          const trabajos = descripciones
+            .map((descripcion, i) => ({
+              trabajoId: i + 1,
+              descripcion,
+              coste: Number.isFinite(costes[i]) ? costes[i] : 0,
+            }))
+            .filter((t) => t.descripcion.length > 0);
+
+          const reparacion = {
+            reparacionId,
+            vehiculoId,
+            fecha: String(fd.get("fecha") || "").trim(),
+            terminado: fd.get("terminado") !== null,
+            pagado: fd.get("pagado") !== null,
+            trabajos, //  incluir trabajos en la reparación
+          };
+
+          if (!reparacion.fecha) {
+            alert("La fecha es obligatoria.");
+            return;
+          }
+
+          if (reparacionId) {
+            // Si no tienes actualizarReparacion, hacer borrar+crear
+            this.#clienteBD.borrarReparacion(reparacionId);
+            this.#clienteBD.crearReparacion(vehiculoId, reparacion);
+          } else {
+            this.#clienteBD.crearReparacion(vehiculoId, reparacion);
+          }
+
+          // Si tu BD no soporta filtro por vehiculoId, filtra en memoria:
+          // const todas = this.#clienteBD.obtenerReparaciones();
+          // const delVehiculo = todas.filter(r => r.vehiculoId === vehiculoId);
+          // resultado.innerHTML = this.#generarHTMLReparaciones(delVehiculo);
+
+          resultado.innerHTML = this.#generarHTMLReparaciones(
+            this.#clienteBD.obtenerReparaciones("vehiculoId", vehiculoId)
+          );
+          break;
+        }
+      }
+    });
   }
 }
