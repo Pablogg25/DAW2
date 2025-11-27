@@ -9,7 +9,7 @@ Aquí encontrarás todo lo que voy aprendiendo y desarrollando en esta etapa cla
 
 ## 👤 Sobre mí
 
-- **Nombre:** Pablo González
+- **Nombre:** Pablo González García
 - **GitHub:** [Pablogg25](https://github.com/Pablogg25)
 - **Ubicación:** España 🇪🇸
 - **Email:** pgonzalezg12@educantabria.es
