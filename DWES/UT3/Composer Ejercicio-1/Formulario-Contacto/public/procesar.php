@@ -32,9 +32,9 @@ $cuerpo .= "Email: $email\n\n";
 $cuerpo .= "Mensaje:\n$mensaje";
 
 $enviado = $servicio->enviarCorreo(
-    $email, 
-    $nombre,
-    $mensaje
+    "destinatario@tuapp.com", // tu correo real donde recibes mensajes
+    "Nuevo mensaje de contacto", // asunto
+    $cuerpo // cuerpo completo
 );
 
 // 4. Respuesta
