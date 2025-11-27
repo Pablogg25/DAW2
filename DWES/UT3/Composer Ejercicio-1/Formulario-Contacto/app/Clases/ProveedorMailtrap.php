@@ -19,7 +19,7 @@ class ProveedorMailtrap implements InterfazProveedorCorreo
             $mail->Host = 'sandbox.smtp.mailtrap.io';
             $mail->SMTPAuth = true;
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
+            $mail->Port = 587;
 
 
             // TUS CREDENCIALES DE MAILTRAP (SMTP)
@@ -38,7 +38,6 @@ $mail->Port = 587;
 
             $mail->send();
             return true;
-
         } catch (Exception $e) {
             return false;
         }
