@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Prueba DOM</title>
+  </head>
+  <body data-app="demo">
+    <header id="cabecera" class="seccion destacado">
+      <h1 data-rol="titulo">Sitio de prueba</h1>
+      <nav id="menu" class="seccion">
+        <ul>
+          <li><a href="#" data-accion="inicio">Inicio</a></li>
+          <li><a href="#" data-accion="listado">Listado</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="contenido" class="seccion">
+      <section id="panel-izq" class="seccion col col-izq" data-area="izquierda">
+        <article id="articulo-a" class="seccion">
+          <h2>Artículo A</h2>
+          <p class="texto">Texto directo A</p>
+          <div class="bloque">
+            <span data-info="x">Detalle A1</span>
+          </div>
+        </article>
+      </section>
+
+      <section id="panel-der" class="seccion col col-der" data-area="derecha">
+        <article id="articulo-b" class="seccion">
+          <h2>Artículo B</h2>
+          <p class="texto">Texto directo B</p>
+          <div class="bloque">
+            <span id="objetivo" class="destacado" data-info="y"
+              >Detalle B1</span
+            >
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer id="pie" class="seccion">
+      <small>&copy; Prueba</small>
+    </footer>
+
+    <script>
+      const InspectorDOM = (() => {
+        /**
+         * Recorre el dom a partir del elemento <body>
+         * y devuelve un objeto JSON que represente la estructura
+         **/
+        function obtenerEstructuraJSON() {
+          function recorrerElemento(elemento) {
+            return {
+              etiqueta: elemento.tagName.toLowerCase(),
+              texto: elemento.textContent.trim(),
+              tieneId: !!elemento.id,
+              lstClass: Array.from(elemento.classList),
+              lstData: { ...elemento.dataset },
+              lstHijos: Array.from(elemento.children).map(recorrerElemento),
+            };
+          }
+          recorrerElemento(document.body);
+        }
+
+        /**
+         *Localiza el primer nodo indicado por el selector y
+         *analiza los nodos que van desde la raiz del documento hasta dicho nodo,
+         *en ese sentido mostrado: "etiqueta-identificador-clases-texto del contenido"
+         */
+        function imprimirEstructura(selector) {
+          const nodo = document.querySelector(selector);
+          if (!nodo) return `Selector sin resultados: ${selector}`;
+
+          const camino = [];
+          let actual = nodo;
+          while (actual) {
+            let etiqueta = actual.tagName.toLowerCase();
+            let idAttr = actual.id || "noid";
+            let clases = actual.classList.length
+              ? Array.from(actual.classList).join(" ")
+              : "noclass";
+            let texto = actual.textContent.trim();
+            camino.unshift(`${etiqueta}-${idAttr}-${clases}-${texto}`);
+            actual = actual.parentElement;
+          }
+          return camino.join("\n");
+        }
+
+        return {
+          obtenerEstructuraJSON,
+          imprimirEstructura,
+        };
+      })();
+
+      // Ejemplo de uso: JSON desde <body>
+      console.log("Estructura JSON:", InspectorDOM.obtenerEstructuraJSON());
+
+      // Ejemplo de uso: imprimir camino hasta #objetivo
+      const salida = InspectorDOM.imprimirEstructura("#objetivo");
+      console.log(salida);
+
+      // Mostrar en la página
+      const pre = document.createElement("pre");
+      pre.textContent = salida;
+      document.body.appendChild(pre);
+    </script>
+  </body>
+</html>
