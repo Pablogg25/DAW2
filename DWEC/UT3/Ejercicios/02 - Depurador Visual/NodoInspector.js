@@ -74,12 +74,15 @@ class NodoInspector {
     if (next) this.#actualizarNodo(next);
   }
 
-  #actualizarNodo(nuevoSeleccionado) {
+  #actualizarNodo(nuevo) {
     if (this.#nodoActual) {
       this.#nodoActual.classList.remove("resaltado");
     }
-    this.#nodoActual = nuevoSeleccionado;
-    this.#nodoActual.classList.add("resaltado");
+    if (nuevo) {
+      // solo si hay nodo válido
+      this.#nodoActual = nuevo;
+      this.#nodoActual.classList.add("resaltado");
+    }
   }
 
   #elementoValido(el) {
