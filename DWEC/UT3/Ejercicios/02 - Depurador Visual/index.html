@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Prueba depurador</title>
+  </head>
+  <body>
+    <header>
+      <h1>Ejemplo</h1>
+    </header>
+    <main>
+      <section>
+        <p>Texto de prueba</p>
+      </section>
+    </main>
+
+    <!-- Primero el inspector -->
+    <script src="NodoInspector.js"></script>
+    <!-- Después el depurador, que depende del inspector -->
+    <script src="Depurador.js"></script>
+    <script>
+      // Activas el depurador
+      $depurador.activarDepuracion();
+    </script>
+  </body>
+</html>
