@@ -1,7 +1,7 @@
 class NodoInspector {
   #nodoActual;
+
   constructor(nodoInicial) {
-    // Si no viene nodo, empezamos por document.body
     const inicio =
       nodoInicial && nodoInicial.nodeType === Node.ELEMENT_NODE
         ? nodoInicial
@@ -11,14 +11,13 @@ class NodoInspector {
   }
 
   get esRaiz() {
-    const html = document.documentElement;
-    return this.#nodoActual === html;
+    return this.#nodoActual === document.documentElement;
   }
 
   get esPrimerHijo() {
-    const padre = this.#nodoActual.parentElement;
-    if (!padre) return true;
-    return padre.firstElementChild === this.#nodoActual;
+    const p = this.#nodoActual.parentElement;
+    if (!p) return true;
+    return this.#primerHijoValido(p) === this.#nodoActual;
   }
 
   get esUltimoHijo() {
@@ -46,28 +45,26 @@ class NodoInspector {
   irRaiz() {
     this.#actualizarNodo(document.documentElement);
   }
-
   irPadre() {
-    const padre = this.#elementoValido(this.#nodoActual.parentElement);
+    const padre = this.#elementoValido(this.#nodoActual.parentElement)
+      ? this.#nodoActual.parentElement
+      : null;
     if (padre) this.#actualizarNodo(padre);
   }
   irPrimerHijo() {
     const hijo = this.#primerHijoValido(this.#nodoActual);
     if (hijo) this.#actualizarNodo(hijo);
   }
-
   irUltimoHijo() {
     const hijo = this.#ultimoHijoValido(this.#nodoActual);
     if (hijo) this.#actualizarNodo(hijo);
   }
-
   irAnteriorHermano() {
     let prev = this.#nodoActual.previousElementSibling;
     while (prev && !this.#elementoValido(prev))
       prev = prev.previousElementSibling;
     if (prev) this.#actualizarNodo(prev);
   }
-
   irSiguienteHermano() {
     let next = this.#nodoActual.nextElementSibling;
     while (next && !this.#elementoValido(next)) next = next.nextElementSibling;
@@ -75,11 +72,8 @@ class NodoInspector {
   }
 
   #actualizarNodo(nuevo) {
-    if (this.#nodoActual) {
-      this.#nodoActual.classList.remove("resaltado");
-    }
+    if (this.#nodoActual) this.#nodoActual.classList.remove("resaltado");
     if (nuevo) {
-      // solo si hay nodo válido
       this.#nodoActual = nuevo;
       this.#nodoActual.classList.add("resaltado");
     }
