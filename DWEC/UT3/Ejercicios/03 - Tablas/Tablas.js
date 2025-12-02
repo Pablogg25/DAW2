@@ -95,7 +95,7 @@ function crearTabla() {
     tr.appendChild(th);
   };
   thead.appendChild(tr);
-  tabla.appendChild(tabla);
+  tabla.appendChild(thead);
 }
 /**
  * Creamos Fichas
