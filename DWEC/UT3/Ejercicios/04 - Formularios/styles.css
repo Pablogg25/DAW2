@@ -1,0 +1,19 @@
+input,
+select {
+  display: block;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.valid {
+  border: 2px solid green;
+}
+
+.invalid {
+  border: 2px solid red;
+}
