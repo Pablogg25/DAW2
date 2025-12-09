@@ -1,59 +1,56 @@
+/* Estilo general */
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
   margin: 20px;
 }
 
+/* Contenedor del formulario */
 form {
   max-width: 400px;
-  padding: 15px;
-  border: 1px solid #ccc;
-  background: #f9f9f9;
 }
 
+/* Cada campo separado */
 .campo {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
+/* Etiquetas encima del input */
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
+/* Inputs y select ocupan todo el ancho */
 input,
 select {
   width: 100%;
-  padding: 6px;
+  padding: 4px;
   box-sizing: border-box;
 }
 
+/* Botón simple */
 button {
-  padding: 8px 12px;
-  background: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
+  padding: 6px 10px;
 }
 
-button:disabled {
-  background: #aaa;
-  cursor: not-allowed;
-}
-
+/* Mensajes de error */
 .error {
   color: red;
   font-size: 12px;
 }
 
+/* Estados de validación */
 .valid {
-  border: 2px solid green;
+  border: 1px solid green;
 }
 
 .invalid {
-  border: 2px solid red;
+  border: 1px solid red;
 }
 
+/* Resultado debajo del formulario */
 #resultado {
-  margin-top: 20px;
+  margin-top: 15px;
   font-weight: bold;
   white-space: pre-wrap;
 }
