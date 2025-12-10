@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UD3E6 Formulario dinámico</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Filtro -->
+    <label for="filtro">Ciclo: </label>
+    <select id="filtro">
+      <option value="Todos">Todos</option>
+      <option value="DAM">DAM</option>
+      <option value="DAW">DAW</option>
+      <option value="ASIR">ASIR</option>
+    </select>
+
+    <!-- Bloque central -->
+    <div class="contenedor">
+      <!-- Izquierda -->
+      <div>
+        <h4>Disponibles</h4>
+        <div class="tabla">
+          <div class="header">
+            <span>Nombre</span>
+            <span>Ciclo</span>
+          </div>
+          <div id="listaIzq"></div>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="botones">
+        <button id="btnDer">→</button>
+        <button id="btnIzq">←</button>
+      </div>
+
+      <!-- Derecha -->
+      <div>
+        <h4>Seleccionados</h4>
+        <div class="tabla">
+          <div class="header">
+            <span>Nombre</span>
+            <span>Ciclo</span>
+          </div>
+          <div id="listaDer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enviar -->
+    <form id="formSeleccion">
+      <button type="submit" id="enviar">Enviar</button>
+    </form>
+
+    <div id="mensajes"></div>
+
+    <script src="formularioDinamico.js"></script>
+  </body>
+</html>

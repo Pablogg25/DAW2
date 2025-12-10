@@ -92,24 +92,38 @@ form.querySelectorAll("input, select").forEach((campo) => {
 });
 
 function validarCampo(campo) {
+  let ok = false;
   switch (campo.id) {
     case "nombre":
-      return validarNombre(campo);
+      ok = validarNombre(campo);
+      break;
     case "email":
-      return validarEmail(campo);
+      ok = validarEmail(campo);
+      break;
     case "password":
-      return validarPassword(campo);
+      ok = validarPassword(campo);
+      break;
     case "confirmPassword":
-      return validarConfirmPassword(campo, document.getElementById("password"));
+      ok = validarConfirmPassword(campo, document.getElementById("password"));
+      break;
     case "fechaNacimiento":
-      return validarFecha(campo);
+      ok = validarFecha(campo);
+      break;
     case "telefono":
-      return validarTelefono(campo);
+      ok = validarTelefono(campo);
+      break;
     case "genero":
-      return validarGenero(campo);
+      ok = validarGenero(campo);
+      break;
     case "terminos":
-      return validarTerminos(campo);
+      ok = validarTerminos(campo);
+      break;
   }
+
+  const hayErrores = form.querySelectorAll(".invalid").length > 0;
+  btnSubmit.disabled = hayErrores;
+
+  return ok;
 }
 
 // Validación al enviar

@@ -1,0 +1,45 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+}
+.contenedor {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.tabla {
+  border: 1px solid #ccc;
+  min-width: 220px;
+}
+.header,
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px;
+}
+.header {
+  background: #eee;
+  font-weight: bold;
+}
+.row {
+  border-top: 1px solid #ddd;
+  cursor: pointer;
+}
+.row:hover {
+  background: #f0f0f0;
+}
+.seleccionada {
+  background: #d0ebff;
+}
+
+.botones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+#mensajes {
+  margin-top: 15px;
+  white-space: pre-wrap;
+}
