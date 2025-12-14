@@ -1,0 +1,84 @@
+<form
+  id="miFormulario"
+  action="https://jsonplaceholder.typicode.com/posts"
+  method="POST"
+>
+  <!-- Cabecera -->
+  30
+
+  <fieldset>
+    <legend>Cabecera</legend>
+    <label for="cliente">Cliente:</label>
+    <input
+      type="text"
+      id="cliente"
+      name="cliente"
+      required
+      placeholder="Nombre del cliente"
+    /><br /><br />
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="fecha" required /><br />
+  </fieldset>
+
+  <!-- Detalles -->
+  <fieldset>
+    <legend>Detalles</legend>
+    <div id="contenedorDetalles">
+      <!-- Filas dinámicas aquí -->
+    </div>
+    <button type="button" id="agregarDetalle">Añadir Detalle</button>
+  </fieldset>
+
+  <!-- Enviar -->
+  <button type="submit">Enviar</button>
+</form>
+
+<script>
+  const contenedorDetalles = document.getElementById("contenedorDetalles");
+  const botonAgregar = document.getElementById("agregarDetalle");
+
+  // Función para añadir una fila de detalle
+  function agregarFila() {
+    // Crear una fila dinámica usando una cadena HTML
+    const nuevaFila = ` 
+            <div class="filaDetalle"> 
+                <div> 
+                    <label>Descripción:</label> 
+                    <input type="text" name="descripcion[]" required> 
+                </div> 
+                <div> 
+                    <label>Cantidad:</label> 
+                    <input type="number" name="cantidad[]" min="1" 
+required> 
+                </div> 
+                <div> 
+                    <label>Precio:</label> 
+                    <input type="number" name="precio[]" min="0" 
+step="0.01" required> 
+31 
+ 
+                </div> 
+                <div> 
+                    <button type="button" 
+class="eliminarDetalle">Eliminar</button> 
+                </div> 
+             </div>`;
+
+    // Insertar la nueva fila en el contenedor
+    contenedorDetalles.insertAdjacentHTML("beforeend", nuevaFila);
+
+    // Añadir evento al botón de eliminar de esta fila
+    const botonesEliminar =
+      detallesContainer.querySelectorAll(".eliminarDetalle");
+    botonesEliminar[botonesEliminar.length - 1].addEventListener(
+      "click",
+      (event) => {
+        event.target.closest(".filaDetalle").remove();
+      }
+    );
+  }
+
+  // Evento para añadir filas dinámicamente
+  botonAgregar.addEventListener("click", agregarFila);
+</script>
