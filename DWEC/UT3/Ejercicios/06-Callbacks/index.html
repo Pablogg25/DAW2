@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Callbacks</title>
+    <title>UD3E7 Validación progresiva</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <form name="miFormulario">
-      <label for="">Nombre</label>
-      <input type="text" id="nombre" name="nombre" minlength="3" />
-      <label for="">Contraseña</label>
-      <input type="password" name="password" id="password" minlength="8" />
-      <label for="">Email</label>
-      <input type="email" />
-      <label for="">Fecha de nacimiento</label>
-      <input type="date" />
+    <h2>Formulario UD3E7</h2>
+
+    <form id="form">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" class="bien" />
+
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" class="bien" />
+
+      <label for="email">Email</label>
+      <input type="text" id="email" class="bien" />
+
+      <label for="fecha">Fecha de nacimiento</label>
+      <input type="date" id="fecha" class="bien" />
+
       <button type="button" id="guardar">Guardar</button>
-      <script type="module" src="Main.js"></script>
     </form>
+    <!-- <script type="module" src="Main.js"></script> -->
+    <script type="module" src="Callbacks.js"></script>
   </body>
 </html>

@@ -1,0 +1,33 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+}
+
+form {
+  max-width: 320px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  margin-top: 4px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 6px 10px;
+}
+.error {
+  border: 2px solid red;
+}
+
+.bien {
+  border: 2px solid black;
+}
