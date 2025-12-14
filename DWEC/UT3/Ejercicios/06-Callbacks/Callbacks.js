@@ -8,12 +8,15 @@ const fechaInput = document.getElementById("fecha");
 const guardarInput = document.getElementById("guardar");
 
 function marcarError(error) {
-  alert(error);
+  alert(error.message);
 }
 
 function limpiarError(input) {
   input.classList.remove("error");
+  input.classList.remove("bien");
 }
+
+// --- VALIDACIONES CON CALLBACK (valor, callback(valorOK, error)) ---
 
 function validarNombre(valor, callback) {
   if (valor.length < 3) {
@@ -37,64 +40,61 @@ function validarNombre(valor, callback) {
 }
 
 function validarContraseña(valor, callback) {
-  const valor2 = passwordInput.value;
-
   let may = false,
     min = false,
     num = false;
 
-  for (let c of valor2) {
+  for (let c of valor) {
     if (c >= "A" && c <= "Z") may = true;
     if (c >= "a" && c <= "z") min = true;
     if (!isNaN(c)) num = true;
   }
 
-  if (!(may && min && num && valor2.length >= 8)) {
+  if (!(may && min && num && valor.length >= 8)) {
     return callback(
       null,
       new ValidacionError(
-        "Debe tener mayúscula, minúscula, número y al menos 8 caracteres"
+        "Debe tener mayúscula, minúscula, número y al menos 8 caracteres",
+        "password"
       )
     );
   }
-  callback(valor2, null);
+  callback(valor, null);
 }
 
 function validarEmail(valor, callback) {
-  const valor3 = emailInput.value;
   const partes = valor.split("@");
   if (partes.length != 2) {
     return callback(
       null,
-      new ValidacionError("El email debe contener una unica @")
+      new ValidacionError("El email debe contener una única @", "email")
     );
   }
 
   if (partes[0].length === 0 || partes[1].length === 0) {
     return callback(
       null,
-      new ValidacionError("Debe haber texto antes y despues del @")
+      new ValidacionError("Debe haber texto antes y después de la @", "email")
     );
   }
   const dominio = partes[1].split(".");
   if (dominio.length !== 2) {
     return callback(
       null,
-      new ValidacionError("El email tiene que acabar en .xx o .xxx")
+      new ValidacionError("El email tiene que acabar en .xx o .xxx", "email")
     );
   }
   if (dominio[1].length < 2 || dominio[1].length > 3) {
     return callback(
       null,
-      new ValidacionError("La extension debe ser de 2 o 3 letras")
+      new ValidacionError("La extensión debe ser de 2 o 3 letras", "email")
     );
   }
-  return callback(valor3, null);
+  return callback(valor, null);
 }
 
 function validarFechaNacimiento(valor, callback) {
-  const valor4 = fechaInput.value;
-  const fecha = new Date(valor4);
+  const fecha = new Date(valor);
   const hoy = new Date();
 
   let edad = hoy.getFullYear() - fecha.getFullYear();
@@ -102,7 +102,7 @@ function validarFechaNacimiento(valor, callback) {
   const cumpleEsteAño = new Date(
     hoy.getFullYear(),
     fecha.getMonth(),
-    fecha.getDay()
+    fecha.getDate() // aquí va getDate, no getDay
   );
 
   if (hoy < cumpleEsteAño) edad--;
@@ -110,55 +110,76 @@ function validarFechaNacimiento(valor, callback) {
   if (edad < 18 || edad > 24) {
     return callback(
       null,
-      new ValidacionError("La edad debe de estar entre 18 y 24 años")
+      new ValidacionError("La edad debe de estar entre 18 y 24 años", "fecha")
     );
   }
-  return callback(valor4, null);
+  return callback(valor, null);
 }
+
+// --- FLUJO PROGRESIVO (CALLBACK HELL) ---
 
 guardarInput.addEventListener("click", () => {
   const nombre = nombreInput.value.trim();
   const contraseña = passwordInput.value.trim();
   const email = emailInput.value.trim();
   const fecha = fechaInput.value;
-  validarNombre(nombre, (nombre, error) => {
-    if (error) {
-      marcarError(error);
-      nombreInput.classList.remove("bien");
+
+  limpiarError(nombreInput);
+  limpiarError(passwordInput);
+  limpiarError(emailInput);
+  limpiarError(fechaInput);
+
+  validarNombre(nombre, (nombreOK, error1) => {
+    if (error1) {
+      marcarError(error1);
       nombreInput.classList.add("error");
+      return; // DETENER aquí
     } else {
-      nombreInput.classList.remove("error");
       nombreInput.classList.add("bien");
     }
-    validarContraseña(contraseña, (contraseña, error) => {
-      if (error) {
-        marcarError(error);
-        passwordInput.classList.remove("bien");
+
+    validarContraseña(contraseña, (passOK, error2) => {
+      if (error2) {
+        marcarError(error2);
         passwordInput.classList.add("error");
+        return; // DETENER aquí
       } else {
-        passwordInput.classList.remove("error");
         passwordInput.classList.add("bien");
       }
-      validarEmail(email, (email, error) => {
-        if (error) {
-          marcarError(error);
-          emailInput.classList.remove("bien");
+
+      validarEmail(email, (emailOK, error3) => {
+        if (error3) {
+          marcarError(error3);
           emailInput.classList.add("error");
+          return; // DETENER aquí
         } else {
-          emailInput.classList.remove("error");
           emailInput.classList.add("bien");
         }
-        validarFechaNacimiento(fecha, (fecha, error) => {
-          if (error) {
-            marcarError(error);
-            fechaInput.classList.remove("bien");
+
+        validarFechaNacimiento(fecha, (fechaOK, error4) => {
+          if (error4) {
+            marcarError(error4);
             fechaInput.classList.add("error");
+            return; // DETENER aquí
           } else {
-            fechaInput.classList.remove("error");
             fechaInput.classList.add("bien");
           }
+
+          // Si hemos llegado aquí, todo ha ido bien
+          alert("Formulario validado correctamente");
+
+          localStorage.setItem(
+            "ud3e7_datos",
+            JSON.stringify({
+              nombre: nombreOK,
+              password: passOK,
+              email: emailOK,
+              fecha: fechaOK,
+            })
+          );
         });
       });
     });
   });
 });
+console.log(localStorage["ud3e7_datos"]);
