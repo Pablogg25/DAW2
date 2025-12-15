@@ -41,6 +41,11 @@ export class Validaciones {
   }
 
   static validarEmail(input) {
+    if (!valor) {
+      throw new Error("El email no puede estar vacío");
+    }
+
+    const v = valor.trim();
     const valor = input.value.trim();
     input.setCustomValidity("");
     const partes = valor.split("@");
