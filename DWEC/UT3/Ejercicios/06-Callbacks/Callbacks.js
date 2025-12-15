@@ -116,7 +116,7 @@ function validarFechaNacimiento(valor, callback) {
   return callback(valor, null);
 }
 
-// --- FLUJO PROGRESIVO (CALLBACK HELL) ---
+// --- FLUJO PROGRESIVO  ---
 
 guardarInput.addEventListener("click", () => {
   const nombre = nombreInput.value.trim();
@@ -133,37 +133,33 @@ guardarInput.addEventListener("click", () => {
     if (error1) {
       marcarError(error1);
       nombreInput.classList.add("error");
-      return; // DETENER aquí
-    } else {
-      nombreInput.classList.add("bien");
+      return;
     }
+    nombreInput.classList.add("bien");
 
     validarContraseña(contraseña, (passOK, error2) => {
       if (error2) {
         marcarError(error2);
         passwordInput.classList.add("error");
-        return; // DETENER aquí
-      } else {
-        passwordInput.classList.add("bien");
+        return;
       }
+      passwordInput.classList.add("bien");
 
       validarEmail(email, (emailOK, error3) => {
         if (error3) {
           marcarError(error3);
           emailInput.classList.add("error");
-          return; // DETENER aquí
-        } else {
-          emailInput.classList.add("bien");
+          return;
         }
+        emailInput.classList.add("bien");
 
         validarFechaNacimiento(fecha, (fechaOK, error4) => {
           if (error4) {
             marcarError(error4);
             fechaInput.classList.add("error");
-            return; // DETENER aquí
-          } else {
-            fechaInput.classList.add("bien");
+            return;
           }
+          fechaInput.classList.add("bien");
 
           // Si hemos llegado aquí, todo ha ido bien
           alert("Formulario validado correctamente");
