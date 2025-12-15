@@ -8,6 +8,8 @@ const emailInput = document.getElementById("email");
 const fechaInput = document.getElementById("fecha");
 const guardarInput = document.getElementById("guardar");
 
+// ------------------ UTILIDADES ------------------
+
 function marcarError(error) {
   alert(error.message);
   const campo = document.getElementById(error.campo);
@@ -22,52 +24,52 @@ function limpiarCampo(input) {
 
 // ------------------ VALIDACIONES CON PROMESAS ------------------
 
-function validarNombreP(valor) {
-  limpiarCampo(nombreInput);
+function validarNombreP(input) {
+  limpiarCampo(input);
   return new Promise((resolve, reject) => {
     try {
-      const v = Validaciones.validarNombre(valor);
-      nombreInput.classList.add("bien");
-      resolve(v);
+      const valor = Validaciones.validarNombre(input);
+      input.classList.add("bien");
+      resolve(valor);
     } catch (e) {
       reject(new ValidacionError(e.message, "nombre"));
     }
   });
 }
 
-function validarPasswordP(valor) {
-  limpiarCampo(passwordInput);
+function validarPasswordP(input) {
+  limpiarCampo(input);
   return new Promise((resolve, reject) => {
     try {
-      const v = Validaciones.validarPassword(valor);
-      passwordInput.classList.add("bien");
-      resolve(v);
+      const valor = Validaciones.validarPassword(input);
+      input.classList.add("bien");
+      resolve(valor);
     } catch (e) {
       reject(new ValidacionError(e.message, "password"));
     }
   });
 }
 
-function validarEmailP(valor) {
-  limpiarCampo(emailInput);
+function validarEmailP(input) {
+  limpiarCampo(input);
   return new Promise((resolve, reject) => {
     try {
-      const v = Validaciones.validarEmail(valor);
-      emailInput.classList.add("bien");
-      resolve(v);
+      const valor = Validaciones.validarEmail(input);
+      input.classList.add("bien");
+      resolve(valor);
     } catch (e) {
       reject(new ValidacionError(e.message, "email"));
     }
   });
 }
 
-function validarFechaP(valor) {
-  limpiarCampo(fechaInput);
+function validarFechaP(input) {
+  limpiarCampo(input);
   return new Promise((resolve, reject) => {
     try {
-      const v = Validaciones.validarFechaNacimiento(valor);
-      fechaInput.classList.add("bien");
-      resolve(v);
+      const valor = Validaciones.validarFechaNacimiento(input);
+      input.classList.add("bien");
+      resolve(valor);
     } catch (e) {
       reject(new ValidacionError(e.message, "fecha"));
     }
@@ -77,39 +79,26 @@ function validarFechaP(valor) {
 // ------------------ FLUJO SECUENCIAL CON PROMESAS ------------------
 
 guardarInput.addEventListener("click", () => {
-  const nombre = nombreInput.value.trim();
-  const contraseña = passwordInput.value.trim();
-  const email = emailInput.value.trim();
-  const fecha = fechaInput.value;
+  const datos = {};
 
-  let datos = {};
-  console.log("nombreInput:", nombreInput);
-  console.log("passwordInput:", passwordInput);
-  console.log("emailInput:", emailInput);
-  console.log("fechaInput:", fechaInput);
-
-  console.log("nombre:", nombreInput?.value);
-  console.log("password:", passwordInput?.value);
-  console.log("email:", emailInput?.value);
-  console.log("fecha:", fechaInput?.value);
-
-  validarNombreP(nombre)
+  validarNombreP(nombreInput)
     .then((v1) => {
       datos.nombre = v1;
-      return validarPasswordP(contraseña);
+      return validarPasswordP(passwordInput);
     })
     .then((v2) => {
       datos.password = v2;
-      return validarEmailP(email);
+      return validarEmailP(emailInput);
     })
     .then((v3) => {
       datos.email = v3;
-      return validarFechaP(fecha);
+      return validarFechaP(fechaInput);
     })
     .then((v4) => {
       datos.fecha = v4;
 
       alert("Formulario validado correctamente (PROMESAS)");
+
       localStorage.setItem("ud3e7_datos", JSON.stringify(datos));
     })
     .catch((error) => {
@@ -128,4 +117,5 @@ window.addEventListener("DOMContentLoaded", () => {
     emailInput.value = datos.email || "";
     fechaInput.value = datos.fecha || "";
   }
+  console.log(guardado);
 });

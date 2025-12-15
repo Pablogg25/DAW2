@@ -1,7 +1,6 @@
 export class Validaciones {
   static validarNombre(input) {
     const valor = input.value.trim();
-    input.setCustomValidity("");
 
     if (valor.length < 3) {
       throw new Error("El nombre debe tener al menos 3 caracteres");
@@ -18,7 +17,6 @@ export class Validaciones {
 
   static validarPassword(input) {
     const valor = input.value;
-    input.setCustomValidity("");
 
     let may = false,
       min = false,
@@ -31,48 +29,45 @@ export class Validaciones {
     }
 
     if (!(may && min && num && valor.length >= 8)) {
-      input.setCustomValidity(
+      throw new Error(
         "Debe tener mayúscula, minúscula, número y al menos 8 caracteres"
       );
-      return false;
     }
 
-    return true;
+    return valor;
   }
 
   static validarEmail(input) {
-    if (!valor) {
+    const valor = input.value.trim();
+
+    if (valor.length === 0) {
       throw new Error("El email no puede estar vacío");
     }
 
-    const v = valor.trim();
-    const valor = input.value.trim();
-    input.setCustomValidity("");
     const partes = valor.split("@");
-    if (partes.length != 2) {
-      input.setCustomValidity("El email debe contener una unica @");
-      return false;
+    if (partes.length !== 2) {
+      throw new Error("El email debe contener una única @");
     }
 
     if (partes[0].length === 0 || partes[1].length === 0) {
-      input.setCustomValidity("Debe haber texto antes y despues del @");
-      return false;
+      throw new Error("Debe haber texto antes y después de la @");
     }
+
     const dominio = partes[1].split(".");
     if (dominio.length !== 2) {
-      input.setCustomValidity("El email tiene que acabar en .xx o .xxx");
-      return false;
+      throw new Error("El email debe terminar en .xx o .xxx");
     }
+
     if (dominio[1].length < 2 || dominio[1].length > 3) {
-      input.setCustomValidity("La extension debe ser de 2 o 3 letras");
-      return false;
+      throw new Error("La extensión debe tener 2 o 3 letras");
     }
-    return true;
+
+    return valor;
   }
 
   static validarFechaNacimiento(input) {
     const valor = input.value;
-    input.setCustomValidity("");
+
     const fecha = new Date(valor);
     const hoy = new Date();
 
@@ -81,15 +76,15 @@ export class Validaciones {
     const cumpleEsteAño = new Date(
       hoy.getFullYear(),
       fecha.getMonth(),
-      fecha.getDay()
+      fecha.getDate()
     );
 
     if (hoy < cumpleEsteAño) edad--;
 
     if (edad < 18 || edad > 24) {
-      input.setCustomValidity("La edad debe de estar entre 18 y 24 años");
-      return false;
+      throw new Error("La edad debe de estar entre 18 y 24 años");
     }
-    return true;
+
+    return valor;
   }
 }
