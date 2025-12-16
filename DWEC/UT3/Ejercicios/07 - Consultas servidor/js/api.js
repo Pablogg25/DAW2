@@ -1,6 +1,6 @@
 const url = "https://jsonplaceholder.typicode.com/";
 
-export async function get(resource, params = "") {
+async function get(resource, params = "") {
   try {
     const response = await fetch(`${url}/${resource}${params}`);
     if (!response.ok) {
@@ -12,7 +12,7 @@ export async function get(resource, params = "") {
   }
 }
 
-export async function update(resource, id, data) {
+async function update(resource, id, data) {
   try {
     const response = await fetch(`${url}/${resource}/${id}`, {
       method: "PUT",
@@ -27,3 +27,5 @@ export async function update(resource, id, data) {
     throw e;
   }
 }
+
+export { get, update };
