@@ -1,22 +1,34 @@
-// js/index.js
 import { get } from "./api.js";
 
-function cargarContador(idElemento, recurso) {
-  const elemento = document.getElementById(idElemento);
+const cards = document.getElementById("card");
+const error = document.getElementById("error");
 
-  get(recurso)
-    .then((datos) => {
-      elemento.textContent = datos.length;
-    })
-    .catch((err) => {
-      elemento.textContent = "Error";
-      elemento.style.color = "red";
+(async () => {
+  try {
+    const [users, todos, posts, comments, albums, photos] = await Promise.all([
+      get("users"),
+      get("todos"),
+      get("posts"),
+      get("comments"),
+      get("albums"),
+      get("photos"),
+    ]);
+    const entidades = [
+      { nombre: "Users", total: users.length, url: "users" },
+      { nombre: "Todos", total: todos.length, url: "todos.html" },
+      { nombre: "Posts", total: posts.length, url: "posts.html" },
+      { nombre: "Comments", total: comments.length, url: "comments.html" },
+      { nombre: "Albums", total: albums.length, url: "albums.html" },
+      { nombre: "Photos", total: photos.length, url: "photos.html" },
+    ];
+    entidades.forEach((e) => {
+      const div = document.createElement("div");
+      div.textContent = `${e.nombre} ${e.total}`;
+      div.style.border = "1px solid black";
+      div.onclick = () => (location.href = e.url);
+      cards.appendChild(div);
     });
-}
-
-cargarContador("users-count", "users");
-cargarContador("todos-count", "todos");
-cargarContador("posts-count", "posts");
-cargarContador("comments-count", "comments");
-cargarContador("albums-count", "albums");
-cargarContador("photos-count", "photos");
+  } catch (e) {
+    error.textContent = "Error cargando datos" + e.message;
+  }
+})();

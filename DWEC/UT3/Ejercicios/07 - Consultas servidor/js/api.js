@@ -1,31 +1,35 @@
-const url = "https://jsonplaceholder.typicode.com/";
+const url = "https://jsonplaceholder.typicode.com";
 
-async function get(resource, params = "") {
+export async function get(recurso, parametros = "") {
   try {
-    const response = await fetch(`${url}/${resource}${params}`);
+    const response = await fetch(`${url}/${recurso}${parametros}`);
+
     if (!response.ok) {
-      throw new Error("ERROR HTTP", response.status);
+      throw new Error("Error al realizar la petición: " + response.status);
     }
+
     return await response.json();
   } catch (e) {
+    console.log("Error al realizar la petición", e);
     throw e;
   }
 }
 
-async function update(resource, id, data) {
+export async function update(recurso, id, data) {
   try {
-    const response = await fetch(`${url}/${resource}/${id}`, {
+    const response = await fetch(`${url}/${recurso}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "aplication/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+
     if (!response.ok) {
-      throw new Error("Error HTTP", response.status);
+      throw new Error("Error al actualizar: " + response.status);
     }
+
     return await response.json();
   } catch (e) {
+    console.log("Error al actualizar", e);
     throw e;
   }
 }
-
-export { get, update };
