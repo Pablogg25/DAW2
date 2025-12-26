@@ -15,7 +15,7 @@ let itemsPorPagina = localStorage.getItem("Paginas");
 
 (async () => {
   try {
-    datos = await get("photos");
+    datos = await get("todos");
     actualizar();
   } catch (e) {
     error.textContent = "Error " + e.message;
@@ -59,9 +59,9 @@ function pintarItem(u) {
   const div = document.createElement("div");
   div.innerHTML = `
     <p>${u.id} - ${u.title}</p>
-    <button onclick="location.href='./todos.html?userId=${u.id}'">Ver Pendientes</button>
-    <button onclick="location.href='./albums.html?userId=${u.id}'">Ver albumes</button>
-    <button onclick="location.href=./posts.html?userId=${u.id}'">Ver posts</button>
+    <button onclick="location.href='./todos.html?id=${u.id}'">Ver Pendientes</button>
+    <button onclick="location.href='./albums.html?id=${u.id}'">Ver albumes</button>
+    <button onclick="location.href=./posts.html?id=${u.id}'">Ver posts</button>
     `;
   contenedor.appendChild(div);
 }
