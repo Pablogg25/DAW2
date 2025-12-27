@@ -6,43 +6,34 @@ const paginador = document.getElementById("paginador");
 const pageSize = document.getElementById("pageSize");
 const filtro = document.getElementById("filtro");
 const error = document.getElementById("error");
+let pagina = null;
 
 let datos = [];
 let paginaActual = 1;
 
-// Cargar preferencia guardada para photos
-let itemsPorPagina = localStorage.getItem("photos_pageSize") || pageSize.value;
-pageSize.value = itemsPorPagina;
+localStorage.setItem("Paginas", pageSize.value);
+let itemsPorPagina = localStorage.getItem("Paginas");
 
-// Arreglar URLs rotas de JSONPlaceholder
-function fixUrl(url) {
-  return url
-    .replace("via.placeholder.com/150", "placehold.co/150x150")
-    .replace("via.placeholder.com/600", "placehold.co/600x600");
-}
-
-// CARGA INICIAL
 (async () => {
   try {
     const params = new URLSearchParams(location.search);
-    const albumId = params.get("albumId");
+    const userId = params.get("userId");
 
-    if (albumId) {
-      datos = await get("photos", `?albumId=${albumId}`);
+    if (userId) {
+      datos = await get("posts", `?userId=${userId}`);
     } else {
-      datos = await get("photos");
+      datos = await get("posts");
     }
 
     actualizar();
   } catch (e) {
-    error.textContent = "Error: " + e.message;
+    error.textContent = "Error " + e.message;
   }
 })();
 
-// EVENTOS
 pageSize.addEventListener("change", () => {
   itemsPorPagina = pageSize.value;
-  localStorage.setItem("photos_pageSize", itemsPorPagina);
+  localStorage.setItem("Paginas", itemsPorPagina);
   paginaActual = 1;
   actualizar();
 });
@@ -52,43 +43,29 @@ filtro.addEventListener("input", () => {
   actualizar();
 });
 
-// FUNCIÓN PRINCIPAL
 function actualizar() {
   let filtrados = datos.filter((p) =>
     p.title.toLowerCase().includes(filtro.value.toLowerCase())
   );
 
-  let pagina;
-
-  if (itemsPorPagina === "all") {
-    pagina = filtrados;
-  } else {
+  if (itemsPorPagina !== "all") {
     const inicio = (paginaActual - 1) * Number(itemsPorPagina);
     const fin = inicio + Number(itemsPorPagina);
     pagina = filtrados.slice(inicio, fin);
+  } else {
+    pagina = filtrados.slice(1, filtrados.length);
   }
 
   mostrarDatos(pagina, contenedor, pintarItem);
 
-  crearPaginador(
-    paginador,
-    filtrados,
-    itemsPorPagina,
-    paginaActual,
-    (nueva) => {
-      paginaActual = nueva;
-      actualizar();
-    }
-  );
+  crearPaginador(paginador, filtrados, itemsPorPagina, paginaActual);
 }
 
-// PINTAR CADA FOTO
-function pintarItem(p, contenedor) {
+function pintarItem(p) {
   const div = document.createElement("div");
   div.innerHTML = `
-    <img src="https://picsum.photos/id/${p.id}/150" alt="miniatura">
     <p>${p.id} - ${p.title}</p>
-    <button onclick="window.open('https://picsum.photos/id/${p.id}/600', '_blank')">Ver tamaño real</button>
+    <button onclick="location.href='./comments.html?postId=${p.id}'">Ver comentarios</button>
   `;
   contenedor.appendChild(div);
 }

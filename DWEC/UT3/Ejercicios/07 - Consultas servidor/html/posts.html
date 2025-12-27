@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users</title>
+  </head>
+  <body>
+    <h1>Users</h1>
+    <label>
+      Elementos por página:
+      <select id="pageSize">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="all">Todos</option>
+      </select>
+    </label>
+
+    <input id="filtro" placeholder="Filtrar por name" />
+
+    <div id="contenedor"></div>
+    <div id="paginador"></div>
+    <div id="error" style="color: red"></div>
+
+    <script type="module" src="../js/posts.js"></script>
+  </body>
+</html>
