@@ -6,26 +6,27 @@ const paginador = document.getElementById("paginador");
 const pageSize = document.getElementById("pageSize");
 const filtro = document.getElementById("filtro");
 const error = document.getElementById("error");
-let pagina = null;
 
 let datos = [];
+let total = 0;
 let paginaActual = 1;
 
-localStorage.setItem("Paginas", pageSize.value);
-let itemsPorPagina = localStorage.getItem("Paginas");
+let itemsPorPagina = localStorage.getItem("posts_pageSize") || pageSize.value;
+pageSize.value = itemsPorPagina;
 
 (async () => {
   try {
     const params = new URLSearchParams(location.search);
     const userId = params.get("userId");
 
+    // Obtener total de elementos (sin límite)
     if (userId) {
-      datos = await get("posts", `?userId=${userId}`);
+      total = (await get("posts", `?userId=${userId}`)).length;
     } else {
-      datos = await get("posts");
+      total = (await get("posts")).length;
     }
 
-    actualizar();
+    await cargarPagina();
   } catch (e) {
     error.textContent = "Error " + e.message;
   }
@@ -33,35 +34,56 @@ let itemsPorPagina = localStorage.getItem("Paginas");
 
 pageSize.addEventListener("change", () => {
   itemsPorPagina = pageSize.value;
-  localStorage.setItem("Paginas", itemsPorPagina);
+  localStorage.setItem("posts_pageSize", itemsPorPagina);
   paginaActual = 1;
-  actualizar();
+  cargarPagina();
 });
 
 filtro.addEventListener("input", () => {
   paginaActual = 1;
-  actualizar();
+  cargarPagina();
 });
+
+async function cargarPagina() {
+  try {
+    const params = new URLSearchParams(location.search);
+    const userId = params.get("userId");
+
+    const start = (paginaActual - 1) * Number(itemsPorPagina);
+    const limit = Number(itemsPorPagina);
+
+    let query = `?_start=${start}&_limit=${limit}`;
+
+    if (userId) query = `?userId=${userId}&_start=${start}&_limit=${limit}`;
+
+    datos = await get("posts", query);
+
+    actualizar();
+  } catch (e) {
+    error.textContent = "Error " + e.message;
+  }
+}
 
 function actualizar() {
   let filtrados = datos.filter((p) =>
     p.title.toLowerCase().includes(filtro.value.toLowerCase())
   );
 
-  if (itemsPorPagina !== "all") {
-    const inicio = (paginaActual - 1) * Number(itemsPorPagina);
-    const fin = inicio + Number(itemsPorPagina);
-    pagina = filtrados.slice(inicio, fin);
-  } else {
-    pagina = filtrados.slice(1, filtrados.length);
-  }
+  mostrarDatos(filtrados, contenedor, pintarItem);
 
-  mostrarDatos(pagina, contenedor, pintarItem);
-
-  crearPaginador(paginador, filtrados, itemsPorPagina, paginaActual);
+  crearPaginador(
+    paginador,
+    Array(total).fill(0),
+    itemsPorPagina,
+    paginaActual,
+    (nueva) => {
+      paginaActual = nueva;
+      cargarPagina();
+    }
+  );
 }
 
-function pintarItem(p) {
+function pintarItem(p, contenedor) {
   const div = document.createElement("div");
   div.innerHTML = `
     <p>${p.id} - ${p.title}</p>
