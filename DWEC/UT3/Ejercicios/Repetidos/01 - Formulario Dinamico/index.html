@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <title>UD3E6 Formulario dinámico</title>
-    <link rel="stylesheet" href="styles.css" />ç
-    
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Filtro -->
-    <label for="filtro">Ciclo: </label>
+    <h1>Selección de alumnos</h1>
+
+    <label>Ciclo:</label>
     <select id="filtro">
       <option value="Todos">Todos</option>
       <option value="DAM">DAM</option>
@@ -16,46 +16,33 @@
       <option value="ASIR">ASIR</option>
     </select>
 
-    <!-- Bloque central -->
-    <div class="contenedor">
-      <!-- Izquierda -->
-      <div>
-        <h4>Disponibles</h4>
-        <div class="tabla">
-          <div class="header">
-            <span>Nombre</span>
-            <span>Ciclo</span>
-          </div>
-          <div id="listaIzq"></div>
-        </div>
-      </div>
-
-      <!-- Botones -->
-      <div class="botones">
-        <button id="btnDer">→</button>
-        <button id="btnIzq">←</button>
-      </div>
-
-      <!-- Derecha -->
-      <div>
-        <h4>Seleccionados</h4>
-        <div class="tabla">
-          <div class="header">
-            <span>Nombre</span>
-            <span>Ciclo</span>
-          </div>
-          <div id="listaDer"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Enviar -->
     <form id="formSeleccion">
-      <button type="submit" id="enviar">Enviar</button>
+      <!-- IMPORTANTE: este id debe coincidir con tu JS -->
+      <div class="contenedor">
+        <div class="columna">
+          <h3>Disponibles</h3>
+          <div id="listaIzq" class="tabla"></div>
+        </div>
+
+        <div class="columna" style="flex: 0 0 120px; border: none">
+          <button type="button" id="btnDer">→</button>
+          <br /><br />
+          <button type="button" id="btnIzq">←</button>
+        </div>
+
+        <div class="columna">
+          <h3>Seleccionados</h3>
+          <div id="listaDer" class="tabla"></div>
+        </div>
+      </div>
+
+      <br />
+      <button type="submit">Enviar</button>
     </form>
 
     <div id="mensajes"></div>
 
+    <!-- AÑADIDO: carga tu JS real -->
     <script src="form.js"></script>
   </body>
 </html>
