@@ -21,3 +21,164 @@ const btnIzq = document.getElementById("btnIzq");
 const mensajes = document.getElementById("mensajes");
 
 let seleccionados = [];
+
+// Crear fila
+
+function crearFila(a, lado) {
+  const div = document.createElement("div");
+  div.className = "row";
+  div.dataset.id = a.alumnoId;
+
+  const columnaNombre = document.createElement("span");
+  columnaNombre.textContent = a.nombre;
+
+  const columnaCiclo = document.createElement("span");
+  columnaCiclo.textContent = a.ciclo;
+
+  const columnaAcciones = document.createElement("span");
+
+  div.appendChild(columnaNombre);
+  div.appendChild(columnaCiclo);
+  div.appendChild(columnaAcciones);
+
+  div.onclick = (e) => {
+    if (e.target.tagName === "BUTTON") return;
+    div.classList.toggle("seleccionada");
+  };
+
+  // Botones subir/bajar
+  if (lado === "der") {
+    const btnUp = document.createElement("button");
+    btnUp.textContent = "↑";
+    btnUp.onclick = () => mover(a.alumnoId, -1);
+
+    const btnDown = document.createElement("button");
+    btnDown.textContent = "↓";
+    btnDown.onclick = () => mover(a.alumnoId, +1);
+
+    columnaAcciones.appendChild(btnUp);
+    columnaAcciones.appendChild(btnDown);
+  }
+
+  return div;
+}
+
+// Reordenar Seleccionados
+function mover(id, dir) {
+  const i = seleccionados.findIndex((x) => x.alumnoId === id);
+  const j = i + dir;
+  if (j < 0 || j >= seleccionados.length) return;
+  const temp = seleccionados[i];
+
+  seleccionados[i] = seleccionados[j];
+  seleccionados[j] = temp;
+
+  cargarDerecha();
+}
+
+// Cargar Izquierda
+function cargarIzquierda() {
+  listaIzq.innerHTML = "";
+  const ciclo = filtroEl.value;
+  alumnos.forEach((a) => {
+    const sel = seleccionados.some((s) => s.alumnoId === a.alumnoId);
+    const pasaFiltro = ciclo === "Todos" || ciclo === a.ciclo;
+
+    if (!sel && pasaFiltro) {
+      listaIzq.appendChild(crearFila(a, "izq"));
+    }
+  });
+}
+
+// Cargar Derecha
+function cargarDerecha() {
+  listaDer.innerHTML = "";
+  seleccionados.forEach((a) => listaDer.appendChild(crearFila(a, "der")));
+}
+
+// Mover Derecha
+btnDer.onclick = () => {
+  const filas = listaIzq.querySelectorAll(".row.seleccionada");
+
+  filas.forEach((r) => {
+    const id = Number(r.dataset.id);
+    const a = alumnos.find((x) => x.alumnoId === id);
+
+    if (!seleccionados.some((s) => s.alumnoId === id)) {
+      seleccionados.push(a);
+    }
+  });
+
+  cargarIzquierda();
+  cargarDerecha();
+};
+// Mover Izquierda
+btnIzq.onclick = () => {
+  const filas = listaDer.querySelectorAll(".row.seleccionada");
+  const ids = Array.from(filas).map((r) => Number(r.dataset.id));
+
+  const ciclo = filtroEl.value;
+
+  seleccionados = seleccionados.filter((s) => {
+    if (!ids.includes(s.alumnoId)) return true;
+
+    // -----------------------------
+    // AÑADIDO: Comprobación de ciclo
+    // -----------------------------
+    if (ciclo === "Todos" || ciclo === s.ciclo) {
+      return false; // se elimina
+    }
+
+    return true; // no se elimina si no pasa filtro
+  });
+
+  cargarIzquierda();
+  cargarDerecha();
+};
+
+// Filtro
+filtroEl.onchange = cargarIzquierda;
+
+// Submit
+document.getElementById("formSeleccion").onsubmit = (e) => {
+  e.preventDefault;
+
+  document.querySelectorAll(".hiddenInput").forEach((i) => i.remove());
+
+  const form = DocumentTimeline.getElementById("formSeleccion");
+
+  seleccionados.forEach((a, i) => {
+    const inputID = document.createElement("input");
+    inputID.type = "hidden";
+    inputID.className = "hiddenInput";
+    inputID.name = "alumnoId[]";
+    inputID.value = a.alumnoId;
+
+    const inputNombre = document.createElement("input");
+    inputNombre.type = "hidden";
+    inputNombre.className = "hiddenInput";
+    inputNombre.name = "nombres[]";
+    inputNombre.value = a.nombre;
+
+    const inputOrden = document.createElement("input");
+    inputOrden.type = "hidden";
+    inputOrden.className = "hiddenInput";
+    inputOrden.name = "orden[]";
+    inputOrden.value = i + 1;
+
+    form.appendChild(inputId);
+    form.appendChild(inputNombre);
+    form.appendChild(inputOrden);
+  });
+
+  const json = {
+    alumnoId: seleccionados.map((a) => a.alumnoId),
+    nombres: seleccionados.map((a) => a.nombre),
+    orden: seleccionados.map((_, i) => i + 1),
+  };
+
+  mensajes.textContent = JSON.stringify(json, null, 2);
+};
+
+cargarIzquierda();
+cargarDerecha();
