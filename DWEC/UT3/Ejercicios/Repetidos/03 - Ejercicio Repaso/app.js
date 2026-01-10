@@ -78,10 +78,14 @@ function pintarLibros() {
     btnEliminar.onclick = () => {
       eliminarLibro(index);
     };
+    const btnDetalles = document.createElement("button");
+    btnDetalles.textContent = "Detalles";
+    btnDetalles.onclick = () => mostrarDialogo(libro);
 
     botones.appendChild(btnVer);
     botones.appendChild(btnEditar);
     botones.appendChild(btnEliminar);
+    botones.appendChild(btnDetalles);
 
     div.appendChild(h3);
     div.appendChild(autor);
@@ -140,7 +144,120 @@ function validarFormulario() {
   }
 
   return true;
-} 
+}
+
+// Guardar / Editar
+formLibro.onsubmit = async (e) => {
+  e.preventDefault();
+
+  if (!validarFormulario()) return;
+
+  const libro = {
+    title: inputTitulo.value,
+    author: inputAutor.value,
+    genre: inputGenero.value,
+    description: inputDescripcion.value,
+  };
+
+  const index = inputId.value;
+
+  if (index === "") {
+    await crearLibro(libro);
+  } else {
+    await actualizarLibro(libro, index);
+  }
+
+  formLibro.style.display = "none";
+  limpiarFormulario();
+  pintarLibros();
+};
+
+// Crear libro
+async function crearLibro(libro) {
+  try {
+    let operacionCancelada = false;
+    respuestaApi.innerHTML = "";
+
+    const texto = document.createElement("span");
+    texto.textContent = "Guardando...";
+    respuestaApi.appendChild(texto);
+
+    const btn1 = document.createElement("button");
+    btn1.textContent = "Cancelar";
+    respuestaApi.appendChild(btn1);
+    btn1.onclick = () => {
+      texto.textContent = "Operacion Cancelada";
+      respuestaApi.removeChild(btn1);
+      operacionCancelada = true;
+    };
+    await promesa();
+
+    if (operacionCancelada) {
+      respuestaApi.innerHTML = "";
+      return;
+    }
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(libro),
+    });
+    const data = await response.json();
+    // alert(response.status);
+    respuestaApi.textContent = JSON.stringify(data);
+    libros.push(libro);
+
+    despuesDeGuardar(() => {
+      debug.textContent = "Callback despues de guardar";
+    });
+  } catch (e) {}
+}
+
+// Actualizar Libro
+async function actualizarLibro(libro, index) {
+  try {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/posts/" + index,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(libro),
+      }
+    );
+    const data = await response.json();
+    // alert(response.status);
+    respuestaApi.textContent = JSON.stringify(data);
+    libros.push(libro);
+  } catch (e) {}
+}
+
+// Eliminar Libro
+async function eliminarLibro(index) {
+  try {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/posts/" + index,
+      {
+        method: "DELETE",
+      }
+    );
+    libros.splice(index, 1);
+    // alert(index);
+    pintarLibros();
+  } catch (e) {}
+}
+
+// Callback
+function despuesDeGuardar(Callback) {
+  Callback();
+}
+
+// Promesa
+function promesa() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(); // ← OBLIGATORIO
+    }, 3000);
+  });
+}
 
 // Limpìar Fomulario
 function limpiarFormulario() {
@@ -150,4 +267,22 @@ function limpiarFormulario() {
   inputGenero.value = "";
   inputDescripcion.value = "";
   errores.innerHTML = "";
+}
+
+// Detalles
+function mostrarDialogo(libro) {
+  document.getElementById("dialogoTitulo").textContent = libro.title;
+  document.getElementById("dialogoAutor").textContent =
+    "Autor: " + libro.author;
+  document.getElementById("dialogoGenero").textContent =
+    "Genero: " + libro.genre;
+  document.getElementById("dialogoDescripcion").textContent =
+    "Descripcion: " + libro.description;
+  document.getElementById("dialogoISBN").textContent = "ISBN: " + libro.isbn;
+  const url = libro.image;
+  const nueva = url.replace(".com", ".dev");
+  console.log(nueva);
+  document.getElementById("dialogoImagen").src = nueva;
+
+  document.getElementById("dialogo").style.display = "block";
 }
