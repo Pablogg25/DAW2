@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Comercio Electronico - DummyJSON</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Mini Comercio Electronico</h1>
+    </header>
+
+    <main>
+      <!-- Seleccion de usuario -->
+      <section id="usuariosSection">
+        <h2>Usuarios</h2>
+        <select id="selectUsuarios">
+          <option value="">Selecciona un usuario...</option>
+        </select>
+      </section>
+
+      <!-- Buscador y filtros -->
+      <section id="filtrsoSection">
+        <input type="text" id="buscador" placeholder="Buscar productos..." />
+        <select id="filtroCategoria">
+          <option value="">Todas las categorias</option>
+        </select>
+      </section>
+
+      <!-- Listado de Productos -->
+      <section id="productosSection">
+        <h2>Productos</h2>
+        <div id="listaProductos" class="grid"></div>
+      </section>
+
+      <!-- Carrito -->
+      <section id="carritoSection">
+        <h2>Carrito</h2>
+        <div id="carrito"></div>
+
+        <div id="carritoAcciones">
+          <button id="btnVaciarCarrito">Vaciar Carrito</button>
+          <button id="btnGuardarCarrito">Guardar Carrito</button>
+          <button id="btnComprar">Finalizar Compra</button>
+        </div>
+      </section>
+
+      <!-- Mensajes de estado -->
+      <section id="estadoSection">
+        <pre id="estado"></pre>
+      </section>
+    </main>
+
+    <!-- Modal de detalles -->
+    <div id="modal" class="modal">
+      <div class="modal-contenido">
+        <span id="cerrarModal" class="cerrar">&times;</span>
+        <h2 id="modalTitulo"></h2>
+        <img id="modalImagen" alt="" width="200" />
+        <p id="modalDescripcion"></p>
+        <p id="modalPrecio"></p>
+        <p id="modalCategoria"></p>
+        <p id="modalStock"></p>
+        <div id="modalImagenesExtra"></div>
+        <button id="modalAgregarCarrito">Añadir al carrito</button>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
