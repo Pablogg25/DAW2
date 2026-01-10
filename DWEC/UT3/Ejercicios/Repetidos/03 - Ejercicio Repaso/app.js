@@ -8,7 +8,7 @@ const respuestaApi = document.getElementById("respuestaApi");
 const debug = document.getElementById("debug");
 
 const inputId = document.getElementById("libroId");
-const inputTitulo = document.getElementById("titlo");
+const inputTitulo = document.getElementById("titulo");
 const inputAutor = document.getElementById("autor");
 const inputGenero = document.getElementById("genero");
 const inputDescripcion = document.getElementById("descripcion");
@@ -91,4 +91,63 @@ function pintarLibros() {
 
     contenedorLibros.appendChild(div);
   });
+}
+
+// Mostar Formulario
+btnMostrarFormulario.onclick = () => {
+  formLibro.style.display = "block";
+  limpiarFormulario();
+};
+
+btnCancelar.onclick = () => {
+  formLibro.style.display = "none";
+  limpiarFormulario();
+};
+
+// Cargar Formulario para editar
+function cargarFormularioEdicion(index) {
+  const libro = libros[index];
+
+  inputId.value = index;
+  inputTitulo.value = libro.title;
+  inputAutor.value = libro.author;
+  inputGenero.value = libro.genre;
+  inputDescripcion.value = libro.description;
+
+  formLibro.style.display = "block";
+}
+
+// Validaciones
+function validarFormulario() {
+  errores.innerHTML = "";
+  let mensajes = [];
+
+  if (inputTitulo.value.trim().length < 1)
+    mensajes.push("El título es obligatorio.");
+
+  if (inputAutor.value.trim().length < 1)
+    mensajes.push("El autor es obligatorio.");
+
+  if (inputGenero.value.trim().length < 1)
+    mensajes.push("El género es obligatorio.");
+
+  if (inputDescripcion.value.trim().length < 10)
+    mensajes.push("La descripción debe tener al menos 10 caracteres.");
+
+  if (mensajes.length > 0) {
+    errores.innerHTML = mensajes.join("<br>");
+    return false;
+  }
+
+  return true;
+} 
+
+// Limpìar Fomulario
+function limpiarFormulario() {
+  inputId.value = "";
+  inputTitulo.value = "";
+  inputAutor.value = "";
+  inputGenero.value = "";
+  inputDescripcion.value = "";
+  errores.innerHTML = "";
 }
