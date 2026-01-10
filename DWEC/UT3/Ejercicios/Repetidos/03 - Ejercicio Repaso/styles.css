@@ -64,3 +64,30 @@ h2 {
   background: #ffe;
   border: 1px solid #dd0;
 }
+.dialogo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialogo-contenido {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  width: 300px;
+  position: relative;
+}
+
+.cerrar {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
