@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h1,
+h2 {
+  margin-bottom: 10px;
+}
+
+#contenedorLibros {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.libro {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.libro h3 {
+  margin: 0;
+}
+
+.botones {
+  margin-top: 10px;
+}
+
+.botones button {
+  margin-right: 5px;
+}
+
+#formLibro {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #aaa;
+  background: #f0f0f0;
+  width: 300px;
+}
+
+#formLibro input,
+#formLibro textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#errores {
+  color: red;
+  margin-top: 10px;
+}
+
+#respuestaApi {
+  margin-top: 20px;
+  padding: 10px;
+  background: #eef;
+  border: 1px solid #99f;
+}
+
+#debug {
+  margin-top: 20px;
+  padding: 10px;
+  background: #ffe;
+  border: 1px solid #dd0;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestor de Libros - Repaso DOM + API + Formularios</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <h1>Gestor de Libros</h1>
+
+    <!-- Boton añadir Libros -->
+    <button id="btnMostrarFormulario">Añadir Libro</button>
+
+    <!-- Listado de Libros -->
+    <h2>Listado Libros</h2>
+    <div id="contenedorLibros"></div>
+
+    <!-- Formulario para añadir/editar -->
+    <h2>Formulario de libro</h2>
+
+    <form id="formLibro" style="display: none">
+      <input type="hidden" id="libroId" />
+
+      <label>Titulo</label>
+      <input type="text" id="titulo" />
+      <br />
+
+      <label>Autor</label>
+      <input type="text" id="autor" />
+      <br />
+
+      <label>Genero </label>
+      <input type="text" id="genero" />
+      <br />
+
+      <label>Descripción</label>
+      <textarea id="descripcion"></textarea>
+      <br />
+
+      <button type="submit">Guardar</button>
+      <button type="button" id="btnCancelar">Cancelar</button>
+    </form>
+
+    <!-- Errores del formulario -->
+    <div id="errores" class="errores"></div>
+
+    <!-- Respuesta de la API -->
+    <h2>Respuesta API</h2>
+    <div id="respuestaApi"></div>
+
+    <!-- Zona para callbacks, promesas y async/await -->
+    <h2>Debug (Callbacks / Promesas / Async-Await)</h2>
+    <div id="debug"></div>
+  </body>
+</html>
