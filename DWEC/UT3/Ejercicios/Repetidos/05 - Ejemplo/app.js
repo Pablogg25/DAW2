@@ -1,3 +1,6 @@
+const API = "https://gorest.co.in/public/v2";
+const TOKEN =
+  "efdcb59dad3644beb8fed92d555466a355fff30d5632fbcc7d19ae007fb40fa2";
 // Elementos
 let usuarios = [];
 let posts = [];
@@ -5,7 +8,12 @@ let comentarios = [];
 let todos = [];
 
 let filtrados = [];
-let calcenlado = false;
+let cancelado = false;
+
+let usuarioSeleccionado = null;
+let postSeleccionado = null;
+let comentarioSeleccionado = null;
+let todoSeleccionado = null;
 
 const estado = document.getElementById("estado");
 
@@ -19,11 +27,6 @@ const buscadorPosts = document.getElementById("buscadorPosts");
 const buscadorComentarios = document.getElementById("buscadorComentarios");
 const buscadorTodos = document.getElementById("buscadorTodos");
 
-let usuarioSeleccionado = null;
-let postSeleccionado = null;
-let comentarioSeleccionado = null;
-let todoSeleccionado = null;
-
 const chkMujer = document.getElementById("mujer");
 const chkHombre = document.getElementById("hombre");
 
@@ -34,7 +37,7 @@ async function cargarUsuarios() {
     const response = await fetch("https://gorest.co.in/public/v2/users");
     usuarios = await response.json();
     filtrados = usuarios;
-    console.log(usuarios);
+    // console.log(usuarios);
     pintarUsuarios(usuarios);
   } catch (e) {
     estado.textContent = "Error al cargar los usuarios " + e;
@@ -91,21 +94,60 @@ function eventosUsuario() {
 
 function aplicarFiltros() {
   let texto = buscadorUsuarios.value.toLowerCase();
-
-  // Siempre partimos de la lista completa
-  let filtrados = usuarios.filter((u) => u.name.toLowerCase().includes(texto));
-
-  // Filtro mujer
+  let resultado = usuarios.filter((u) => u.name.toLowerCase().includes(texto));
   if (chkMujer.checked) {
-    filtrados = filtrados.filter((u) => u.gender === "female");
+    resultado = resultado.filter((u) => u.gender === "female");
     chkHombre.checked = false;
   }
-
-  // Filtro hombre
   if (chkHombre.checked) {
-    filtrados = filtrados.filter((u) => u.gender === "male");
+    resultado = resultado.filter((u) => u.gender === "male");
     chkMujer.checked = false;
   }
+  filtrados = resultado;
+  pintarUsuarios(resultado);
+}
 
-  pintarUsuarios(filtrados);
+buscadorUsuarios.addEventListener("input", aplicarFiltros);
+chkMujer.addEventListener("click", aplicarFiltros);
+chkHombre.addEventListener("click", aplicarFiltros);
+
+async function editarUsuario(id) {
+  if (!TOKEN) return alert("Necesitas token para editar");
+
+  const nombre = prompt("NuevoNombre: ");
+  if (!nombre) return;
+
+  try {
+    await fetch(`https://gorest.co.in/public/v2/users/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: nombre }),
+    });
+
+    estado.textContent = "Estado Actualizado";
+    cargarUsuarios();
+  } catch (e) {
+    estado.textContent = "Error editantdo el usuario " + e;
+  }
+}
+
+async function borrarUsuario(id) {
+  if (!TOKEN) return alert("Necesitas token para editar");
+
+  if (!confirm("¿Seguro?")) return;
+
+  try {
+    await fetch(`https://gorest.co.in/public/v2/users/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${TOKEN}` },
+    });
+
+    estado.textContent = "Usuario Eliminado";
+    cargarUsuarios();
+  } catch (e) {
+    estado.textContent = "Error eliminado usuario " + e;
+  }
 }
