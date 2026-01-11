@@ -46,3 +46,99 @@ function esperar(ms) {
     }, ms);
   });
 }
+
+// Carga Inicial
+cargarUsuarios();
+cargarProductos();
+
+// Cargar Usuarios
+async function cargarUsuarios() {
+  try {
+    const response = await fetch("https://dummyjson.com/users");
+    const data = await response.json();
+    usuarios = data.users;
+
+    usuarios.forEach((u) => {
+      const opt = document.createElement("option");
+      opt.value = u.id;
+      opt.textContent = `${u.firstName} ${u.lastName}`;
+      selectUsuarios.appendChild(opt);
+    });
+  } catch (e) {
+    estado.textContent = "Error cargango usuarios " + e;
+  }
+}
+
+// Cargar Productos
+async function cargarProductos() {
+  try {
+    const res = await fetch("https://dummyjson.com/products");
+
+    if (!res.ok) {
+      throw new Error("HTTP " + res.status);
+    }
+
+    const data = await res.json();
+
+    if (!data.products) {
+      throw new Error("La API no devolvió 'products'");
+    }
+
+    productos = data.products;
+
+    categorias = [
+      ...new Set(
+        productos
+          .map((p) => p.category)
+          .filter((cat) => typeof cat === "string")
+      ),
+    ];
+
+    categorias.forEach((cat) => {
+      const opt = document.createElement("option");
+      opt.value = cat;
+      opt.textContent = cat;
+      filtroCategoria.appendChild(opt);
+    });
+
+    pintarProductos(productos);
+  } catch (e) {
+    estado.textContent = "Error cargando productos: " + e.message;
+    console.error(e);
+  }
+}
+
+// Pintar Productos
+
+function pintarProductos(lista) {
+  listaProductos.innerHTML = "";
+
+  lista.forEach((p) => {
+    const card = document.createElement("div");
+    card.className = "producto";
+
+    const img = document.createElement("img");
+    img.src = p.thumbnail;
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = p.title;
+
+    const precio = document.createElement("p");
+    precio.textContent = p.price + "€";
+
+    const btnDetalles = document.createElement("button");
+    btnDetalles.textContent = "Detalles";
+    btnDetalles.onclick = () => {
+      abrirModal(p);
+    };
+
+    const btnCarrito = document.createElement("button");
+    btnCarrito.textContent = "Añadir al Carrito";
+    btnCarrito.onclick = () => {
+      añadirAlCarrito(p.id);
+    };
+
+    card.append(img, titulo, precio, btnDetalles, btnCarrito);
+    listaProductos.appendChild(card);
+  });
+}
