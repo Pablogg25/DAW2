@@ -1,0 +1,132 @@
+/* ============================
+   RESET BÁSICO
+============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+/* ============================
+   HEADER
+============================ */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 28px;
+  color: #333;
+}
+
+/* ============================
+   SECCIONES
+============================ */
+section {
+  background: white;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+  margin-bottom: 15px;
+  color: #444;
+}
+
+/* ============================
+   ACCIONES
+============================ */
+#acciones,
+section div {
+  margin-bottom: 15px;
+}
+
+input[type="text"] {
+  padding: 6px 10px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 6px 12px;
+  margin-left: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/* ============================
+   LISTAS
+============================ */
+#listaUsuarios,
+#listaPosts,
+#listaComentarios,
+#listaTodos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#listaUsuarios div,
+#listaPosts div,
+#listaComentarios div,
+#listaTodos div {
+  background: #fafafa;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#listaUsuarios div:hover,
+#listaPosts div:hover,
+#listaComentarios div:hover,
+#listaTodos div:hover {
+  background: #f0f0f0;
+}
+
+/* ============================
+   BOTONES DENTRO DE LISTAS
+============================ */
+#listaUsuarios button,
+#listaPosts button,
+#listaComentarios button,
+#listaTodos button {
+  margin-top: 8px;
+  margin-right: 5px;
+  background: #444;
+}
+
+#listaUsuarios button:hover,
+#listaPosts button:hover,
+#listaComentarios button:hover,
+#listaTodos button:hover {
+  background: #222;
+}
+
+/* ============================
+   ESTADO
+============================ */
+#estadoSection pre {
+  background: #222;
+  color: #0f0;
+  padding: 15px;
+  border-radius: 4px;
+  min-height: 60px;
+  white-space: pre-wrap;
+}

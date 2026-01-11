@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejemplo</title>
+    <script type="module" src="app.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header><h1>Ejemplo</h1></header>
+    <section id="usuariosSection">
+      <h2>Usuario</h2>
+      <div id="acciones">
+        <input type="text" id="buscadorUsuarios" />
+        <br />
+        <label>Mujer</label>
+        <input type="checkbox" id="mujer" />
+        <label>Hombre</label>
+        <input type="checkbox" id="hombre" />
+        <button id="btnNuevoUsuario">Nuevo Usuario</button>
+      </div>
+
+      <div id="listaUsuarios"></div>
+    </section>
+
+    <section id="postsSection">
+      <h2>Posts del usuario selecionado</h2>
+
+      <div>
+        <input type="text" id="buscadorPosts" />
+        <button id="btnNuevoPost">Nuevo Post</button>
+      </div>
+
+      <div id="listaPosts"></div>
+    </section>
+
+    <section id="comentariosSection">
+      <h2>Tareas del usuario seleccionado</h2>
+
+      <div id="acciones">
+        <input type="text" id="buscadorComentarios" />
+        <button id="btnNuevoComentario">Nuevo Comentario</button>
+      </div>
+
+      <div id="listaComentarios"></div>
+    </section>
+
+    <section id="todosSection">
+      <h2>Tareas del usuario seleccionado</h2>
+      <div id="acciones">
+        <input type="text" id="buscarTodos" />
+        <button id="btnNuevoTodo">Nueva Tarea</button>
+      </div>
+
+      <div id="listaTodos"></div>
+    </section>
+
+    <section id="estadoSection">
+      <h2>Estado</h2>
+      <pre id="estado"></pre>
+    </section>
+  </body>
+</html>
