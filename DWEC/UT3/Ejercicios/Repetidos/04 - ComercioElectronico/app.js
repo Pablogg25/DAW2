@@ -233,6 +233,12 @@ function cambiarCantidad(id, delta) {
   pintarCarrito();
 }
 
+// Eliminar Producto del carrito
+function eliminarProducto(id) {
+  carrito.products = carrito.products.filter((p) => p.id !== id);
+  pintarCarrito();
+}
+
 // Añadir Producto Al Carrito
 function agregarAlCarrito(id) {
   if (!usuarioSeleccionado) {
@@ -252,3 +258,81 @@ function agregarAlCarrito(id) {
 
   pintarCarrito();
 }
+
+// Guardar Carrito
+
+document.getElementById("btnGuardarCarrito").onclick = async () => {
+  if (!carrito) return;
+
+  await esperar(1000);
+  if (cancelarOperacion) return;
+
+  try {
+    const response = await fetch(`https://dummyjson.com/carts/${carrito.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "aplication/json" },
+      body: JSON.stringify(carrito),
+    });
+
+    const data = await response.json();
+    estado.textContent = "Carrito guardado correctamente";
+  } catch (e) {
+    estado.textContent = "Error al guardar el carrito " + e;
+  }
+};
+
+// Vaciar Carrito
+document.getElementById("btnVaciarCarrito").onclick = () => {
+  if (!carrito) return;
+  carrito.products = [];
+  pintarCarrito();
+};
+
+// Finalizar compra
+document.getElementById("btnComprar").onclick = async () => {
+  if (!carrito || carrito.products.length === 0) {
+    estado.textContent = "No puedes comprar un carrito vacío.";
+    return;
+  }
+
+  await esperar(1000);
+  if (cancelarOperacion) return;
+
+  try {
+    await fetch(`https://dummyjson.com/carts/${carrito.id}`, {
+      method: "DELETE",
+    });
+
+    carrito.products = [];
+    pintarCarrito();
+    estado.textContent = "Compra realizada correctamente.";
+  } catch (e) {
+    estado.textContent = "Error al finalizar compra.";
+  }
+};
+
+// Modal Detalles
+function abrirModal(p) {
+  modalTitulo.textContent = p.title;
+  modalImagen.src = p.thumbnail;
+  modalDescripcion.textContent = p.description;
+  modalPrecio.textContent = "Precio: " + p.price + " €";
+  modalCategoria.textContent = "Categoría: " + p.category;
+  modalStock.textContent = "Stock: " + p.stock;
+
+  modalImagenesExtra.innerHTML = "";
+  p.images.forEach((img) => {
+    const i = document.createElement("img");
+    i.src = img;
+    modalImagenesExtra.appendChild(i);
+  });
+
+  modalAgregarCarrito.onclick = () => agregarAlCarrito(p.id);
+
+  modal.style.display = "flex";
+}
+
+cerrarModal.onclick = () => (modal.style.display = "none");
+modal.onclick = (e) => {
+  if (e.target === modal) modal.style.display = "none";
+};
