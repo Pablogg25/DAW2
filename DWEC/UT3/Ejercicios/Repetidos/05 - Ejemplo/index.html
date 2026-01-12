@@ -7,12 +7,18 @@
     <script type="module" src="app.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
     <header><h1>Ejemplo</h1></header>
+
+    <!-- ============================
+         USUARIOS
+    ============================= -->
     <section id="usuariosSection">
-      <h2>Usuario</h2>
-      <div id="acciones">
-        <input type="text" id="buscadorUsuarios" />
+      <h2>Usuarios</h2>
+
+      <div class="acciones">
+        <input type="text" id="buscadorUsuarios" placeholder="Buscar..." />
         <br />
         <label>Mujer</label>
         <input type="checkbox" id="mujer" />
@@ -24,38 +30,51 @@
       <div id="listaUsuarios"></div>
     </section>
 
+    <!-- ============================
+         POSTS
+    ============================= -->
     <section id="postsSection">
-      <h2>Posts del usuario selecionado</h2>
+      <h2>Posts del usuario seleccionado</h2>
 
-      <div>
-        <input type="text" id="buscadorPosts" />
+      <div class="acciones">
+        <input type="text" id="buscadorPosts" placeholder="Buscar..." />
         <button id="btnNuevoPost">Nuevo Post</button>
       </div>
 
       <div id="listaPosts"></div>
     </section>
 
+    <!-- ============================
+         COMENTARIOS
+    ============================= -->
     <section id="comentariosSection">
-      <h2>Tareas del usuario seleccionado</h2>
+      <h2>Comentarios del usuario seleccionado</h2>
 
-      <div id="acciones">
-        <input type="text" id="buscadorComentarios" />
+      <div class="acciones">
+        <input type="text" id="buscadorComentarios" placeholder="Buscar..." />
         <button id="btnNuevoComentario">Nuevo Comentario</button>
       </div>
 
       <div id="listaComentarios"></div>
     </section>
 
+    <!-- ============================
+         TODOS
+    ============================= -->
     <section id="todosSection">
       <h2>Tareas del usuario seleccionado</h2>
-      <div id="acciones">
-        <input type="text" id="buscarTodos" />
+
+      <div class="acciones">
+        <input type="text" id="buscadorTodos" placeholder="Buscar..." />
         <button id="btnNuevoTodo">Nueva Tarea</button>
       </div>
 
       <div id="listaTodos"></div>
     </section>
 
+    <!-- ============================
+         ESTADO
+    ============================= -->
     <section id="estadoSection">
       <h2>Estado</h2>
       <pre id="estado"></pre>
