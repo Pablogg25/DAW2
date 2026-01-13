@@ -1,4 +1,6 @@
+// ======================================================
 // 1. Estado global
+// ======================================================
 let clientes = [];
 let clienteEditando = null;
 
@@ -22,21 +24,19 @@ function init() {
 }
 
 // 4. crearInterfaz()
-
 // - crear buscador + botones
 // - crear contenedor de estado
 // - crear contenedor tabla (.tabla)
 // - crear formCrear y formEditar
 // - añadir eventos a formularios y botones
-
 function crearInterfaz() {
+  // ----- BUSCADOR + BOTONES -----
   const zonaBuscador = document.createElement("div");
 
-  // Buscador y botones
   buscadorInput = document.createElement("input");
-  buscadorInput.id = "buscador";
   buscadorInput.type = "text";
-  buscadorInput.placeholder = "Buscar Clientes...";
+  buscadorInput.id = "buscador";
+  buscadorInput.placeholder = "Buscar por nombre o apellidos...";
 
   btnBuscarServidor = document.createElement("button");
   btnBuscarServidor.textContent = "Buscar en servidor";
@@ -50,17 +50,17 @@ function crearInterfaz() {
 
   contenedor.appendChild(zonaBuscador);
 
-  // Estado
+  // ----- ESTADO -----
   zonaEstado = document.createElement("p");
   zonaEstado.id = "estado";
   contenedor.appendChild(zonaEstado);
 
-  // Tabla contendor
+  // ----- TABLA CONTENEDOR -----
   tablaDiv = document.createElement("div");
   tablaDiv.classList.add("tabla");
   contenedor.appendChild(tablaDiv);
 
-  // Cabecera tabla
+  // Cabecera de la tabla
   const filaCabecera = document.createElement("div");
   filaCabecera.classList.add("fila", "cabecera");
 
@@ -68,10 +68,10 @@ function crearInterfaz() {
     "ID",
     "Nombre",
     "Apellidos",
-    "Telefono",
+    "Teléfono",
     "Tipo",
     "Activo",
-    "FechaNac",
+    "Fecha Nac.",
     "Acciones",
   ];
 
@@ -80,38 +80,157 @@ function crearInterfaz() {
     celda.textContent = texto;
     filaCabecera.appendChild(celda);
   });
+
   tablaDiv.appendChild(filaCabecera);
 
-  //   Formulario Crear
+  // ----- FORMULARIO CREAR -----
   formCrear = document.createElement("form");
   formCrear.id = "formCrear";
 
   formCrear.innerHTML = `
-    <h2>Nuevo Cliente</h2>
+    <h2>Nuevo cliente</h2>
 
-    <label>Nombre: </label>
+    <label>Nombre</label>
+    <input type="text" name="nombre" required minlength="2" />
+
+    <label>Apellidos</label>
     <input type="text" name="apellidos" required minlength="2" />
+
+    <label>Teléfono (9 dígitos)</label>
+    <input type="text" name="telefono" required pattern="\\d{9}" />
+
+    <label>Altura (cm)</label>
+    <input type="number" name="altura" required min="100" max="250" />
+
+    <label>Tipo de cliente</label>
+    <select name="tipoCliente" required>
+      <option value="">-- Selecciona tipo --</option>
+      <option value="basico">Básico</option>
+      <option value="avanzado">Avanzado</option>
+      <option value="completo">Completo</option>
+    </select>
+
+    <label>
+      <input type="checkbox" name="activo" />
+      Activo
+    </label>
+
+    <label>Fecha de nacimiento</label>
+    <input type="date" name="fechaNacimiento" required />
+
+    <button type="submit">Crear cliente</button>
   `;
+
+  contenedor.appendChild(formCrear);
+
+  // ----- FORMULARIO EDITAR -----
+  formEditar = document.createElement("form");
+  formEditar.id = "formEditar";
+  formEditar.style.display = "none";
+
+  formEditar.innerHTML = `
+    <h2>Editar cliente</h2>
+
+    <label>Nombre</label>
+    <input type="text" name="nombre" required minlength="2" />
+
+    <label>Apellidos</label>
+    <input type="text" name="apellidos" required minlength="2" />
+
+    <label>Teléfono (9 dígitos)</label>
+    <input type="text" name="telefono" required pattern="\\d{9}" />
+
+    <label>Altura (cm)</label>
+    <input type="number" name="altura" required min="100" max="250" />
+
+    <label>Tipo de cliente</label>
+    <select name="tipoCliente" required>
+      <option value="">-- Selecciona tipo --</option>
+      <option value="basico">Básico</option>
+      <option value="avanzado">Avanzado</option>
+      <option value="completo">Completo</option>
+    </select>
+
+    <label>
+      <input type="checkbox" name="activo" />
+      Activo
+    </label>
+
+    <label>Fecha de nacimiento</label>
+    <input type="date" name="fechaNacimiento" required />
+
+    <button type="submit">Guardar cambios</button>
+    <button type="button" id="btnCancelarEdicion">Cancelar</button>
+  `;
+
+  contenedor.appendChild(formEditar);
+
+  // ----- EVENTOS GENERALES -----
+  buscadorInput.addEventListener("input", filtrarEnDom);
+  btnRecargar.addEventListener("click", () => cargarClientes());
+  btnBuscarServidor.addEventListener("click", buscarEnServidor);
+
+  formCrear.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!formCrear.checkValidity()) {
+      mostrarEstado("Revisa los campos del formulario de creación");
+      return;
+    }
+    crearCliente();
+  });
+
+  formEditar.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!formEditar.checkValidity()) {
+      mostrarEstado("Revisa los campos del formulario de edición");
+      return;
+    }
+    editarCliente();
+  });
+
+  formEditar
+    .querySelector("#btnCancelarEdicion")
+    .addEventListener("click", () => {
+      formEditar.style.display = "none";
+      formCrear.style.display = "inline-block";
+      clienteEditando = null;
+      mostrarEstado("Edición cancelada");
+    });
+
+  // Delegación de eventos para botones Editar / Eliminar en la tabla
+  tablaDiv.addEventListener("click", (event) => {
+    const boton = event.target;
+    if (boton.matches("button[data-accion]")) {
+      const accion = boton.dataset.accion;
+      const id = boton.dataset.id;
+      if (accion === "editar") {
+        cargarClienteParaEditar(id);
+      } else if (accion === "borrar") {
+        borrarCliente(id);
+      }
+    }
+  });
 }
 
 // 5. cargarClientes()  -> async/await GET
 async function cargarClientes() {
   try {
-    mostrarEstado("Cargando clientes");
+    mostrarEstado("Cargando clientes...");
     await esperar(300);
 
-    const response = await fetch(API);
-    if (!response.ok) {
-      throw new Error("Error HTTP " + response.estatus);
+    const res = await fetch(API);
+    if (!res.ok) {
+      throw new Error("Error HTTP " + res.status);
     }
 
-    clientes = await response.json();
+    clientes = await res.json();
     pintarTabla(clientes);
     mostrarEstado("Clientes cargados correctamente");
   } catch (e) {
-    mostrarEstado("Error cargando los clientes " + e.message);
+    mostrarEstado("Error cargando clientes: " + e.message);
   }
 }
+
 // 6. pintarTabla(clientes)
 function pintarTabla(listaClientes) {
   // Borrar todas las filas excepto la cabecera (primer hijo)
@@ -173,14 +292,175 @@ function pintarTabla(listaClientes) {
     tablaDiv.appendChild(fila);
   });
 }
-// 7. eventos de Editar/Eliminar (delegación o querySelectorAll)
+
+// 7. eventos de Editar/Eliminar ya están en la delegación sobre tablaDiv
 
 // 8. crearCliente()    -> submit formCrear (POST + FormData)
+async function crearCliente() {
+  try {
+    const datos = {
+      nombre: formCrear.nombre.value,
+      apellidos: formCrear.apellidos.value,
+      telefono: formCrear.telefono.value,
+      altura: Number(formCrear.altura.value),
+      tipoCliente: formCrear.tipoCliente.value,
+      activo: formCrear.activo.checked,
+      fechaNacimiento: formCrear.fechaNacimiento.value,
+    };
+
+    mostrarEstado("Creando cliente...");
+
+    const res = await fetch(API, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datos),
+    });
+
+    if (!res.ok) {
+      throw new Error("Error HTTP " + res.status);
+    }
+
+    mostrarEstado("Cliente creado correctamente");
+    formCrear.reset();
+    cargarClientes();
+  } catch (e) {
+    mostrarEstado("Error creando cliente: " + e.message);
+  }
+}
+
 // 9. cargarClienteParaEditar(id) -> GET /clientes/{id}
+async function cargarClienteParaEditar(id) {
+  try {
+    mostrarEstado("Cargando cliente para edición...");
+    const res = await fetch(`${API}/${id}`);
+    if (!res.ok) {
+      throw new Error("Error HTTP " + res.status);
+    }
+
+    const cliente = await res.json();
+    clienteEditando = id;
+
+    // Rellenar formulario de edición
+    formEditar.nombre.value = cliente.nombre;
+    formEditar.apellidos.value = cliente.apellidos;
+    formEditar.telefono.value = cliente.telefono;
+    formEditar.altura.value = cliente.altura;
+    formEditar.tipoCliente.value = cliente.tipoCliente;
+    formEditar.activo.checked = cliente.activo;
+    formEditar.fechaNacimiento.value = cliente.fechaNacimiento;
+
+    formEditar.style.display = "inline-block";
+    formCrear.style.display = "none";
+
+    mostrarEstado("Editando cliente " + id);
+  } catch (e) {
+    mostrarEstado("Error cargando cliente: " + e.message);
+  }
+}
+
 // 10. editarCliente()   -> submit formEditar (PUT + FormData)
+async function editarCliente() {
+  if (!clienteEditando) {
+    mostrarEstado("No hay cliente seleccionado para editar");
+    return;
+  }
+
+  try {
+    const datos = {
+      nombre: formEditar.nombre.value,
+      apellidos: formEditar.apellidos.value,
+      telefono: formEditar.telefono.value,
+      altura: Number(formEditar.altura.value),
+      tipoCliente: formEditar.tipoCliente.value,
+      activo: formEditar.activo.checked,
+      fechaNacimiento: formEditar.fechaNacimiento.value,
+    };
+
+    mostrarEstado("Actualizando cliente...");
+
+    const res = await fetch(`${API}/${clienteEditando}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datos),
+    });
+
+    if (!res.ok) {
+      throw new Error("Error HTTP " + res.status);
+    }
+
+    mostrarEstado("Cliente actualizado");
+
+    formEditar.style.display = "none";
+    formCrear.style.display = "inline-block";
+    clienteEditando = null;
+
+    cargarClientes();
+  } catch (e) {
+    mostrarEstado("Error actualizando cliente: " + e.message);
+  }
+}
+
 // 11. borrarCliente(id) -> DELETE
+async function borrarCliente(id) {
+  if (!confirm("¿Seguro que quieres eliminar este cliente?")) return;
+
+  try {
+    mostrarEstado("Eliminando cliente...");
+
+    const res = await fetch(`${API}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      throw new Error("Error HTTP " + res.status);
+    }
+
+    mostrarEstado("Cliente eliminado");
+    cargarClientes();
+  } catch (e) {
+    mostrarEstado("Error eliminando cliente: " + e.message);
+  }
+}
+
 // 12. filtrarEnDom()    -> input buscador (filtra array clientes)
+function filtrarEnDom() {
+  const texto = buscadorInput.value.toLowerCase();
+  const filtrados = clientes.filter(
+    (c) =>
+      c.nombre.toLowerCase().includes(texto) ||
+      c.apellidos.toLowerCase().includes(texto)
+  );
+  pintarTabla(filtrados);
+}
+
 // 13. buscarEnServidor() -> GET /clientes?q=texto
+async function buscarEnServidor() {
+  const texto = buscadorInput.value.trim();
+  if (!texto) {
+    mostrarEstado("Introduce texto para buscar en servidor");
+    return;
+  }
+
+  try {
+    mostrarEstado("Buscando en servidor...");
+    const url = `${API}?q=${encodeURIComponent(texto)}`;
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error("Error HTTP " + res.status);
+    }
+
+    const datos = await res.json();
+    clientes = datos; // actualizamos el array principal
+    pintarTabla(clientes);
+    mostrarEstado("Resultados filtrados desde servidor");
+  } catch (e) {
+    mostrarEstado("Error buscando en servidor: " + e.message);
+  }
+}
 
 // 14. mostrarEstado(mensaje, callback)
 function mostrarEstado(mensaje, callback) {
@@ -189,9 +469,10 @@ function mostrarEstado(mensaje, callback) {
   }
   if (callback) callback();
 }
+
 // 15. esperar(ms) -> Promise
 function esperar(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-document.addEventListener("DOMContentLoaded", init);
+init();
