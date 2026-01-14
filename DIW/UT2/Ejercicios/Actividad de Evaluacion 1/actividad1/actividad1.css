@@ -1,0 +1,30 @@
+/* Estilos generales */
+p {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* Imagen centrada en pantalla */
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Media query para pantallas pequeñas */
+@media screen and (max-width: 480px) {
+  p {
+    color: blue;
+  }
+}
+
+/* Estilos para impresión */
+@media print {
+  p {
+    color: red;
+  }
+
+  img {
+    width: 20%;
+  }
+}

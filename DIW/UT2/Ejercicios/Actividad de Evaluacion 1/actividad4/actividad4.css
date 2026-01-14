@@ -1,0 +1,24 @@
+/* 1. Borde azul, padding y margin-top usando UN SOLO SELECTOR */
+* {
+  border: 2px solid blue;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+/* 3. Estilo para <em> */
+em {
+  color: red;
+  font-style: normal;
+  font-weight: bold;
+}
+
+/* 3. Estilo para <a> */
+a {
+  color: green;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
