@@ -1,0 +1,15 @@
+body {
+  border: 2px solid blue;
+  color: red;
+  letter-spacing: 5px;
+}
+
+h1 {
+  color: green;
+  border: inherit;
+}
+
+p {
+  color: initial;
+  text-align: center;
+}

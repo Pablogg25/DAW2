@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contacto</title>
+    <link rel="stylesheet" href="actividad4.css" />
+  </head>
+  <body>
+    <h1>Contacto</h1>
+
+    <form action="contacto.php" method="post">
+      <p>Escríbenos y en breve nos pondremos en contacto contigo</p>
+
+      <p>
+        Ingresa tu <em>nombre</em> completo:
+        <input type="text" />
+      </p>
+
+      <p>
+        Deja un mensaje:<br />
+        <textarea></textarea><br />
+        Para más información búscanos en
+        <a href="http://www.google.com">Google</a>
+      </p>
+
+      <input type="submit" value="Enviar la información" />
+      <input type="button" value="Volver" id="btnVolver" />
+    </form>
+  </body>
+</html>
+
+<!-- 2. ¿Se aplica el modelo de cajas a los elementos <form>?
+
+Sí.
+El elemento <form> es un elemento de tipo block, por lo que:
+Aplica el modelo de cajas completo
+Acepta margin, padding, border, width, etc.
+
+En esta actividad se puede comprobar visualmente que el formulario:
+
+Tiene borde
+Tiene separación (margin-top)
+Tiene espacio interno (padding) 
+-->
+
+<!-- 3. Selectores aplicados a <em> y <a>
+<em>
+em {
+  color: red;
+  font-style: normal;
+  font-weight: bold;
+}
+
+Se cambia el color
+Se elimina la cursiva por defecto
+Se refuerza el énfasis con negrita
+
+<a>
+a {
+  color: green;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+Se personaliza el color del enlace
+Se elimina el subrayado por defecto
+Se añade efecto visual al pasar el ratón 
+-->
