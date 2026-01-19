@@ -2,13 +2,6 @@ import "./Tablero.css";
 import { useState } from "react";
 import Celda from "../Celda/Celda.jsx";
 function Tablero() {
-  let simbolo = "";
-  let contenido;
-  let turnoActual = 1;
-  let ganador = null;
-  let reiniciar;
-  const maximo = 9;
-  let contador = 0;
   let info = "";
 
   const [siguiente, setSiguiente] = useState(true);
@@ -50,6 +43,8 @@ function Tablero() {
       <button>Comenzar</button>
 
       <div className="fila">
+        {/* REVISAR */}
+        {/* <Celda simbolo={} numero={0} funcion={pulsarCasilla} /> */}
         <Celda simbolo={celdas[0]} funcion={() => pulsarCasilla(0)} />
         <Celda simbolo={celdas[1]} funcion={() => pulsarCasilla(1)} />
         <Celda simbolo={celdas[2]} funcion={() => pulsarCasilla(2)} />
