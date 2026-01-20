@@ -1,19 +1,17 @@
-// import { useState } from "react";
 import "./Hijo.css";
 
-function Hijo() {
-  /*
-   * Funcion de eliminar tarea de la lista que esta
-   * en localStorage
-   */
-  function eliminarTarea() {
-    if (window.confirm("¿Desea eliminar la tarea?")) {
-      //   localStorage.removeItem(tarea);
-    }
-  }
+function Hijo({ id, nombre, estado, onEliminar, onCambiarEstado }) {
   return (
     <>
-      <button onClick={eliminarTarea}>Eliminar</button>
+      <div className={`tarea ${estado === "cerrado" ? "cerrada" : ""}`}>
+        <label>Nombre:</label>
+        <input type="text" value={nombre} readOnly />
+        <br />
+        <label>Estado</label>
+        <input type="text" value={estado} readOnly />
+        <button onClick={() => onCambiarEstado(id)}>Cambiar estado</button>
+        <button onClick={() => onEliminar(id)}>Eliminar</button>
+      </div>
     </>
   );
 }

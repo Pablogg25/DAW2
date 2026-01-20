@@ -1,0 +1,66 @@
+.tarea {
+  background: #ffffff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Cuando la tarea está cerrada */
+.tarea.cerrada {
+  background: #f0f0f0;
+  border-color: #bbb;
+}
+
+.tarea.cerrada input {
+  text-decoration: line-through;
+  color: #777;
+}
+
+/* Etiquetas */
+.tarea label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Inputs de solo lectura */
+.tarea input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fafafa;
+  font-size: 14px;
+}
+
+/* Botones */
+.tarea button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+/* Botón cambiar estado */
+.tarea button:first-of-type {
+  background: #007bff;
+  color: white;
+}
+
+.tarea button:first-of-type:hover {
+  background: #0056b3;
+}
+
+/* Botón eliminar */
+.tarea button:last-of-type {
+  background: #dc3545;
+  color: white;
+}
+
+.tarea button:last-of-type:hover {
+  background: #a71d2a;
+}
