@@ -1,10 +1,8 @@
 import "./Padre.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Hijo from "../Hijo/Hijo.jsx";
 import { cargaTareas, guardarTareas } from "../../core/tareas.js";
 function Padre() {
-  // Ultimo ID
-  const ultimoId = Math.max(...tareas.map((t) => t.id), 0);
   // Estado ID
   const [id, setId] = useState(1);
   // Estado Input
@@ -13,18 +11,11 @@ function Padre() {
   const [tareas, setTareas] = useState([]);
   // Estado Filtros
   const [filtro, setFiltro] = useState("todas");
-
+  // Ultimo ID
+  const ultimoId = Math.max(...tareas.map((t) => t.id), 0);
   /**
    * Parte de usar el UseEffect() Provisional
    */
-
-  /*useEffect(() => {
-    async function cargar() {
-      const datos = await cargaTareas();
-      setTareas(datos);
-    }
-    cargar();
-  }, []);*/
 
   /*
    * Funcion que comprueba que el campo input no esta vacio y si no esta
@@ -77,6 +68,21 @@ function Padre() {
     if (filtro === "cerradas") return t.estado === "cerrado";
     return true; // todas
   });
+
+  /*
+   * Funciones useEffect
+   */
+  useEffect(() => {
+    async function cargar() {
+      const datos = await cargaTareas();
+      setTareas(datos);
+    }
+    cargar();
+  }, []);
+
+  useEffect(() => {
+    guardarTareas(tareas);
+  }, [tareas]);
 
   return (
     <div className="contenedor-tareas">

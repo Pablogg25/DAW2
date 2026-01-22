@@ -11,5 +11,5 @@ export async function cargaTareas() {
 
 export async function guardarTareas(lista) {
   // guardar en localStorage
-  localStorage.setItem(lista);
+  localStorage.setItem("tareas", JSON.stringify(lista));
 }
