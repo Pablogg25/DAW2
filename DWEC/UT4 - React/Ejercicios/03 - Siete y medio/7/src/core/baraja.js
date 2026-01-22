@@ -48,7 +48,7 @@ export const baraja = [
   { id: 40, palo: "bastos", numero: "rey", valor: 0.5 },
 ];
 
-function barajarCartas() {
+export function barajarCartas() {
   let array = [];
   for (let i = 1; i <= 40; i++) {
     array.push(i);
@@ -56,12 +56,12 @@ function barajarCartas() {
   return array.sort(() => Math.random() - 0.5);
 }
 
-function recuperarCarta(id) {
+export function recuperarCarta(id) {
   let carta = baraja.find((c) => c.id === id);
   return carta;
 }
 
-function sumarCartas(ids) {
+export function sumarCartas(ids) {
   let suma = 0;
   ids.forEach((id) => {
     let carta = recuperarCarta(id);
