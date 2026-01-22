@@ -49,14 +49,23 @@ export const baraja = [
 ];
 
 function barajarCartas() {
-  let lista = baraja.map((c) => c.id);
-  return lista.sort(() => Math.random() - 0.5);
+  let array = [];
+  for (let i = 1; i <= 40; i++) {
+    array.push(i);
+  }
+  return array.sort(() => Math.random() - 0.5);
 }
 
 function recuperarCarta(id) {
-  baraja.find((c) => c.id === id);
+  let carta = baraja.find((c) => c.id === id);
+  return carta;
 }
 
 function sumarCartas(ids) {
-  baraja.filter((c) => c.id === ids);
+  let suma = 0;
+  ids.forEach((id) => {
+    let carta = recuperarCarta(id);
+    suma += carta.valor;
+  });
+  return suma;
 }
