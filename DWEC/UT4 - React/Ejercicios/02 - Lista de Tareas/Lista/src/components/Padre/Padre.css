@@ -1,0 +1,44 @@
+.contenedor-tareas {
+  background: white;
+  padding: 20px;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor-tareas label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.contenedor-tareas input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.contenedor-tareas button {
+  padding: 8px 12px;
+  margin-right: 8px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.contenedor-tareas button:hover {
+  background: #0056b3;
+}
+
+.lista-tareas {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
