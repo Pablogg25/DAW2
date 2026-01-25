@@ -1,13 +1,19 @@
+import "./Post.css";
 function Post({ posts }) {
-  //   const lista = posts.map((p) => p);
   console.log(posts);
+
   return (
     <>
-      {posts.map((p) => {
-        <p>{p.title}</p>;
-        <p>{p.body}</p>;
-      })}
+      <div className="posts-container">
+        {posts.map((p) => (
+          <div key={p.id} className="post">
+            <p className="post-title">{p.title}</p>
+            <p className="post-body">{p.body}</p>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
+
 export default Post;

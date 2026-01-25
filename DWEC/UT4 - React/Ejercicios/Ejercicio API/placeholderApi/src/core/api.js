@@ -7,7 +7,6 @@ export async function cargarPosts(recurso, parametros = "") {
     if (!response.ok) {
       throw new Error("Error al realizar la petición: " + response.status);
     }
-    // console.log(response.json);
     return await response.json();
   } catch (e) {
     console.log("Error al realizar la petición", e);
