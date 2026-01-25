@@ -4,9 +4,6 @@ import ListaLinea from "../components/ListaLinea.jsx";
 
 function ListaPage() {
   const [modulos, setModulos] = useState([]);
-  useEffect(() => {
-    getModulos();
-  }, []);
 
   const getModulos = async () => {
     try {
@@ -16,6 +13,11 @@ function ListaPage() {
       console.log(e);
     }
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    getModulos();
+  }, []);
 
   return (
     <>

@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
+  const [jugadorPlantado, setJugadorPlantado] = useState(false);
   const [ganador, setGanador] = useState("");
   const [mazo, setMazo] = useState([]);
   const [manoJugador, setManoJugador] = useState([]);
@@ -23,83 +24,123 @@ function App() {
 
   function nuevaPartida() {
     const nuevoMazo = barajarCartas();
+
     setMazo(nuevoMazo.slice(2));
-    setPartidaEnCurso(true);
     setManoJugador([nuevoMazo[0]]);
     setManoCrupier([nuevoMazo[1]]);
-    comprobarPuntos();
-    if (ganador === "") {
-      setTurno("jugador");
-    }
+
+    setGanador("");
+    setPartidaEnCurso(true);
+    setTurno("jugador");
   }
 
   function dameCarta() {
-    if (turno !== "ninguno") {
-      const carta = mazo[0];
-      setMazo(mazo.slice(1));
+    if (turno !== "jugador") return;
 
-      const nuevaMano = [...manoJugador, carta];
-      setManoJugador(nuevaMano);
-    }
-  }
+    const carta = mazo[0];
+    setMazo(mazo.slice(1));
 
-  function comprobarPuntos() {
-    let sumaJugador = sumarCartas(manoJugador);
-    let sumaCrupier = sumarCartas(manoCrupier);
-
-    if (sumaCrupier > 7.5) {
-      if (sumaJugador > 7.5) {
-        // Desabilitar Botones
-        setTurno("ninguno");
-        setPartidaEnCurso(false);
-        if (sumaJugador < sumaCrupier) {
-          setGanador("jugador");
-        } else if (sumaCrupier < sumaJugador) {
-          setGanador("crupier");
-        } else {
-          setGanador("empate");
-        }
-      } else {
-        setTurno("ninguno");
-        setPartidaEnCurso(false);
-        setMarcadorJugador(marcadorJugador + 1);
-      }
-    } else {
-      if (sumaJugador > 7.5) {
-        setMarcadorCrupier(marcadorCrupier + 1);
-        setTurno("ninguno");
-        setPartidaEnCurso(false);
-      } else {
-        setTurno("crupier");
-      }
-    }
+    const nuevaMano = [...manoJugador, carta];
+    setManoJugador(nuevaMano);
   }
 
   function mePlanto() {
+    setJugadorPlantado(true);
     setTurno("crupier");
-    // Desactivar botones
   }
-  function turnoCrupier() {}
-  function determinarGanador() {}
-  useEffect(() => {
-    if (turno === "crupier") {
-      turnoCrupier();
-    }
-  }, [turno]);
 
-  function deshabilitarBotones() {}
-  function habilitarBtnPartida() {}
+  function turnoCrupier() {
+    let mano = [...manoCrupier];
+    let mazoTemp = [...mazo];
+
+    while (
+      sumarCartas(mano) < sumarCartas(manoJugador) &&
+      sumarCartas(mano) <= 7.5
+    ) {
+      const carta = mazoTemp[0];
+      mazoTemp = mazoTemp.slice(1);
+      mano.push(carta);
+    }
+
+    setManoCrupier(mano);
+    setMazo(mazoTemp);
+    setTurno("fin");
+  }
+
+  function determinarGanador() {
+    const sumaJ = sumarCartas(manoJugador);
+    const sumaC = sumarCartas(manoCrupier);
+
+    if (sumaJ > sumaC) {
+      setMarcadorJugador((prev) => prev + 1);
+      setGanador("jugador");
+    } else if (sumaC > sumaJ) {
+      setMarcadorCrupier((prev) => prev + 1);
+      setGanador("crupier");
+    } else {
+      setGanador("empate");
+    }
+
+    setPartidaEnCurso(false);
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!partidaEnCurso) return;
+
+    const sumaJ = sumarCartas(manoJugador);
+    const sumaC = sumarCartas(manoCrupier);
+
+    // 1. Jugador se pasa
+    if (turno === "jugador" && sumaJ > 7.5) {
+      setMarcadorCrupier((prev) => prev + 1);
+      setGanador("crupier");
+      setTurno("fin");
+      setPartidaEnCurso(false);
+      return;
+    }
+
+    // 2. Si el jugador NO se ha plantado, no hacemos nada más
+    if (turno === "jugador" && !jugadorPlantado) {
+      return;
+    }
+
+    // 3. Turno del crupier SOLO si el jugador se plantó
+    if (turno === "crupier" && jugadorPlantado) {
+      turnoCrupier();
+      return;
+    }
+
+    // 4. Crupier se pasa
+    if (turno === "fin" && sumaC > 7.5) {
+      setMarcadorJugador((prev) => prev + 1);
+      setGanador("jugador");
+      setPartidaEnCurso(false);
+      return;
+    }
+
+    // 5. Fin normal → comparar
+    if (turno === "fin") {
+      determinarGanador();
+      return;
+    }
+  }, [manoJugador, manoCrupier, turno, partidaEnCurso, jugadorPlantado]);
+
   return (
     <>
       <Marcador
         marcadorCrupier={marcadorCrupier}
         marcadorJugador={marcadorJugador}
-        funcion={() => habilitarBtnPartida()}
-        funcion2={() => nuevaPartida()}
+        nuevaPartida={nuevaPartida}
       />
+
       <Crupier mano={manoCrupier} />
-      <Jugador mano={manoJugador} />
-      <p>Hola</p>
+      <Jugador
+        mano={manoJugador}
+        turno={turno}
+        dameCarta={dameCarta}
+        mePlanto={mePlanto}
+      />
     </>
   );
 }

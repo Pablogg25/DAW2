@@ -1,27 +1,23 @@
 import Carta from "../Carta/Carta.jsx";
 import { recuperarCarta } from "../../core/baraja";
-function Crupier({ manoCrupier }) {
-  function listarCartas(cartas) {
-    let lista = [];
-    if (cartas !== undefined) {
-      cartas.forEach((id) => {
-        lista.push(recuperarCarta(id));
-      });
 
-      return lista;
-    }
+function Crupier({ mano }) {
+  if (!mano || mano.length === 0) {
+    return <div className="crupier">Sin cartas</div>;
   }
-  function pintarCartas(manoCrupier) {
-    let lista = listarCartas(manoCrupier);
-    console.log(manoCrupier);
-    if (lista !== undefined) {
-      lista.forEach((c) => <Carta numero={c.numero} palo={c.palo} />);
-    }
-  }
+
+  const cartas = mano.map((id) => recuperarCarta(id));
+
   return (
     <>
-      <div>{pintarCartas(manoCrupier)}</div>
+      <p>Mano Crupier:</p>
+      <div className="crupier">
+        {cartas.map((c) => (
+          <Carta key={c.id} numero={c.numero} palo={c.palo} />
+        ))}
+      </div>
     </>
   );
 }
+
 export default Crupier;
