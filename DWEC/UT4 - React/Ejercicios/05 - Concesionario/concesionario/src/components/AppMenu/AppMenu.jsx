@@ -1,0 +1,23 @@
+import { Link } from "react-router-dom";
+import "./AppMenu.css";
+function AppMenu() {
+  return (
+    <>
+      <p>AppMenu</p>
+      <nav className="navegacion">
+        <ul>
+          <li>
+            <Link to="/">Inicio</Link>
+          </li>
+          <li>
+            <Link to="/mantenimiento">Mantenimiento</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        </ul>
+      </nav>
+    </>
+  );
+}
+export default AppMenu;
