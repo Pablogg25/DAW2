@@ -1,25 +1,33 @@
-.mantenimiento {
-  padding: 20px;
+.lista-coches {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
-.tabla-coches {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
+.lista-header,
+.lista-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-.tabla-coches th,
-.tabla-coches td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-.tabla-coches th {
+.lista-header {
+  font-weight: bold;
   background: #f0f0f0;
+}
+
+.lista-row:nth-child(even) {
+  background: #fafafa;
+}
+
+.acciones button {
+  margin-right: 5px;
 }
 
 .paginador {
   margin-top: 15px;
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  align-items: center;
 }

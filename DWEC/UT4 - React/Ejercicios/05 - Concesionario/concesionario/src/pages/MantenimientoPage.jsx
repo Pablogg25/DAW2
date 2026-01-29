@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Negocio from "../core/negocio.js";
+import "./MantenimientoPage.css";
 
 function MantenimientoPage() {
   const [coches, setCoches] = useState([]);
@@ -60,37 +61,45 @@ function MantenimientoPage() {
         <option value="todos">Todos</option>
       </select>
 
-      <table className="tabla-coches">
-        <thead>
-          <tr>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Año</th>
-            <th>Kilómetros</th>
-            <th>Precio</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
+      <div className="lista-coches">
+        <div className="lista-header">
+          <div>Marca</div>
+          <div>Modelo</div>
+          <div>Año</div>
+          <div>Kilómetros</div>
+          <div>Precio</div>
+          <div>Estado</div>
+          <div>Acciones</div>
+        </div>
 
-        <tbody>
-          {coches.map((coche) => (
-            <tr key={coche.id}>
-              <td>{coche.marca}</td>
-              <td>{coche.modelo}</td>
-              <td>{coche.anno}</td>
-              <td>{coche.km}</td>
-              <td>{coche.precio} €</td>
-              <td>{coche.estado}</td>
-              <td>
-                <button>Editar</button>
-                <button>Eliminar</button>
-                <button>Ver</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        {coches.map((coche) => (
+          <div key={coche.id} className="lista-row">
+            <div>{coche.marca}</div>
+            <div>{coche.modelo}</div>
+            <div>{coche.anno}</div>
+            <div>{coche.km}</div>
+            <div>{coche.precio} €</div>
+            <div>{coche.estado}</div>
+            <div className="acciones">
+              <button
+                onClick={async () => {
+                  await Negocio.eliminarCoche(coche.id);
+                  const lista = await Negocio.obtenerCoches(
+                    filtro,
+                    pagina * limite,
+                    limite,
+                  );
+                  setCoches(lista);
+                }}
+              >
+                Eliminar
+              </button>
+              <button>Editar</button>
+              <button>Ver</button>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {limite !== "todos" && (
         <div className="paginador">
