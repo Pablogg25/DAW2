@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Negocio from "../core/negocio.js";
+import API from "../core/API.js";
 import "./MantenimientoPage.css";
 
 function MantenimientoPage() {
@@ -11,19 +11,20 @@ function MantenimientoPage() {
 
   useEffect(() => {
     async function cargar() {
-      const todos = await Negocio.obtenerCoches(filtro);
+      // 1. Obtener total filtrado
+      const todos = await API.obtenerCoches(filtro);
       setTotal(todos.length);
 
+      // 2. Si quiere TODOS → no paginar
       if (limite === "todos") {
         setCoches(todos);
         return;
       }
 
-      const lista = await Negocio.obtenerCoches(
-        filtro,
-        pagina * limite,
-        limite,
-      );
+      // 3. Pedir SOLO la página actual a la API
+      const inicio = pagina * limite;
+      const query = `offset=${inicio}&limit=${limite}&${filtro}`;
+      const lista = await API.obtenerCoches(query);
 
       setCoches(lista);
     }
@@ -32,6 +33,16 @@ function MantenimientoPage() {
   }, [filtro, pagina, limite]);
 
   const paginasTotales = limite === "todos" ? 1 : Math.ceil(total / limite);
+
+  async function eliminar(id) {
+    await API.eliminarCoche(id);
+
+    const inicio = pagina * limite;
+    const query = `offset=${inicio}&limit=${limite}&${filtro}`;
+    const lista = await API.obtenerCoches(query);
+
+    setCoches(lista);
+  }
 
   return (
     <div className="mantenimiento">
@@ -81,19 +92,7 @@ function MantenimientoPage() {
             <div>{coche.precio} €</div>
             <div>{coche.estado}</div>
             <div className="acciones">
-              <button
-                onClick={async () => {
-                  await Negocio.eliminarCoche(coche.id);
-                  const lista = await Negocio.obtenerCoches(
-                    filtro,
-                    pagina * limite,
-                    limite,
-                  );
-                  setCoches(lista);
-                }}
-              >
-                Eliminar
-              </button>
+              <button onClick={() => eliminar(coche.id)}>Eliminar</button>
               <button>Editar</button>
               <button>Ver</button>
             </div>

@@ -14,6 +14,10 @@ function AppMenu() {
           <li>
             <Link to="/login">Login</Link>
           </li>
+          {/* Aqui hago pruebas API por ahora */}
+          <li>
+            <Link to="/error">ErrorPage Pruebas</Link>
+          </li>
         </ul>
       </nav>
     </>

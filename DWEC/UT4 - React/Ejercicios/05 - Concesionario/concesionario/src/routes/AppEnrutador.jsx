@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage.jsx";
 import MantenimientoPage from "../pages/MantenimientoPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import PropsCochePage from "../pages/PropsCochePage";
+import ErrorPage from "../pages/ErrorPage.jsx";
 function AppEnrutador() {
   return (
     <BrowserRouter>
@@ -13,6 +14,7 @@ function AppEnrutador() {
           <Route path="mantenimiento" element={<MantenimientoPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="props/:id" element={<PropsCochePage />} />
+          <Route path="error" element={<ErrorPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
