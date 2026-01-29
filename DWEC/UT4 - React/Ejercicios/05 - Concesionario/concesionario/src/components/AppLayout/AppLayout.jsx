@@ -3,7 +3,6 @@ import AppMenu from "../AppMenu/AppMenu.jsx";
 function AppLayout() {
   return (
     <>
-      <p>AppLayout</p>
       <AppMenu />
       <main>
         <Outlet />

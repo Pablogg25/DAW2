@@ -3,7 +3,6 @@ import "./AppMenu.css";
 function AppMenu() {
   return (
     <>
-      <p>AppMenu</p>
       <nav className="navegacion">
         <ul>
           <li>

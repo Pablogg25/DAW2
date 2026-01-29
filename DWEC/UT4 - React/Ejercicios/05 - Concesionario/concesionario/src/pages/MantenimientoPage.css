@@ -1,0 +1,25 @@
+.mantenimiento {
+  padding: 20px;
+}
+
+.tabla-coches {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.tabla-coches th,
+.tabla-coches td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.tabla-coches th {
+  background: #f0f0f0;
+}
+
+.paginador {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
