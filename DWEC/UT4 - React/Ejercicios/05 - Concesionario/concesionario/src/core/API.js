@@ -14,7 +14,11 @@ const $API = (function () {
       console.error("Error al perdir los coches ", error.message);
     }
   }
-  return { obtenerCoches };
+
+  async function eliminarCoche(id) {
+    await fetch(`${API}/${id}`, { method: "DELETE" });
+  }
+  return { obtenerCoches, eliminarCoche };
 })();
 window.$API = $API;
 export default $API;
