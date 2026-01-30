@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pruebas API de coches</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; max-width: 900px; }
+    fieldset { margin-bottom: 1.5rem; }
+    label { display: inline-block; width: 110px; }
+    input { margin: 0.2rem 0; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    .row { margin: 0.2rem 0; }
+    button { margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Pruebas rápidas: coches</h1>
+
+  <fieldset>
+    <legend>Listar con filtros (case-insensitive)</legend>
+    <div class="row"><label>Marca</label><input id="f_marca"></div>
+    <div class="row"><label>Modelo</label><input id="f_modelo"></div>
+    <div class="row"><label>Estado</label><input id="f_estado"></div>
+    <div class="row"><label>Combustible</label><input id="f_combustible"></div>
+    <div class="row"><label>Offset</label><input id="f_offset" type="number"></div>
+    <div class="row"><label>Limit</label><input id="f_limit" type="number"></div>
+    <button onclick="listar()">Listar</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Crear coche</legend>
+    <div class="row"><label>Marca</label><input id="c_marca"></div>
+    <div class="row"><label>Modelo</label><input id="c_modelo"></div>
+    <div class="row"><label>Año</label><input id="c_anno" type="number"></div>
+    <div class="row"><label>KM</label><input id="c_km" type="number"></div>
+    <div class="row"><label>Color</label><input id="c_color"></div>
+    <div class="row"><label>Precio</label><input id="c_precio" type="number" step="0.01"></div>
+    <div class="row"><label>Combustible</label><input id="c_combustible" placeholder="Gasolina/Diésel/Híbrido/Eléctrico"></div>
+    <div class="row"><label>Transmisión</label><input id="c_transmision" placeholder="Manual/Automática"></div>
+    <div class="row"><label>Potencia</label><input id="c_potencia" type="number"></div>
+    <div class="row"><label>Puertas</label><input id="c_puertas" type="number"></div>
+    <div class="row"><label>Estado</label><input id="c_estado" placeholder="Disponible/Reservado/Vendido"></div>
+    <button onclick="crear()">Crear</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Actualizar coche</legend>
+    <div class="row"><label>ID</label><input id="u_id" type="number"></div>
+    <div class="row"><label>Marca</label><input id="u_marca"></div>
+    <div class="row"><label>Modelo</label><input id="u_modelo"></div>
+    <div class="row"><label>Año</label><input id="u_anno" type="number"></div>
+    <div class="row"><label>KM</label><input id="u_km" type="number"></div>
+    <div class="row"><label>Color</label><input id="u_color"></div>
+    <div class="row"><label>Precio</label><input id="u_precio" type="number" step="0.01"></div>
+    <div class="row"><label>Combustible</label><input id="u_combustible"></div>
+    <div class="row"><label>Transmisión</label><input id="u_transmision"></div>
+    <div class="row"><label>Potencia</label><input id="u_potencia" type="number"></div>
+    <div class="row"><label>Puertas</label><input id="u_puertas" type="number"></div>
+    <div class="row"><label>Estado</label><input id="u_estado"></div>
+    <button onclick="actualizar()">Actualizar</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Eliminar coche</legend>
+    <div class="row"><label>ID</label><input id="d_id" type="number"></div>
+    <button onclick="eliminar()">Eliminar</button>
+  </fieldset>
+
+  <h2>Resultado</h2>
+  <pre id="salida">(sin datos)</pre>
+
+  <script>
+    const API_BASE = "http://localhost:8000";
+
+    async function listar() {
+      const params = new URLSearchParams();
+      agregar(params, "marca", document.getElementById("f_marca").value);
+      agregar(params, "modelo", document.getElementById("f_modelo").value);
+      agregar(params, "estado", document.getElementById("f_estado").value);
+      agregar(params, "combustible", document.getElementById("f_combustible").value);
+      agregar(params, "offset", document.getElementById("f_offset").value);
+      agregar(params, "limit", document.getElementById("f_limit").value);
+      const res = await fetch(`${API_BASE}/coches?${params.toString()}`);
+      mostrar(res);
+    }
+
+    async function crear() {
+      const payload = recoger("c_");
+      const res = await fetch(`${API_BASE}/coches`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      mostrar(res);
+    }
+
+    async function actualizar() {
+      const id = document.getElementById("u_id").value;
+      if (!id) return alert("Falta ID");
+      const payload = recoger("u_");
+      const res = await fetch(`${API_BASE}/coches/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      mostrar(res);
+    }
+
+    async function eliminar() {
+      const id = document.getElementById("d_id").value;
+      if (!id) return alert("Falta ID");
+      const res = await fetch(`${API_BASE}/coches/${id}`, { method: "DELETE" });
+      mostrar(res, true);
+    }
+
+    function agregar(params, clave, valor) {
+      if (valor !== null && valor !== undefined && String(valor).trim() !== "") {
+        params.append(clave, valor);
+      }
+    }
+
+    function recoger(prefix) {
+      return {
+        marca: document.getElementById(`${prefix}marca`).value,
+        modelo: document.getElementById(`${prefix}modelo`).value,
+        anno: Number(document.getElementById(`${prefix}anno`).value),
+        km: Number(document.getElementById(`${prefix}km`).value),
+        color: document.getElementById(`${prefix}color`).value,
+        precio: Number(document.getElementById(`${prefix}precio`).value),
+        combustible: document.getElementById(`${prefix}combustible`).value,
+        transmision: document.getElementById(`${prefix}transmision`).value,
+        potencia: Number(document.getElementById(`${prefix}potencia`).value),
+        puertas: Number(document.getElementById(`${prefix}puertas`).value),
+        estado: document.getElementById(`${prefix}estado`).value,
+      };
+    }
+
+    async function mostrar(respuesta, esDelete = false) {
+      let texto;
+      if (esDelete && respuesta.status === 204) {
+        texto = "Eliminado";
+      } else {
+        const body = await respuesta.json().catch(() => ({}));
+        texto = JSON.stringify({ status: respuesta.status, body }, null, 2);
+      }
+      document.getElementById("salida").textContent = texto;
+    }
+  </script>
+</body>
+</html>

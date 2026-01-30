@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Prueba validación de usuario</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; max-width: 500px; }
+    label { display: inline-block; width: 90px; }
+    input { margin: 0.3rem 0; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>Validar usuario</h1>
+  <div><label>Username</label><input id="u_username"></div>
+  <div><label>Password</label><input id="u_password" type="password"></div>
+  <button onclick="validar()">Validar</button>
+
+  <h2>Resultado</h2>
+  <pre id="salida">(sin datos)</pre>
+
+  <script>
+    const API_BASE = "http://localhost:8000";
+
+    async function validar() {
+      const payload = {
+        username: document.getElementById("u_username").value,
+        password: document.getElementById("u_password").value,
+      };
+      const res = await fetch(`${API_BASE}/usuarios/validar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const body = await res.json();
+      document.getElementById("salida").textContent = JSON.stringify({ status: res.status, body }, null, 2);
+    }
+  </script>
+</body>
+</html>
