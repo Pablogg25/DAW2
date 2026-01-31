@@ -1,0 +1,12 @@
+# FastAPI - Framework web moderno y rápido para construir APIs
+fastapi==0.109.0
+
+# Uvicorn - Servidor ASGI para ejecutar aplicaciones FastAPI
+uvicorn[standard]==0.27.0
+
+# Pydantic - Validación de datos y configuración usando type hints
+# pydantic[email]==2.5.3
+pydantic[email]
+
+# Python Multipart - Para manejar formularios multipart/form-data
+python-multipart==0.0.6

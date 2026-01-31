@@ -1,5 +1,6 @@
 // API
 const API = "http://127.0.0.1:8000/coches";
+const USUARIOS = "http://127.0.0.1:8000/usuarios/validar";
 const $API = (function () {
   async function obtenerCoches(filtros) {
     try {
@@ -18,7 +19,54 @@ const $API = (function () {
   async function eliminarCoche(id) {
     await fetch(`${API}/${id}`, { method: "DELETE" });
   }
-  return { obtenerCoches, eliminarCoche };
+
+  async function obtenerCoche(id) {
+    try {
+      const response = await fetch(API + `/${id}`);
+      if (!response) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error al pedir los coches ", error.message);
+    }
+  }
+
+  async function actualizarCoche(coche, id) {
+    const response = await fetch(API + `/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(coche),
+    });
+    if (!response) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+    return await response.json();
+  }
+
+  async function validarUsuario(datos) {
+    try {
+      const response = await fetch(USUARIOS, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: datos,
+      });
+      if (!response) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      return await response.json();
+    } catch (e) {
+      console.error(e.message);
+    }
+  }
+  return {
+    obtenerCoches,
+    eliminarCoche,
+    obtenerCoche,
+    actualizarCoche,
+    validarUsuario,
+  };
 })();
 window.$API = $API;
 export default $API;

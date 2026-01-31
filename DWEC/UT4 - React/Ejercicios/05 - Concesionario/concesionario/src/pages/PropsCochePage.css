@@ -1,0 +1,51 @@
+.coche-detalle {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.coche-info {
+  margin-top: 20px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.label {
+  font-weight: bold;
+  color: #444;
+}
+
+.value {
+  color: #222;
+}
+
+.acciones-detalle {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-volver,
+.btn-editar {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-volver {
+  background: #ccc;
+}
+
+.btn-editar {
+  background: #007bff;
+  color: white;
+}

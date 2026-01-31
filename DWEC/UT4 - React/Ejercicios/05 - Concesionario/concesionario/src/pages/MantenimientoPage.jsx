@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../core/API.js";
 import "./MantenimientoPage.css";
+import { useNavigate } from "react-router-dom";
 
 function MantenimientoPage() {
   const [coches, setCoches] = useState([]);
@@ -8,6 +9,7 @@ function MantenimientoPage() {
   const [filtro, setFiltro] = useState("");
   const [pagina, setPagina] = useState(0);
   const [limite, setLimite] = useState(5);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function cargar() {
@@ -93,8 +95,15 @@ function MantenimientoPage() {
             <div>{coche.estado}</div>
             <div className="acciones">
               <button onClick={() => eliminar(coche.id)}>Eliminar</button>
-              <button>Editar</button>
-              <button>Ver</button>
+              <button
+                onClick={() => navigate(`/props/${coche.id}?modo=editar`)}
+              >
+                Editar
+              </button>
+
+              <button onClick={() => navigate(`/props/${coche.id}?modo=ver`)}>
+                Ver
+              </button>
             </div>
           </div>
         ))}
