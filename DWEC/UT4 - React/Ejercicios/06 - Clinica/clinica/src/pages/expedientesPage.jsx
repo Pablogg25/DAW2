@@ -1,8 +1,8 @@
-function expedientesPage() {
+function ExpedientesPage() {
   return (
     <>
       <p>Expedientes Page</p>
     </>
   );
 }
-export default expedientesPage;
+export default ExpedientesPage;

@@ -46,20 +46,26 @@ const $API = (function () {
   }
 
   async function validarUsuario(datos) {
-    try {
-      const response = await fetch(USUARIOS, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: datos,
-      });
-      if (!response) {
-        throw new Error(`Error HTTP: ${response.status}`);
-      }
-      return await response.json();
-    } catch (e) {
-      console.error(e.message);
+    const response = await fetch("http://127.0.0.1:8000/usuarios/validar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: datos.username,
+        password: datos.password,
+      }),
+    });
+
+    // Si la API devuelve 422, aquí evitamos que pete
+    if (!response.ok) {
+      return { status: response.status, body: false };
     }
+
+    // Esto debe devolver EXACTAMENTE lo que devuelve tu backend
+    return await response.json();
   }
+
   return {
     obtenerCoches,
     eliminarCoche,

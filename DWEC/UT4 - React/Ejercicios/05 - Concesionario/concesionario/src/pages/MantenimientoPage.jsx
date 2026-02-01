@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import API from "../core/API.js";
 import "./MantenimientoPage.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { SeguridadContext } from "../core/SeguridadProvider.jsx";
+import { Navigate } from "react-router-dom";
 
 function MantenimientoPage() {
+  const { datos } = useContext(SeguridadContext);
+
   const [coches, setCoches] = useState([]);
   const [total, setTotal] = useState(0);
   const [filtro, setFiltro] = useState("");
@@ -33,6 +38,10 @@ function MantenimientoPage() {
 
     cargar();
   }, [filtro, pagina, limite]);
+
+  if (!datos.tienePermisos) {
+    return <Navigate to="/login" />;
+  }
 
   const paginasTotales = limite === "todos" ? 1 : Math.ceil(total / limite);
 

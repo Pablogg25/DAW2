@@ -1,11 +1,25 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AppLayout from "../pages/AppLayout";
-
+import AppLayout from "../pages/AppLayout.jsx";
+import HomePage from "../pages/HomePage.jsx";
+import PacientesPage from "../pages/pacientesPage.jsx";
+import ExpedientesPage from "../pages/expedientesPage.jsx";
+import UsersPage from "../pages/usersPage.jsx";
+import LoginPage from "../pages/loginPage.jsx";
+import PropsPacientePage from "../pages/PropsPacientePage.jsx";
 function AppRouter() {
   return (
     <BrowserRouter>
-      <Route path="/" element={<AppLayout />}></Route>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<HomePage />} />ç
+          <Route path="/pacientes" element={<PacientesPage />} />
+          <Route path="/expedientes" element={<ExpedientesPage />} />
+          <Route path="/usuarios" element={<UsersPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/paciente/:id" element={<PropsPacientePage />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
-export default AppLayout;
+export default AppRouter;

@@ -1,8 +1,8 @@
-function userPage() {
+function UsersPage() {
   return (
     <>
       <p>Usuario Page</p>
     </>
   );
 }
-export default userPage;
+export default UsersPage;

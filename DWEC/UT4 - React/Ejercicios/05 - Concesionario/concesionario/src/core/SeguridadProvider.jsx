@@ -1,30 +1,46 @@
 import { useState, createContext } from "react";
 import API from "./API.js";
+
 const SeguridadContext = createContext();
 
 function SeguridadProvider({ children }) {
   const [datos, setDatos] = useState({
     usuario: "",
     password: "",
+    nombre: "",
     tienePermisos: false,
   });
 
-  const logIn = async (datos) => {
-    let respuesta = await API.validarUsuario(datos);
-    let nuevosDatos;
-    if (respuesta !== false) {
-      nuevosDatos = {
-        ...datos,
-        tienePermisos: true,
-      };
-      console.log(respuesta);
+  const logIn = async (credenciales) => {
+    const respuesta = await API.validarUsuario(credenciales);
+
+    // Si la API devuelve false → login incorrecto
+    if (respuesta === false) {
+      setDatos({
+        usuario: "",
+        password: "",
+        nombre: "",
+        tienePermisos: false,
+      });
+      return;
     }
-    setDatos(nuevosDatos);
+
+    // Si devuelve un objeto → login correcto
+    setDatos({
+      usuario: respuesta.username,
+      password: respuesta.password,
+      nombre: respuesta.nombre,
+      tienePermisos: true,
+    });
   };
 
-  const logOut = async () => {
-    let nuevoDatos = { ...datos, usuario: "", tienePermisos: false };
-    setDatos(nuevoDatos);
+  const logOut = () => {
+    setDatos({
+      usuario: "",
+      password: "",
+      nombre: "",
+      tienePermisos: false,
+    });
   };
 
   return (

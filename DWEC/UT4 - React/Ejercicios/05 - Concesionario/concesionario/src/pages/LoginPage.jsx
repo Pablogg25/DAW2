@@ -10,28 +10,21 @@ function LoginPage() {
   function handleClick() {
     if (datos.tienePermisos) {
       setUser("");
+      setPass("");
       logOut();
     } else {
-      if (user === "") {
-        return;
-      }
-      logIn({ username: user, password: pass  });
+      if (user === "" || pass === "") return;
+      logIn({ username: user, password: pass });
     }
   }
 
-  const handleChange1 = (u) => {
-    setUser(u.target.value);
-  };
-  const handleChange2 = (p) => {
-    setPass(p.target.value);
-  };
   return (
     <>
       <p>LoginPage</p>
       <div>
         {datos.tienePermisos ? (
           <>
-            <span>Hola {datos.nombre} </span>
+            <span>Hola {datos.nombre}</span>
             <button onClick={handleClick}>Salir</button>
           </>
         ) : (
@@ -39,22 +32,23 @@ function LoginPage() {
             <label>Usuario: </label>
             <input
               type="text"
-              name="user"
               value={user}
-              onChange={handleChange1}
+              onChange={(e) => setUser(e.target.value)}
             />
+
             <label>Contraseña: </label>
             <input
               type="password"
-              name="pass"
               value={pass}
-              onChange={handleChange2}
+              onChange={(e) => setPass(e.target.value)}
             />
-            <button onClick={handleClick}>Inciar Sesión</button>
+
+            <button onClick={handleClick}>Iniciar Sesión</button>
           </>
         )}
       </div>
     </>
   );
 }
+
 export default LoginPage;
