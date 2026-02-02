@@ -40,7 +40,8 @@ function PropsPacientePage() {
   }
 
   async function guardarCambios() {
-    await negocio.actualizarPaciente(paciente);
+    const respuesta = await negocio.actualizarPaciente(paciente);
+    console.log(respuesta);
     alert("Paciente actualizado correctamente");
   }
 

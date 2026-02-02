@@ -51,32 +51,15 @@ const $negocio = (function () {
   }
 
   async function crearPaciente(objPaciente) {
-    //un paciente tiene un expediente 1:1
-    // objPaciente.id = siguientePacienteId();
-
-    const hoy = new Date();
-    const anno = hoy.getFullYear();
-    const mes = String(hoy.getMonth() + 1).padStart(2, "0");
-    const dia = String(hoy.getDate()).padStart(2, "0");
-    const fechaFormateada = `${anno}-${mes}-${dia}`;
-
-    //exdiente nuevo vacio
-    let objExpediente = {
-      id: objPaciente.id,
-      pacienteId: objPaciente.id,
-      fechaApertura: fechaFormateada,
-      antecedentes: "",
-      diagnosticos: "",
-      tratamientos: "",
-      observaciones: "",
-    };
-
-    pacientes.push(objPaciente);
-    localStorage.setItem("pacientes", JSON.stringify(pacientes));
-    expedientes.push(objExpediente);
-    localStorage.setItem("expedientes", JSON.stringify(expedientes));
-
-    return objPaciente.id;
+    const response = await fetch(URL + `/pacientes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(objPaciente),
+    });
+    if (!response.ok) {
+      throw new Error(`Error al crear el paciente ${response.status}`);
+    }
+    return await response.json();
   }
 
   async function actualizarPaciente(objPaciente) {
