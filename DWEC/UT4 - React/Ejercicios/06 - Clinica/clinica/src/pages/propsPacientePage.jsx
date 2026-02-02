@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import negocio from "../core/negocio";
 
+// Gestion y Administrador
 function PropsPacientePage() {
   const { id } = useParams();
 

@@ -95,42 +95,28 @@ const $negocio = (function () {
     });
   }
 
-  // No hace falta, en expedientes busco por paciente
-  async function obtenerExpedientes(filtro = "", inicio = 0, limite) {
-    try {
-      const response = await fetch(URL, `/expedientes`);
-      if (!response) {
-        throw new Error("Erro al obtener los expedientes", response.status);
-      }
-      return response.json();
-    } catch (e) {
-      console.error("Error al obtener los expedientes" + e.message);
-    }
-  }
-
   async function obtenerExpediente(pacienteId) {
-    let index = expedientes.findIndex((e) => e.pacienteId == pacienteId);
-    if (index !== -1) {
-      return expedientes[index];
+    try {
+      const response = await fetch(URL + `/expedientes/paciente/${pacienteId}`);
+      if (!response) {
+        throw new Error("Error al obtener el paciente", response.status);
+      }
+      return await response.json();
+    } catch (e) {
+      console.error("Error al obtener el pacieciente", e.message);
     }
-    return null;
   }
 
-  /*   async function crearExpediente(objExpediente) {
-      objExpediente.id = siguienteExpedienteId();
-      expedientes.push(objExpediente);
-      localStorage.setItem('expedientes', JSON.stringify(expedientes));
-      return objExpediente.id;
-    } */
-
-  async function actualizarExpediente(objExpediente) {
-    let index = expedientes.findIndex((e) => e.id == objExpediente.id);
-    if (index !== -1) {
-      expedientes[index] = objExpediente;
-      localStorage.setItem("expedientes", JSON.stringify(expedientes));
-      return true;
+  async function actualizarExpediente(expediente, id) {
+    const response = await fetch(URL + `/expedientes/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(expediente),
+    });
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
     }
-    return false;
+    // return await response.json();
   }
 
   async function obtenerUsuarios() {
@@ -196,7 +182,6 @@ const $negocio = (function () {
     actualizarPaciente,
     eliminarPaciente,
 
-    obtenerExpedientes,
     obtenerExpediente,
     actualizarExpediente,
 

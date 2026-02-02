@@ -26,17 +26,14 @@ function PacientesPage() {
       <br />
       <div className="tabla">
         {pacientes.map((p) => (
-          <div
-            key={p.id}
-            className="paciente"
-            onClick={() => navigate(`/paciente/${p.id}`)}
-          >
-            <p>{p.id}</p>
-            <p>{p.nombre}</p>
-            <p>{p.dni}</p>
-            <p>{p.email}</p>
-            <p>{p.telefono}</p>
+          <div key={p.id} className="paciente">
+            <p className="props">{p.id}</p>
+            <p className="props">{p.nombre}</p>
+            <p className="props">{p.dni}</p>
+            <p className="props">{p.email}</p>
+            <p className="props">{p.telefono}</p>
             <button onClick={() => eliminar(p.id)}>Borrar Paciente</button>
+            <button onClick={() => navigate(`/paciente/${p.id}`)}>Ver</button>
           </div>
         ))}
       </div>

@@ -6,6 +6,7 @@ import ExpedientesPage from "../pages/expedientesPage.jsx";
 import UsersPage from "../pages/usersPage.jsx";
 import LoginPage from "../pages/loginPage.jsx";
 import PropsPacientePage from "../pages/PropsPacientePage.jsx";
+import PropsExpedientePage from "../pages/PropsExpedientePage.jsx";
 function AppRouter() {
   return (
     <BrowserRouter>
@@ -17,6 +18,7 @@ function AppRouter() {
           <Route path="/usuarios" element={<UsersPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/paciente/:id" element={<PropsPacientePage />} />
+          <Route path="expediente/:id" element={<PropsExpedientePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
