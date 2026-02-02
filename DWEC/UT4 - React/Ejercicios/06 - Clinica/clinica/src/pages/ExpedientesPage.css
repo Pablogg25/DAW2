@@ -1,0 +1,12 @@
+.tabla {
+  display: inline-block;
+}
+.paciente {
+  border: 2px solid;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.props {
+  border: 1px solid;
+  padding: 2px;
+}

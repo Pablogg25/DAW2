@@ -96,25 +96,18 @@ const $negocio = (function () {
   }
 
   // No hace falta, en expedientes busco por paciente
-  /*   async function obtenerExpedientes(filtro = '', inicio = 0, limite) {
-      let filtrados = [...expedientes];
-      if (filtro != '') {
-        filtro.toLowerCase();
-        filtrados = filtrados.filter(expediente => {
-          return Object.keys(expediente).some(key => {
-            return expediente[key] && expediente[key].toString().toLowerCase().includes(filtro);
-          });
-        })
+  async function obtenerExpedientes(filtro = "", inicio = 0, limite) {
+    try {
+      const response = await fetch(URL, `/expedientes`);
+      if (!response) {
+        throw new Error("Erro al obtener los expedientes", response.status);
       }
-      if (inicio > 0) {
-        filtrados = filtrados.slice(inicio);
-      }
-      if (limite !== undefined) {
-        filtrados = filtrados.slice(0, limite);
-      }
-      return filtrados;
+      return response.json();
+    } catch (e) {
+      console.error("Error al obtener los expedientes" + e.message);
     }
-   */
+  }
+
   async function obtenerExpediente(pacienteId) {
     let index = expedientes.findIndex((e) => e.pacienteId == pacienteId);
     if (index !== -1) {
@@ -203,6 +196,7 @@ const $negocio = (function () {
     actualizarPaciente,
     eliminarPaciente,
 
+    obtenerExpedientes,
     obtenerExpediente,
     actualizarExpediente,
 

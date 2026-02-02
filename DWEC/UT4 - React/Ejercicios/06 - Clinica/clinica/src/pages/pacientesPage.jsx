@@ -20,7 +20,7 @@ function PacientesPage() {
   }
   return (
     <>
-      <p>Pacientes page</p>
+      <p>Lista de Pacientes</p>
       <input type="text" placeholder="Buscador..." />
       <button onClick={() => navigate("/paciente/0")}>Crear</button>
       <br />
