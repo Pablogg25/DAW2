@@ -141,13 +141,15 @@ const $negocio = (function () {
   }
 
   async function validarUsuario(username, password) {
-    let index = usuarios.findIndex(
-      (u) => u.username == username && u.password == password,
-    );
-    if (index !== -1) {
-      return usuarios[index];
+    const response = await fetch(URL + `/pacientes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: username, password: password }),
+    });
+    if (!response.ok) {
+      throw new Error(`Error al validar el usuario ${response.status}`);
     }
-    return false;
+    return await response.json();
   }
 
   function limpiarLocalStorage() {
