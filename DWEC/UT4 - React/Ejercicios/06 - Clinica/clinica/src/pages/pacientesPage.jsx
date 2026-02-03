@@ -28,7 +28,7 @@ function PacientesPage() {
       // 3. Construir query para página actual
       const inicio = pagina * limite;
 
-      let query = `incio=${inicio}&limite=${limite}`;
+      let query = `inicio=${inicio}&limite=${limite}`;
       if (filtro) query += `&filtro=${filtro}`;
 
       const lista = await negocio.obtenerPacientes(query);
@@ -44,7 +44,7 @@ function PacientesPage() {
 
     // Recargar página actual
     const inicio = pagina * limite;
-    let query = `offset=${inicio}&limit=${limite}`;
+    let query = `inicio=${inicio}&limite=${limite}`;
     if (filtro) query += `&filtro=${filtro}`;
 
     const lista = await negocio.obtenerPacientes(query);

@@ -11,13 +11,17 @@ const $negocio = (function () {
   let usuarios = JSON.parse(localStorage.getItem("usuarios"));
   const URL = "http://127.0.0.1:8000/api";
 
-  async function obtenerPacientes(filtros) {
+  async function obtenerPacientes(filtros = "") {
     try {
-      const response = await fetch(URL + `/pacientes?${filtros}`);
-      if (!response) {
+      const url = filtros ? `${URL}/pacientes?${filtros}` : `${URL}/pacientes`;
+      console.log("URL: " + url);
+      const response = await fetch(url);
+
+      if (!response.ok) {
         throw new Error("Error al obtener pacientes " + response.status);
       }
-      return response.json();
+
+      return await response.json();
     } catch (e) {
       console.error("Error al recuperar los pacientes ", e.message);
     }
