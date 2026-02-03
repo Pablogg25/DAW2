@@ -11,24 +11,9 @@ const $negocio = (function () {
   let usuarios = JSON.parse(localStorage.getItem("usuarios"));
   const URL = "http://127.0.0.1:8000/api";
 
-  // function siguientePacienteId() {
-  //   let maxId = Math.max(...pacientes.map(p => p.id), 0);
-  //   return maxId + 1;
-  // }
-
-  // /*   function siguienteExpedienteId() {
-  //     let maxId = Math.max(...expedientes.map(e => e.id), 0);
-  //     return maxId + 1;
-  //   } */
-
-  // function siguienteUsuarioId() {
-  //   let maxId = Math.max(...usuarios.map(u => u.id), 0);
-  //   return maxId + 1;
-  // }
-
-  async function obtenerPacientes() {
+  async function obtenerPacientes(filtros) {
     try {
-      const response = await fetch(URL + `/pacientes`);
+      const response = await fetch(URL + `/pacientes?${filtros}`);
       if (!response) {
         throw new Error("Error al obtener pacientes " + response.status);
       }
