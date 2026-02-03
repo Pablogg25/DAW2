@@ -102,11 +102,15 @@ const $negocio = (function () {
   }
 
   async function obtenerUsuario(usuarioId) {
-    let index = usuarios.findIndex((u) => u.id == usuarioId);
-    if (index !== -1) {
-      return usuarios[index];
+    try {
+      const response = await fetch(URL + `/usuarios/${usuarioId}`);
+      if (!response) {
+        throw new Error("Error al recibir el paciente " + response.status);
+      }
+      return response.json();
+    } catch (e) {
+      console.error("Error al recibir el paciente " + e.message);
     }
-    return null;
   }
 
   async function crearUsuario(objUsuario) {
