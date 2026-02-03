@@ -30,7 +30,7 @@ function PropsCochePage() {
 
   const enviarDatos = async () => {
     try {
-      console.log(coche);
+      // console.log(coche);
       await API.actualizarCoche(coche, coche.id);
       navigate("/mantenimiento");
     } catch (e) {

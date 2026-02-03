@@ -82,29 +82,38 @@ function PacientesPage() {
       </select>
 
       <button onClick={() => navigate("/paciente/0")}>Crear Paciente</button>
-      <br />
+
       <div className="tabla">
+        <div className="tabla-header">
+          <div>Nombre</div>
+          <div>DNI</div>
+          <div>Email</div>
+          <div>Seguro Médico</div>
+          <div>Teléfono</div>
+          <div>Acciones</div>
+        </div>
+
         {pacientes.map((p) => (
-          <div key={p.id} className="paciente">
-            <p className="props">{p.nombre}</p>
-            <p className="props">{p.dni}</p>
-            <p className="props">{p.email}</p>
-            <p className="props">{p.seguroMedico}</p>
-            <p className="props">{p.telefono}</p>
+          <div key={p.id} className="tabla-row">
+            <div>{p.nombre}</div>
+            <div>{p.dni}</div>
+            <div>{p.email}</div>
+            <div>{p.seguroMedico}</div>
+            <div>{p.telefono}</div>
 
-            <button onClick={() => eliminar(p.id)}>Borrar</button>
-
-            <button onClick={() => navigate(`/paciente/${p.id}`)}>Ver</button>
+            <div>
+              <button className="danger" onClick={() => eliminar(p.id)}>
+                Borrar
+              </button>
+              <button onClick={() => navigate(`/paciente/${p.id}`)}>Ver</button>
+            </div>
           </div>
         ))}
       </div>
 
       {limite !== "todos" && (
         <div className="paginador">
-          <button
-            disabled={pagina === 0}
-            onClick={() => setPagina((p) => p - 1)}
-          >
+          <button disabled={pagina === 0} onClick={() => setPagina(pagina - 1)}>
             Anterior
           </button>
 
@@ -114,7 +123,7 @@ function PacientesPage() {
 
           <button
             disabled={pagina + 1 >= paginasTotales}
-            onClick={() => setPagina((p) => p + 1)}
+            onClick={() => setPagina(pagina + 1)}
           >
             Siguiente
           </button>

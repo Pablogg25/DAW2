@@ -55,55 +55,57 @@ function PropsExpedientePage() {
 
   return (
     <>
-      <p>Props Expediente</p>
-      <div className="contenedor">
-        <p className="propsE">{paciente.nombre}</p>
-        <p className="propsE">{paciente.email}</p>
-        <p className="propsE">{paciente.telefono}</p>
-        <p className="propsE">{paciente.fechaNacimiento}</p>
+      <h2>Expediente del Paciente</h2>
+
+      <div className="card">
+        <p>
+          <strong>Nombre:</strong> {paciente.nombre}
+        </p>
+        <p>
+          <strong>Email:</strong> {paciente.email}
+        </p>
+        <p>
+          <strong>Teléfono:</strong> {paciente.telefono}
+        </p>
+        <p>
+          <strong>Nacimiento:</strong> {paciente.fechaNacimiento}
+        </p>
       </div>
-      <br />
-      <div className="expediente">
-        <input
-          type="text"
-          name="id"
-          value={expediente.id}
-          onChange={handleChange}
-          hidden
-        />
-        <label htmlFor="fechaApertura">Fecha de Apertura: </label>
+
+      <div className="card">
+        <label>Fecha de Apertura:</label>
         <input
           type="date"
           name="fechaApertura"
           value={expediente.fechaApertura}
           onChange={handleChange}
         />
-        <br />
-        <label htmlFor="antecedentes">Antecedentes: </label>
+
+        <label>Antecedentes:</label>
         <input
           type="text"
           name="antecedentes"
           value={expediente.antecedentes}
           onChange={handleChange}
         />
-        <br />
-        <label htmlFor="diagnosticos">Diagnosticos: </label>
+
+        <label>Diagnósticos:</label>
         <input
           type="text"
           name="diagnosticos"
           value={expediente.diagnosticos}
           onChange={handleChange}
         />
-        <br />
-        <label htmlFor="tratamientos">Tratamientos: </label>
+
+        <label>Tratamientos:</label>
         <input
           type="text"
           name="tratamientos"
           value={expediente.tratamientos}
           onChange={handleChange}
         />
-        <br />
-        <label htmlFor="observaciones">Observaciones: </label>
+
+        <label>Observaciones:</label>
         <input
           type="text"
           name="observaciones"

@@ -40,7 +40,8 @@ function ExpedientesPage() {
   const paginasTotales = limite === "todos" ? 1 : Math.ceil(total / limite);
   return (
     <>
-      <p>Lista de Expedientes</p>
+      <h2>Lista de Expedientes</h2>
+
       <input
         type="text"
         placeholder="Buscador..."
@@ -64,27 +65,30 @@ function ExpedientesPage() {
         <option value={10}>10 por página</option>
         <option value="todos">Todos</option>
       </select>
-      <br />
-      <br />
+
       <div className="tabla">
+        <div className="tabla-header">
+          <div>Nombre</div>
+          <div>Seguro Médico</div>
+          <div>Teléfono</div>
+        </div>
+
         {pacientes.map((p) => (
           <div
             key={p.id}
-            className="paciente"
+            className="tabla-row"
             onClick={() => navigate(`/expediente/${p.id}`)}
           >
-            <p className="props">{p.nombre} </p>
-            <p className="props">{p.seguroMedico}</p>
-            <p className="props">{p.telefono}</p>
+            <div>{p.nombre}</div>
+            <div>{p.seguroMedico}</div>
+            <div>{p.telefono}</div>
           </div>
         ))}
       </div>
+
       {limite !== "todos" && (
         <div className="paginador">
-          <button
-            disabled={pagina === 0}
-            onClick={() => setPagina((p) => p - 1)}
-          >
+          <button disabled={pagina === 0} onClick={() => setPagina(pagina - 1)}>
             Anterior
           </button>
 
@@ -94,7 +98,7 @@ function ExpedientesPage() {
 
           <button
             disabled={pagina + 1 >= paginasTotales}
-            onClick={() => setPagina((p) => p + 1)}
+            onClick={() => setPagina(pagina + 1)}
           >
             Siguiente
           </button>

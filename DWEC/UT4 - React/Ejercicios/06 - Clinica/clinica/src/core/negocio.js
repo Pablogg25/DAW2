@@ -14,7 +14,7 @@ const $negocio = (function () {
   async function obtenerPacientes(filtros = "") {
     try {
       const url = filtros ? `${URL}/pacientes?${filtros}` : `${URL}/pacientes`;
-      console.log("URL: " + url);
+      // console.log("URL: " + url);
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -92,8 +92,13 @@ const $negocio = (function () {
   }
 
   async function obtenerUsuarios() {
-    //no hay parámetros...
-    return [...usuarios];
+    const response = await fetch(URL + `/usuarios`);
+    if (!response) {
+      throw new Error(
+        "Error al recibir los usuarios respuesta: " + response.status,
+      );
+    }
+    return await response.json();
   }
 
   async function obtenerUsuario(usuarioId) {
