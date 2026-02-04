@@ -11,28 +11,17 @@ const $negocio = (function () {
   let usuarios = JSON.parse(localStorage.getItem("usuarios"));
   const URL = "http://127.0.0.1:8000/api";
 
-  // function siguientePacienteId() {
-  //   let maxId = Math.max(...pacientes.map(p => p.id), 0);
-  //   return maxId + 1;
-  // }
-
-  // /*   function siguienteExpedienteId() {
-  //     let maxId = Math.max(...expedientes.map(e => e.id), 0);
-  //     return maxId + 1;
-  //   } */
-
-  // function siguienteUsuarioId() {
-  //   let maxId = Math.max(...usuarios.map(u => u.id), 0);
-  //   return maxId + 1;
-  // }
-
-  async function obtenerPacientes() {
+  async function obtenerPacientes(filtros = "") {
     try {
-      const response = await fetch(URL + `/pacientes`);
-      if (!response) {
+      const url = filtros ? `${URL}/pacientes?${filtros}` : `${URL}/pacientes`;
+      // console.log("URL: " + url);
+      const response = await fetch(url);
+
+      if (!response.ok) {
         throw new Error("Error al obtener pacientes " + response.status);
       }
-      return response.json();
+
+      return await response.json();
     } catch (e) {
       console.error("Error al recuperar los pacientes ", e.message);
     }
@@ -51,32 +40,15 @@ const $negocio = (function () {
   }
 
   async function crearPaciente(objPaciente) {
-    //un paciente tiene un expediente 1:1
-    // objPaciente.id = siguientePacienteId();
-
-    const hoy = new Date();
-    const anno = hoy.getFullYear();
-    const mes = String(hoy.getMonth() + 1).padStart(2, "0");
-    const dia = String(hoy.getDate()).padStart(2, "0");
-    const fechaFormateada = `${anno}-${mes}-${dia}`;
-
-    //exdiente nuevo vacio
-    let objExpediente = {
-      id: objPaciente.id,
-      pacienteId: objPaciente.id,
-      fechaApertura: fechaFormateada,
-      antecedentes: "",
-      diagnosticos: "",
-      tratamientos: "",
-      observaciones: "",
-    };
-
-    pacientes.push(objPaciente);
-    localStorage.setItem("pacientes", JSON.stringify(pacientes));
-    expedientes.push(objExpediente);
-    localStorage.setItem("expedientes", JSON.stringify(expedientes));
-
-    return objPaciente.id;
+    const response = await fetch(URL + `/pacientes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(objPaciente),
+    });
+    if (!response.ok) {
+      throw new Error(`Error al crear el paciente ${response.status}`);
+    }
+    return await response.json();
   }
 
   async function actualizarPaciente(objPaciente) {
@@ -95,62 +67,50 @@ const $negocio = (function () {
     });
   }
 
-  // No hace falta, en expedientes busco por paciente
-  /*   async function obtenerExpedientes(filtro = '', inicio = 0, limite) {
-      let filtrados = [...expedientes];
-      if (filtro != '') {
-        filtro.toLowerCase();
-        filtrados = filtrados.filter(expediente => {
-          return Object.keys(expediente).some(key => {
-            return expediente[key] && expediente[key].toString().toLowerCase().includes(filtro);
-          });
-        })
-      }
-      if (inicio > 0) {
-        filtrados = filtrados.slice(inicio);
-      }
-      if (limite !== undefined) {
-        filtrados = filtrados.slice(0, limite);
-      }
-      return filtrados;
-    }
-   */
   async function obtenerExpediente(pacienteId) {
-    let index = expedientes.findIndex((e) => e.pacienteId == pacienteId);
-    if (index !== -1) {
-      return expedientes[index];
+    try {
+      const response = await fetch(URL + `/expedientes/paciente/${pacienteId}`);
+      if (!response) {
+        throw new Error("Error al obtener el paciente", response.status);
+      }
+      return await response.json();
+    } catch (e) {
+      console.error("Error al obtener el pacieciente", e.message);
     }
-    return null;
   }
 
-  /*   async function crearExpediente(objExpediente) {
-      objExpediente.id = siguienteExpedienteId();
-      expedientes.push(objExpediente);
-      localStorage.setItem('expedientes', JSON.stringify(expedientes));
-      return objExpediente.id;
-    } */
-
-  async function actualizarExpediente(objExpediente) {
-    let index = expedientes.findIndex((e) => e.id == objExpediente.id);
-    if (index !== -1) {
-      expedientes[index] = objExpediente;
-      localStorage.setItem("expedientes", JSON.stringify(expedientes));
-      return true;
+  async function actualizarExpediente(expediente, id) {
+    const response = await fetch(URL + `/expedientes/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(expediente),
+    });
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
     }
-    return false;
+    // return await response.json();
   }
 
   async function obtenerUsuarios() {
-    //no hay parámetros...
-    return [...usuarios];
+    const response = await fetch(URL + `/usuarios`);
+    if (!response) {
+      throw new Error(
+        "Error al recibir los usuarios respuesta: " + response.status,
+      );
+    }
+    return await response.json();
   }
 
   async function obtenerUsuario(usuarioId) {
-    let index = usuarios.findIndex((u) => u.id == usuarioId);
-    if (index !== -1) {
-      return usuarios[index];
+    try {
+      const response = await fetch(URL + `/usuarios/${usuarioId}`);
+      if (!response) {
+        throw new Error("Error al recibir el paciente " + response.status);
+      }
+      return response.json();
+    } catch (e) {
+      console.error("Error al recibir el paciente " + e.message);
     }
-    return null;
   }
 
   async function crearUsuario(objUsuario) {
@@ -181,13 +141,15 @@ const $negocio = (function () {
   }
 
   async function validarUsuario(username, password) {
-    let index = usuarios.findIndex(
-      (u) => u.username == username && u.password == password,
-    );
-    if (index !== -1) {
-      return usuarios[index];
+    const response = await fetch(URL + `/pacientes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: username, password: password }),
+    });
+    if (!response.ok) {
+      throw new Error(`Error al validar el usuario ${response.status}`);
     }
-    return false;
+    return await response.json();
   }
 
   function limpiarLocalStorage() {
