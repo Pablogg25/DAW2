@@ -6,7 +6,6 @@ const SeguridadContext = createContext();
 function SeguridadProvider({ children }) {
   const [datos, setDatos] = useState({
     usuario: "",
-    password: "",
     tipo: "",
   });
 
