@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
-import "./ExpedientesPage.css";
+import { useContext, useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { SeguridadContext } from "../context/SeguridadProvider";
 import negocio from "../core/negocio.js";
-import { useNavigate } from "react-router-dom";
+import "./ExpedientesPage.css";
 
 function ExpedientesPage() {
+  const { datos } = useContext(SeguridadContext);
+
+  // HOOKS ARRIBA
   const [pacientes, setPacientes] = useState([]);
   const [total, setTotal] = useState(0);
   const [filtro, setFiltro] = useState("");
@@ -13,18 +17,15 @@ function ExpedientesPage() {
 
   useEffect(() => {
     async function cargar() {
-      // 1. Query para total
       const queryTotal = filtro ? `filtro=${filtro}` : "";
       const todos = await negocio.obtenerPacientes(queryTotal);
       setTotal(todos.length);
 
-      // 2. Si quiere TODOS
       if (limite === "todos") {
         setPacientes(todos);
         return;
       }
 
-      // 3. Query correcta para paginación
       const inicio = pagina * limite;
 
       let query = `inicio=${inicio}&limite=${limite}`;
@@ -37,7 +38,13 @@ function ExpedientesPage() {
     cargar();
   }, [filtro, pagina, limite]);
 
+  // SEGURIDAD DESPUÉS DE LOS HOOKS
+  if (!datos.tienePermisos || !["medico", "admin"].includes(datos.tipo)) {
+    return <Navigate to="/login" />;
+  }
+
   const paginasTotales = limite === "todos" ? 1 : Math.ceil(total / limite);
+
   return (
     <>
       <h2>Lista de Expedientes</h2>
@@ -107,4 +114,5 @@ function ExpedientesPage() {
     </>
   );
 }
+
 export default ExpedientesPage;

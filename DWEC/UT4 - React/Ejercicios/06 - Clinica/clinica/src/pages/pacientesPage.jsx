@@ -1,38 +1,37 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { SeguridadContext } from "../context/SeguridadProvider";
 import negocio from "../core/negocio";
 import "./PacientesPage.css";
-import { useNavigate } from "react-router-dom";
 
 function PacientesPage() {
-  const [pacientes, setPacientes] = useState([]);
-  const navigate = useNavigate();
+  const { datos } = useContext(SeguridadContext);
 
+  // HOOKS ARRIBA
+  const [pacientes, setPacientes] = useState([]);
   const [total, setTotal] = useState(0);
   const [filtro, setFiltro] = useState("");
   const [pagina, setPagina] = useState(0);
   const [limite, setLimite] = useState(5);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function cargar() {
-      // 1. Construir query para TOTAL
       const queryTotal = filtro ? `filtro=${filtro}` : "";
       const todos = await negocio.obtenerPacientes(queryTotal);
       setTotal(todos.length);
 
-      // 2. Si quiere TODOS → no paginar
       if (limite === "todos") {
         setPacientes(todos);
         return;
       }
 
-      // 3. Construir query para página actual
       const inicio = pagina * limite;
 
       let query = `inicio=${inicio}&limite=${limite}`;
       if (filtro) query += `&filtro=${filtro}`;
 
       const lista = await negocio.obtenerPacientes(query);
-      // console.log(query);
       setPacientes(lista);
     }
 
@@ -42,13 +41,17 @@ function PacientesPage() {
   async function eliminar(id) {
     await negocio.eliminarPaciente(id);
 
-    // Recargar página actual
     const inicio = pagina * limite;
     let query = `inicio=${inicio}&limite=${limite}`;
     if (filtro) query += `&filtro=${filtro}`;
 
     const lista = await negocio.obtenerPacientes(query);
     setPacientes(lista);
+  }
+
+  // SEGURIDAD DESPUÉS DE LOS HOOKS
+  if (!datos.tienePermisos || !["gestion", "admin"].includes(datos.tipo)) {
+    return <Navigate to="/login" />;
   }
 
   const paginasTotales = limite === "todos" ? 1 : Math.ceil(total / limite);

@@ -1,11 +1,16 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Navigate, useParams, useNavigate } from "react-router-dom";
+import { SeguridadContext } from "../context/SeguridadProvider";
 import negocio from "../core/negocio.js";
 import "./PropsExpedientePage.css";
-import { useNavigate } from "react-router-dom";
+
 function PropsExpedientePage() {
+  const { datos } = useContext(SeguridadContext);
+
+  // HOOKS ARRIBA
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [expediente, setExpediente] = useState({
     pacienteId: null,
     fechaApertura: "",
@@ -15,6 +20,7 @@ function PropsExpedientePage() {
     observaciones: "",
     id: null,
   });
+
   const [paciente, setPaciente] = useState({
     nombre: "",
     dni: "",
@@ -39,17 +45,21 @@ function PropsExpedientePage() {
       const datos = await negocio.obtenerPaciente(id);
       setPaciente(datos);
     }
-
     cargarPaciente();
   }, [id]);
+
+  // SEGURIDAD
+  if (!datos.tienePermisos || !["medico", "admin"].includes(datos.tipo)) {
+    return <Navigate to="/login" />;
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
     setExpediente((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function editarExpediente(expediente, id) {
-    await negocio.actualizarExpediente(expediente, id);
+  async function editarExpediente() {
+    await negocio.actualizarExpediente(expediente);
     navigate("/expedientes");
   }
 
@@ -113,11 +123,10 @@ function PropsExpedientePage() {
           onChange={handleChange}
         />
 
-        <button onClick={() => editarExpediente(expediente, id)}>
-          Actualizar
-        </button>
+        <button onClick={editarExpediente}>Actualizar</button>
       </div>
     </>
   );
 }
+
 export default PropsExpedientePage;

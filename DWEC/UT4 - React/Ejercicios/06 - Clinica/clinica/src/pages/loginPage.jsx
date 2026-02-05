@@ -1,34 +1,47 @@
 import { useContext, useState } from "react";
 import { SeguridadContext } from "../context/SeguridadProvider";
 import negocio from "../core/negocio.js";
+
 function LoginPage() {
-  const { datos, logIn, logOut } = useContext(SeguridadContext);
+  const { logIn } = useContext(SeguridadContext);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleChangeUsername(e) {
-    const { name, value } = e.target;
-    setUsername((prev) => ({ ...prev, [name]: value }));
+  async function handleClick() {
+    if (username === "" || password === "") return;
+
+    try {
+      const usuarioValido = await negocio.validarUsuario(username, password);
+
+      // usuarioValido.tipo ya es: admin | medico | gestion
+      logIn(usuarioValido.username, usuarioValido.tipo);
+    } catch (e) {
+      alert("Usuario o contraseña incorrectos");
+    }
   }
 
-  function handleChangePassword(e) {
-    const { name, value } = e.target;
-    setPassword((prev) => ({ ...prev, [name]: value }));
-  }
-
-  async function validarUsuario() {
-    const usuarioValido = await negocio.validarUsuario(username, password);
-  }
   return (
     <>
-      <p>Login</p>
-      <label>Usuario: </label>
-      <input type="text" onChange={handleChangeUsername} />
-      <label>Contraseña: </label>
-      <input type="password" onChange={handleChangePassword} />
-      <br />
-      <button>Iniciar Sesion</button>
+      <h1>Login</h1>
+
+      <span>Usuario: </span>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+
+      <span>Contraseña: </span>
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <button onClick={handleClick}>Entrar</button>
     </>
   );
 }
+
 export default LoginPage;

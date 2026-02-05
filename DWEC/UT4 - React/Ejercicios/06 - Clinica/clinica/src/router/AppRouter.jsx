@@ -4,7 +4,7 @@ import HomePage from "../pages/HomePage.jsx";
 import PacientesPage from "../pages/pacientesPage.jsx";
 import ExpedientesPage from "../pages/expedientesPage.jsx";
 import UsersPage from "../pages/usersPage.jsx";
-import LoginPage from "../pages/loginPage.jsx";
+import LoginPage from "../pages/LoginPage.jsx";
 import PropsPacientePage from "../pages/PropsPacientePage.jsx";
 import PropsExpedientePage from "../pages/PropsExpedientePage.jsx";
 import PropsUserPage from "../pages/PropsUserPage.jsx";

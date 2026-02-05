@@ -141,15 +141,17 @@ const $negocio = (function () {
   }
 
   async function validarUsuario(username, password) {
-    const response = await fetch(URL + `/pacientes`, {
+    const response = await fetch(URL + `/usuarios/validar`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: username, password: password }),
+      body: JSON.stringify({ username, password }),
     });
+
     if (!response.ok) {
-      throw new Error(`Error al validar el usuario ${response.status}`);
+      throw new Error("Error al validar usuario");
     }
-    return await response.json();
+
+    return await response.json(); // debe traer { username, tipo }
   }
 
   function limpiarLocalStorage() {

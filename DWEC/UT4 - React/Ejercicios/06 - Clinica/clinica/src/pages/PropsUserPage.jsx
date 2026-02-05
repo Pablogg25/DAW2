@@ -1,10 +1,15 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { SeguridadContext } from "../context/SeguridadProvider";
 import negocio from "../core/negocio.js";
 
 function PropsUserPage() {
+  const { datos } = useContext(SeguridadContext);
+
+  // HOOKS ARRIBA
   const navigate = useNavigate();
   const { id } = useParams();
+
   const [usuario, setUsuario] = useState({
     username: "",
     password: "",
@@ -13,7 +18,6 @@ function PropsUserPage() {
   });
 
   useEffect(() => {
-    // Si id = 0 → es creación → no cargamos nada
     if (id === "0") return;
 
     async function cargarUsuario() {
@@ -24,12 +28,28 @@ function PropsUserPage() {
     cargarUsuario();
   }, [id]);
 
+  // SEGURIDAD
+  if (!datos.tienePermisos || datos.tipo !== "admin") {
+    return <Navigate to="/login" />;
+  }
+
   function handleChange(e) {
     const { name, value } = e.target;
     setUsuario((prev) => ({ ...prev, [name]: value }));
   }
 
   const esNuevo = id === "0";
+
+  async function guardar() {
+    if (esNuevo) {
+      await negocio.crearUsuario(usuario);
+      alert("Usuario creado");
+    } else {
+      await negocio.actualizarUsuario(usuario);
+      alert("Usuario actualizado");
+    }
+    navigate("/usuarios");
+  }
 
   return (
     <>
@@ -40,13 +60,33 @@ function PropsUserPage() {
       </h2>
 
       <label>Username: </label>
-      <input type="text" value={usuario.username} onChange={handleChange} />
+      <input
+        type="text"
+        name="username"
+        value={usuario.username}
+        onChange={handleChange}
+      />
+
       <label>Password: </label>
-      <input type="text" value={usuario.password} onChange={handleChange} />
+      <input
+        type="text"
+        name="password"
+        value={usuario.password}
+        onChange={handleChange}
+      />
+
       <label>Tipo: </label>
-      <input type="text" value={usuario.tipo} onChange={handleChange} />
+      <input
+        type="text"
+        name="tipo"
+        value={usuario.tipo}
+        onChange={handleChange}
+      />
+
+      <button onClick={guardar}>Guardar</button>
       <button onClick={() => navigate("/usuarios")}>Volver</button>
     </>
   );
 }
+
 export default PropsUserPage;
