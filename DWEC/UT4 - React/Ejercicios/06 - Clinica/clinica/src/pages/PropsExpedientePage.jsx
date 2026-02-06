@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { Navigate, useParams, useNavigate } from "react-router-dom";
 import { SeguridadContext } from "../context/SeguridadProvider";
 import negocio from "../core/negocio.js";
-import "./PropsExpedientePage.css";
 
 function PropsExpedientePage() {
   const { datos } = useContext(SeguridadContext);
