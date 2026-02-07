@@ -1,18 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { SeguridadContext } from "../context/SeguridadProvider";
-import Carrusel from "../components/Carrusel";
+import { SeguridadContext } from "../context/SeguridadProvider.jsx";
+import Carrusel from "../components/Carrusel.jsx";
 import negocio from "../core/negocio.js";
 
 function HomePage() {
   const { datos } = useContext(SeguridadContext);
-  console.log("DATOS:", datos);
+  // console.log("DATOS:", datos);
 
   const [pacientes, setPacientes] = useState([]);
 
   useEffect(() => {
     async function cargarPacientes() {
       const lista = await negocio.obtenerPacientes();
-      console.log("Lista", lista);
+      // console.log("Lista", lista);
       setPacientes(lista.slice(0, 10));
     }
     cargarPacientes();
