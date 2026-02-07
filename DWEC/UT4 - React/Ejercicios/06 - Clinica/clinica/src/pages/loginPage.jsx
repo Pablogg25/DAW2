@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { SeguridadContext } from "../context/SeguridadProvider";
+import { SeguridadContext } from "../context/SeguridadProvider.jsx";
 import negocio from "../core/negocio.js";
 
 function LoginPage() {

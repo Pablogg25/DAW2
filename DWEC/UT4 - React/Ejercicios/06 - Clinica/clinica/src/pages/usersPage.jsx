@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { SeguridadContext } from "../context/SeguridadProvider";
+import { SeguridadContext } from "../context/SeguridadProvider.jsx";
 import negocio from "../core/negocio.js";
 
 function UsersPage() {

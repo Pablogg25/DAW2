@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "../pages/AppLayout.jsx";
 import HomePage from "../pages/HomePage.jsx";
-import PacientesPage from "../pages/pacientesPage.jsx";
-import ExpedientesPage from "../pages/expedientesPage.jsx";
-import UsersPage from "../pages/usersPage.jsx";
+import PacientesPage from "../pages/PacientesPage.jsx";
+import ExpedientesPage from "../pages/ExpedientesPage.jsx";
+import UsersPage from "../pages/UsersPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import PropsPacientePage from "../pages/PropsPacientePage.jsx";
 import PropsExpedientePage from "../pages/PropsExpedientePage.jsx";
