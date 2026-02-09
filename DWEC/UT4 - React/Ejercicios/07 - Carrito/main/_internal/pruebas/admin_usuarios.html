@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Usuarios - Pruebas API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
+            color: white;
+            padding: 30px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .info-box {
+            background: #ffebee;
+            border: 1px solid #ef5350;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #c62828;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background: #ef5350;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+
+        .badge-activo {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge-inactivo {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .badge-cliente {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .badge-admin {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ef5350;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <header>
+                <h1>👥 Administrar Usuarios</h1>
+                <p>Ver, activar/desactivar y eliminar usuarios (Solo Admin)</p>
+            </header>
+
+            <div class="content">
+                <div class="info-box">
+                    <strong>⚠️ Requiere autenticación ADMIN:</strong> Solo administradores pueden acceder aquí.
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <button class="btn-primary" onclick="cargarUsuarios()">🔄 Recargar Usuarios</button>
+                </div>
+
+                <div id="usuarios-table"></div>
+            </div>
+        </div>
+
+        <a href="/pruebas/index.html" class="back-link">← Volver al menú</a>
+    </div>
+
+    <script src="/pruebas/helpers.js"></script>
+    <script>
+        /**
+         * Carga todos los usuarios
+         */
+        async function cargarUsuarios() {
+            if (!tieneToken()) {
+                alert('❌ No autenticado');
+                return;
+            }
+
+            console.clear();
+            console.group('👥 USUARIOS REQUEST');
+            console.log('Endpoint:', 'GET /admin/usuarios');
+            console.groupEnd();
+
+            const resultado = await apiFetch('/admin/usuarios', 'GET');
+
+            if (resultado.ok) {
+                console.group('👥 USUARIOS RESPONSE');
+                console.table(resultado.data);
+                console.groupEnd();
+
+                mostrarUsuarios(resultado.data);
+            } else {
+                if (resultado.status === 403) {
+                    alert('❌ No tienes permisos de administrador');
+                    window.location.href = '/pruebas/index.html';
+                } else {
+                    alert(`❌ Error: ${resultado.error}`);
+                }
+            }
+        }
+
+        /**
+         * Muestra la tabla de usuarios
+         */
+        function mostrarUsuarios(usuarios) {
+            if (usuarios.length === 0) {
+                document.getElementById('usuarios-table').innerHTML = '<p>No hay usuarios</p>';
+                return;
+            }
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            usuarios.forEach(u => {
+                const badgeTipo = u.tipo === 'administrador' ? 'badge-admin' : 'badge-cliente';
+                const badgeEstado = u.activo ? 'badge-activo' : 'badge-inactivo';
+                const textoEstado = u.activo ? 'Activo' : 'Inactivo';
+                const btnEstado = u.activo ? '🔴 Desactivar' : '🟢 Activar';
+
+                html += `
+                    <tr>
+                        <td>#${u.usuarioId}</td>
+                        <td><strong>${u.username}</strong></td>
+                        <td>${u.nombre}</td>
+                        <td>${u.email}</td>
+                        <td><span class="badge ${badgeTipo}">${u.tipo}</span></td>
+                        <td><span class="badge ${badgeEstado}">${textoEstado}</span></td>
+                        <td>
+                            <button class="btn-secondary" onclick="cambiarEstado(${u.usuarioId}, ${!u.activo})" style="padding: 8px 12px; font-size: 0.85em;">
+                                ${btnEstado}
+                            </button>
+                            <button class="btn-danger" onclick="eliminarUsuario(${u.usuarioId}, '${u.username}')" style="padding: 8px 12px; font-size: 0.85em;">
+                                🗑️ Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById('usuarios-table').innerHTML = html;
+        }
+
+        /**
+         * Cambia el estado de un usuario
+         */
+        async function cambiarEstado(usuarioId, nuevoEstado) {
+            console.clear();
+            console.group(`👤 CAMBIAR ESTADO USUARIO ${usuarioId}`);
+            console.log('Endpoint:', `PUT /admin/usuarios/${usuarioId}/estado`);
+            console.log('Body:', { activo: nuevoEstado });
+            console.groupEnd();
+
+            const resultado = await apiFetch(`/admin/usuarios/${usuarioId}/estado`, 'PUT', {
+                activo: nuevoEstado
+            });
+
+            if (resultado.ok) {
+                console.log('✅ Estado actualizado');
+                alert(`✅ Usuario ${nuevoEstado ? 'activado' : 'desactivado'}`);
+                cargarUsuarios();
+            } else {
+                alert(`❌ Error: ${resultado.error}`);
+            }
+        }
+
+        /**
+         * Elimina un usuario
+         */
+        async function eliminarUsuario(usuarioId, username) {
+            if (!confirm(`¿Estás seguro de que deseas eliminar a ${username}? Se eliminarán todos sus pedidos.`)) {
+                return;
+            }
+
+            console.clear();
+            console.group(`🗑️ ELIMINAR USUARIO ${usuarioId}`);
+            console.log('Endpoint:', `DELETE /admin/usuarios/${usuarioId}`);
+            console.groupEnd();
+
+            const resultado = await apiFetch(`/admin/usuarios/${usuarioId}`, 'DELETE');
+
+            if (resultado.status === 204) {
+                console.log('✅ Usuario eliminado');
+                alert('✅ Usuario eliminado');
+                cargarUsuarios();
+            } else {
+                alert(`❌ Error: ${resultado.error}`);
+            }
+        }
+
+        // Cargar al abrir
+        window.addEventListener('load', () => {
+            if (!tieneToken()) {
+                alert('❌ Debes estar autenticado para acceder aquí');
+                window.location.href = '/pruebas/auth.html';
+                return;
+            }
+
+            cargarUsuarios();
+        });
+    </script>
+</body>
+</html>

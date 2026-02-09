@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Pedidos - Pruebas API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #29b6f6 0%, #0288d1 100%);
+            color: white;
+            padding: 30px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .info-box {
+            background: #e1f5fe;
+            border: 1px solid #29b6f6;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #01579b;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #29b6f6 0%, #0288d1 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background: #29b6f6;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+
+        .estado-pendiente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .estado-confirmado {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .estado-enviado {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .estado-cancelado {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #29b6f6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <header>
+                <h1>📊 Administrar Pedidos</h1>
+                <p>Ver todos los pedidos y cambiar estados (Solo Admin)</p>
+            </header>
+
+            <div class="content">
+                <div class="info-box">
+                    <strong>⚠️ Requiere autenticación ADMIN:</strong> Solo administradores pueden acceder aquí.
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label for="filtro-estado">Filtrar por estado:</label>
+                    <select id="filtro-estado" onchange="cargarPedidos()">
+                        <option value="">-- Todos --</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="confirmado">Confirmado</option>
+                        <option value="enviado">Enviado</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+
+                    <button class="btn-primary" onclick="cargarPedidos()">🔄 Recargar</button>
+                </div>
+
+                <div id="pedidos-table"></div>
+            </div>
+        </div>
+
+        <a href="/pruebas/index.html" class="back-link">← Volver al menú</a>
+    </div>
+
+    <script src="/pruebas/helpers.js"></script>
+    <script>
+        /**
+         * Carga todos los pedidos
+         */
+        async function cargarPedidos() {
+            const estado = document.getElementById('filtro-estado').value;
+
+            console.clear();
+            console.group('📊 PEDIDOS ADMIN REQUEST');
+            console.log('Endpoint:', 'GET /admin/pedidos');
+            if (estado) console.log('Filtro:', { estado });
+            console.groupEnd();
+
+            const url = estado ? `/admin/pedidos?estado=${estado}` : '/admin/pedidos';
+            const resultado = await apiFetch(url, 'GET');
+
+            if (resultado.ok) {
+                console.group('📊 PEDIDOS RESPONSE');
+                console.table(resultado.data);
+                console.groupEnd();
+
+                mostrarPedidos(resultado.data);
+            } else {
+                if (resultado.status === 403) {
+                    alert('❌ No tienes permisos de administrador');
+                    window.location.href = '/pruebas/index.html';
+                } else {
+                    alert(`❌ Error: ${resultado.error}`);
+                }
+            }
+        }
+
+        /**
+         * Muestra la tabla de pedidos
+         */
+        function mostrarPedidos(pedidos) {
+            if (pedidos.length === 0) {
+                document.getElementById('pedidos-table').innerHTML = '<p>No hay pedidos</p>';
+                return;
+            }
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuario ID</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Total</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            pedidos.forEach(p => {
+                const estadoClass = `estado-${p.estado}`;
+                const fecha = new Date(p.fecha).toLocaleDateString();
+
+                html += `
+                    <tr>
+                        <td><strong>#${p.pedidoId}</strong></td>
+                        <td>#${p.usuarioId}</td>
+                        <td>${fecha}</td>
+                        <td><span class="badge ${estadoClass}">${p.estado}</span></td>
+                        <td>$${p.total.toFixed(2)}</td>
+                        <td>${p.direccionEnvio}</td>
+                        <td>
+                            <button class="btn-secondary" onclick="verDetallePedido(${p.pedidoId})" style="padding: 8px 12px; font-size: 0.85em;">
+                                👁️ Ver
+                            </button>
+                            <button class="btn-secondary" onclick="cambiarEstadoUI(${p.pedidoId}, '${p.estado}')" style="padding: 8px 12px; font-size: 0.85em;">
+                                ⚙️ Estado
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById('pedidos-table').innerHTML = html;
+        }
+
+        /**
+         * Ver detalle de un pedido
+         */
+        async function verDetallePedido(pedidoId) {
+            console.clear();
+            console.group(`📦 DETALLE PEDIDO ${pedidoId}`);
+            console.log('Endpoint:', `GET /admin/pedidos/${pedidoId}`);
+            console.groupEnd();
+
+            const resultado = await apiFetch(`/admin/pedidos/${pedidoId}`, 'GET');
+
+            if (resultado.ok) {
+                console.group('📦 DETALLE');
+                console.log('Cabecera:', resultado.data);
+                console.log('Líneas:', resultado.data.lineas);
+                console.table(resultado.data.lineas);
+                console.groupEnd();
+
+                let mensaje = `Pedido #${resultado.data.pedidoId}\n`;
+                mensaje += `Estado: ${resultado.data.estado}\n`;
+                mensaje += `Total: $${resultado.data.total.toFixed(2)}\n\n`;
+                mensaje += `Líneas:\n`;
+                resultado.data.lineas.forEach(l => {
+                    mensaje += `- ${l.nombreProducto} x${l.cantidad} @ $${l.precioUnitario.toFixed(2)} = $${l.subtotal.toFixed(2)}\n`;
+                });
+
+                alert(mensaje);
+            } else {
+                alert(`❌ Error: ${resultado.error}`);
+            }
+        }
+
+        /**
+         * Cambia el estado de un pedido
+         */
+        function cambiarEstadoUI(pedidoId, estadoActual) {
+            const nuevoEstado = prompt(
+                `Estados: pendiente, confirmado, enviado, cancelado\n\nEstado actual: ${estadoActual}\n\nNuevo estado:`,
+                estadoActual
+            );
+
+            if (nuevoEstado && nuevoEstado !== estadoActual) {
+                cambiarEstado(pedidoId, nuevoEstado);
+            }
+        }
+
+        /**
+         * Realiza el cambio de estado
+         */
+        async function cambiarEstado(pedidoId, nuevoEstado) {
+            console.clear();
+            console.group(`⚙️ CAMBIAR ESTADO PEDIDO ${pedidoId}`);
+            console.log('Endpoint:', `PUT /admin/pedidos/${pedidoId}/estado`);
+            console.log('Body:', { estado: nuevoEstado });
+            console.groupEnd();
+
+            const resultado = await apiFetch(`/admin/pedidos/${pedidoId}/estado`, 'PUT', {
+                estado: nuevoEstado
+            });
+
+            if (resultado.ok) {
+                console.log('✅ Estado actualizado');
+                alert(`✅ Pedido actualizado a estado: ${nuevoEstado}`);
+                cargarPedidos();
+            } else {
+                alert(`❌ Error: ${resultado.error}`);
+            }
+        }
+
+        // Cargar al abrir
+        window.addEventListener('load', () => {
+            if (!tieneToken()) {
+                alert('❌ Debes estar autenticado para acceder aquí');
+                window.location.href = '/pruebas/auth.html';
+                return;
+            }
+
+            cargarPedidos();
+        });
+    </script>
+</body>
+</html>

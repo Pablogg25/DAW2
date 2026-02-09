@@ -23,7 +23,6 @@ function Carrusel({ pacientes }) {
 
   if (total === 0) return <p>No hay pacientes</p>;
 
-  
   const visibles = [
     pacientes[indice],
     pacientes[(indice + 1) % total],
@@ -32,7 +31,6 @@ function Carrusel({ pacientes }) {
 
   return (
     <>
-      <p>Carrusel</p>
       <div className="carrusel">
         <button onClick={anterior}>Anterior</button>
 

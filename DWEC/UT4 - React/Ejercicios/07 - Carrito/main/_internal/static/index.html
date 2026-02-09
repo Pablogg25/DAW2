@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Pruebas API - FastAPI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        .info-section {
+            margin-bottom: 40px;
+        }
+
+        .info-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .info-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .credentials {
+            background: #f0f4ff;
+            border: 1px solid #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .credentials h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .credential-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .credential-item:last-child {
+            border-bottom: none;
+        }
+
+        .credential-item strong {
+            color: #333;
+        }
+
+        .credential-item code {
+            background: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .route-list {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .route-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .route-list li {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            color: #666;
+        }
+
+        .route-list li:last-child {
+            border-bottom: none;
+        }
+
+        .route-list code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #d63384;
+            font-family: monospace;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏦 Banco de Pruebas API</h1>
+            <p>Aprende a consumir APIs REST con JavaScript</p>
+        </header>
+
+        <main>
+            <!-- SECCIÓN 1: ¿QUÉ ES? -->
+            <section class="info-section">
+                <h2>📚 ¿Qué es este proyecto?</h2>
+                <p>
+                    Un banco de pruebas didáctico construido con <strong>FastAPI</strong> para aprender a:
+                </p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🔐 Autenticación JWT</h3>
+                        <p>Login, tokens de sesión, protección de endpoints</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🛒 APIs REST</h3>
+                        <p>GET, POST, PUT, DELETE con validaciones</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 Bases de Datos</h3>
+                        <p>Relaciones 1:N, respuestas agrupadas</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🧪 JavaScript Fetch</h3>
+                        <p>Consumo desde navegador con ejemplos interactivos</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: ACCESO RÁPIDO -->
+            <section class="info-section">
+                <h2>🚀 Acceso Rápido</h2>
+                <div class="button-group">
+                    <a href="/docs" class="btn">📖 Swagger (API Docs)</a>
+                    <a href="/redoc" class="btn btn-secondary">📝 ReDoc</a>
+                    <a href="/pruebas/index.html" class="btn">🧪 Página de Pruebas</a>
+                    <a href="/health" class="btn btn-secondary">💚 Health Check</a>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: CREDENCIALES -->
+            <section class="info-section">
+                <h2>👤 Credenciales de Prueba</h2>
+                <div class="credentials">
+                    <h3>Usuarios disponibles:</h3>
+                    <div class="credential-item">
+                        <strong>Cliente</strong>
+                        <div>
+                            <code>juan</code> / <code>juan123</code>
+                        </div>
+                    </div>
+                    <div class="credential-item">
+                        <strong>Cliente</strong>
+                        <div>
+                            <code>maria</code> / <code>maria456</code>
+                        </div>
+                    </div>
+                    <div class="credential-item">
+                        <strong>Administrador</strong>
+                        <div>
+                            <code>admin</code> / <code>admin123</code>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: #999; font-size: 0.9em;">
+                    💡 <strong>Nota:</strong> Las contraseñas en este banco de pruebas se almacenan en texto plano 
+                    (no es seguro). En producción usa bcrypt o similar.
+                </p>
+            </section>
+
+            <!-- SECCIÓN 4: RUTAS PRINCIPALES -->
+            <section class="info-section">
+                <h2>📡 Rutas Principales</h2>
+                <div class="route-list">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Autenticación:</h3>
+                    <ul>
+                        <li><code>POST /auth/login</code> - Obtener token JWT</li>
+                        <li><code>POST /auth/logout</code> - Cerrar sesión</li>
+                    </ul>
+                </div>
+                <div class="route-list">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Usuarios:</h3>
+                    <ul>
+                        <li><code>POST /usuarios</code> - Registrarse</li>
+                        <li><code>GET /usuarios/me</code> - Mi perfil (requiere JWT)</li>
+                        <li><code>PUT /usuarios/me</code> - Editar mi perfil (requiere JWT)</li>
+                    </ul>
+                </div>
+                <div class="route-list">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Productos (público):</h3>
+                    <ul>
+                        <li><code>GET /productos</code> - Listar todos</li>
+                        <li><code>GET /productos/{id}</code> - Detalle</li>
+                    </ul>
+                </div>
+                <div class="route-list">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Pedidos (cliente autenticado):</h3>
+                    <ul>
+                        <li><code>GET /pedidos</code> - Mis pedidos</li>
+                        <li><code>GET /pedidos/{id}</code> - Detalle con líneas</li>
+                        <li><code>POST /pedidos</code> - Crear pedido</li>
+                        <li><code>PUT /pedidos/{id}/lineas/{id}</code> - Editar línea</li>
+                        <li><code>DELETE /pedidos/{id}/lineas/{id}</code> - Eliminar línea</li>
+                    </ul>
+                </div>
+                <div class="route-list">
+                    <h3 style="color: #f5576c; margin-bottom: 15px;">Admin:</h3>
+                    <ul>
+                        <li><code>GET /admin/usuarios</code> - Listar usuarios</li>
+                        <li><code>PUT /admin/usuarios/{id}/estado</code> - Cambiar estado usuario</li>
+                        <li><code>GET /admin/productos</code> - Listar todos (incluyendo inactivos)</li>
+                        <li><code>POST /admin/productos</code> - Crear producto</li>
+                        <li><code>PUT /admin/productos/{id}</code> - Editar producto</li>
+                        <li><code>GET /admin/pedidos</code> - Listar todos los pedidos</li>
+                        <li><code>PUT /admin/pedidos/{id}/estado</code> - Cambiar estado pedido</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 5: ESTRUCTURA -->
+            <section class="info-section">
+                <h2>📁 Estructura del Proyecto</h2>
+                <div class="code-block">
+                    <pre>
+                        BancoPruebasAPI/
+                        ├── main.py                 # Aplicación principal
+                        ├── requirements.txt        # Dependencias
+                        ├── README.md              # Documentación
+                        ├── app/
+                        │   ├── models/            # Modelos Pydantic
+                        │   │   ├── usuario.py
+                        │   │   ├── producto.py
+                        │   │   └── pedido.py
+                        │   ├── routes/            # Endpoints
+                        │   │   ├── auth.py
+                        │   │   ├── usuarios.py
+                        │   │   ├── productos.py
+                        │   │   ├── pedidos.py
+                        │   │   ├── admin_usuarios.py
+                        │   │   ├── admin_productos.py
+                        │   │   └── admin_pedidos.py
+                        │   └── utils/             # Utilidades
+                        │       ├── data.py        # BD en memoria
+                        │       └── jwt_handler.py # JWT
+                        ├── static/
+                        │   └── index.html        # Esta página
+                        └── pruebas/              # Página de pruebas interactivas
+                        ├── index.html        # Menú principal
+                        ├── auth.html         # Login/logout
+                        ├── helpers.js        # Helper reutilizable
+                        ├── productos_publico.html
+                        ├── pedidos_cliente.html
+                        ├── admin_productos.html
+                        ├── admin_usuarios.html
+                        └── admin_pedidos.html
+                    </pre>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 6: PRIMEROS PASOS -->
+            <section class="info-section">
+                <h2>🎯 Primeros Pasos</h2>
+                <p><strong>1. Instalar dependencias:</strong></p>
+                <div class="code-block">pip install -r requirements.txt</div>
+
+                <p><strong>2. Arrancar el servidor:</strong></p>
+                <div class="code-block">python main.py</div>
+
+                <p><strong>3. Abrir en navegador:</strong></p>
+                <div class="code-block">http://localhost:8000/docs</div>
+
+                <p><strong>4. Ir a pruebas interactivas:</strong></p>
+                <div class="button-group">
+                    <a href="/pruebas/index.html" class="btn">🧪 Pruebas Interactivas</a>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 7: NOTAS EDUCATIVAS -->
+            <section class="info-section">
+                <h2>📖 Notas Educativas</h2>
+                <ul style="color: #666; line-height: 2;">
+                    <li>✅ Los datos se almacenan en memoria (se reinician al arrancar)</li>
+                    <li>✅ JWT tiene expiración de 1 hora</li>
+                    <li>✅ Validaciones con errores 422 Unprocessable Entity</li>
+                    <li>✅ Autenticación con status 401 Unauthorized</li>
+                    <li>✅ Autorización con status 403 Forbidden</li>
+                    <li>✅ Relaciones 1:N con respuestas agrupadas (Pedido + Líneas)</li>
+                    <li>✅ Admin puede ver y editar todo</li>
+                    <li>✅ Cliente solo ve sus datos</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>Banco de Pruebas API v1.0 • Creado para aprender FastAPI y consumo de APIs</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                💡 Modifica el código en <code>app/</code> y recarga para ver cambios
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

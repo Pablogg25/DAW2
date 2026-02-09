@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Productos - Pruebas API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #42a5f5 0%, #1e88e5 100%);
+            color: white;
+            padding: 30px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #42a5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #1565c0;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #42a5f5 0%, #1e88e5 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background: #42a5f5;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+
+        .badge-activo {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge-inactivo {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group.full {
+            grid-template-columns: 1fr;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #42a5f5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <header>
+                <h1>📦 Administrar Productos</h1>
+                <p>Crear, editar y eliminar productos (Solo Admin)</p>
+            </header>
+
+            <div class="content">
+                <div class="info-box">
+                    <strong>⚠️ Requiere autenticación ADMIN:</strong> Solo administradores pueden acceder aquí.
+                </div>
+
+                <!-- CREAR PRODUCTO -->
+                <section style="background: #f9f9f9; padding: 20px; border-radius: 5px; margin-bottom: 30px;">
+                    <h2 style="color: #333; margin-bottom: 15px;">➕ Crear Producto</h2>
+
+                    <div class="form-group">
+                        <div>
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" placeholder="Nombre del producto">
+                        </div>
+                        <div>
+                            <label for="categoria">Categoría:</label>
+                            <input type="text" id="categoria" placeholder="Ej: Electrónica">
+                        </div>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="descripcion">Descripción:</label>
+                        <textarea id="descripcion" placeholder="Descripción detallada"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div>
+                            <label for="precio">Precio:</label>
+                            <input type="number" id="precio" placeholder="0.00" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label for="stock">Stock:</label>
+                            <input type="number" id="stock" placeholder="0" min="0">
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" onclick="crearProducto()">➕ Crear Producto</button>
+                    <button class="btn-secondary" onclick="limpiarFormulario()">🗑️ Limpiar</button>
+                </section>
+
+                <!-- LISTAR PRODUCTOS -->
+                <section>
+                    <h2 style="color: #333; margin-bottom: 15px;">📋 Productos</h2>
+
+                    <button class="btn-primary" onclick="cargarProductos()">🔄 Recargar</button>
+
+                    <div id="productos-table" style="margin-top: 20px;"></div>
+                </section>
+            </div>
+        </div>
+
+        <a href="/pruebasindex.html" class="back-link">← Volver al menú</a>
+    </div>
+
+    <script src="/pruebas/helpers.js"></script>
+    <script>
+        /**
+         * Carga todos los productos (incluyendo inactivos)
+         */
+        async function cargarProductos() {
+            console.clear();
+            console.group('📦 PRODUCTOS ADMIN REQUEST');
+            console.log('Endpoint:', 'GET /admin/productos');
+            console.groupEnd();
+
+            const resultado = await apiFetch('/admin/productos', 'GET');
+
+            if (resultado.ok) {
+                console.group('📦 PRODUCTOS RESPONSE');
+                console.table(resultado.data);
+                console.groupEnd();
+
+                mostrarProductos(resultado.data);
+            } else {
+                if (resultado.status === 403) {
+                    alert('❌ No tienes permisos de administrador');
+                    window.location.href = '/pruebas/index.html';
+                } else {
+                    alert(`❌ Error: ${resultado.error}`);
+                }
+            }
+        }
+
+        /**
+         * Muestra la tabla de productos
+         */
+        function mostrarProductos(productos) {
+            if (productos.length === 0) {
+                document.getElementById('productos-table').innerHTML = '<p>No hay productos</p>';
+                return;
+            }
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            productos.forEach(p => {
+                const badgeEstado = p.activo ? 'badge-activo' : 'badge-inactivo';
+                const textoEstado = p.activo ? '✅ Activo' : '❌ Inactivo';
+                const btnEstado = p.activo ? '🔴 Desactivar' : '🟢 Activar';
+
+                html += `
+                    <tr>
+                        <td>#${p.productoId}</td>
+                        <td><strong>${p.nombre}</strong></td>
+                        <td>${p.categoria}</td>
+                        <td>$${p.precio.toFixed(2)}</td>
+                        <td>${p.stock}</td>
+                        <td><span class="badge ${badgeEstado}">${textoEstado}</span></td>
+                        <td>
+                            <button class="btn-secondary" onclick="editarProductoUI(${p.productoId})" style="padding: 8px 12px; font-size: 0.85em;">
+                                ✏️ Editar
+                            </button>
+                            <button class="btn-danger" onclick="eliminarProducto(${p.productoId})" style="padding: 8px 12px; font-size: 0.85em;">
+                                🗑️ Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById('productos-table').innerHTML = html;
+        }
+
+        /**
+         * Crea un nuevo producto
+         */
+        async function crearProducto() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const descripcion = document.getElementById('descripcion').value.trim();
+            const precio = parseFloat(document.getElementById('precio').value);
+            const stock = parseInt(document.getElementById('stock').value) || 0;
+            const categoria = document.getElementById('categoria').value.trim();
+
+            if (!nombre || !descripcion || isNaN(precio) || !categoria) {
+                alert('❌ Completa todos los campos');
+                return;
+            }
+
+            console.clear();
+            console.group('📦 CREAR PRODUCTO REQUEST');
+            console.log('Endpoint:', 'POST /admin/productos');
+            console.log('Body:', { nombre, descripcion, precio, stock, categoria });
+            console.groupEnd();
+
+            const resultado = await apiFetch('/admin/productos', 'POST', {
+                nombre,
+                descripcion,
+                precio,
+                stock,
+                categoria
+            });
+
+            if (resultado.ok) {
+                console.log('✅ Producto creado:', resultado.data);
+                alert(`✅ Producto "${nombre}" creado con ID #${resultado.data.productoId}`);
+                limpiarFormulario();
+                cargarProductos();
+            } else {
+                alert(`❌ Error: ${resultado.error}`);
+            }
+        }
+
+        /**
+         * Elimina un producto
+         */
+        async function eliminarProducto(productoId) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                return;
+            }
+
+            console.clear();
+            console.group(`🗑️ ELIMINAR PRODUCTO ${productoId}`);
+            console.log('Endpoint:', `DELETE /admin/productos/${productoId}`);
+            console.groupEnd();
+
+            const resultado = await apiFetch(`/admin/productos/${productoId}`, 'DELETE');
+
+            if (resultado.status === 204) {
+                console.log('✅ Producto eliminado');
+                alert('✅ Producto eliminado');
+                cargarProductos();
+            } else {
+                alert(`❌ Error: ${resultado.error}`);
+            }
+        }
+
+        /**
+         * Limpia el formulario
+         */
+        function limpiarFormulario() {
+            document.getElementById('nombre').value = '';
+            document.getElementById('descripcion').value = '';
+            document.getElementById('precio').value = '';
+            document.getElementById('stock').value = '';
+            document.getElementById('categoria').value = '';
+        }
+
+        // Cargar al abrir
+        window.addEventListener('load', () => {
+            if (!tieneToken()) {
+                alert('❌ Debes estar autenticado para acceder aquí');
+                window.location.href = '/pruebas/auth.html';
+                return;
+            }
+
+            cargarProductos();
+        });
+    </script>
+</body>
+</html>
