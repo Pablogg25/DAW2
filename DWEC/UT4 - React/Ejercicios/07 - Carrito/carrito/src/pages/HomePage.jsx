@@ -21,7 +21,8 @@ function HomePage() {
     const nuevoCarrito = [...carrito, p];
     setCarrito(nuevoCarrito);
     console.log(carrito);
-
+    // console.log(localStorage.getItem("token"));
+    // localStorage.removeItem("token");
     localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
   }
   function handleChange(p, e) {
