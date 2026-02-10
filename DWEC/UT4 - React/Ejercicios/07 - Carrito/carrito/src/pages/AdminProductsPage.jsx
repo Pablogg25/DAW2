@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../core/API.js";
+import { SeguridadContext } from "../contexts/SeguridadProvider.jsx";
 function AdminProductsPage() {
   const [producto, setProducto] = useState({});
   const navigate = useNavigate("");
 
+  const { datos } = useContext(SeguridadContext);
+
+  const tipoNormalizado = datos.tipo.trim().toLowerCase();
+  useEffect(() => {
+    if (
+      !datos.tienePermisos ||
+      datos.username === "" ||
+      tipoNormalizado !== "administrador"
+    ) {
+      navigate("/");
+    }
+  }, [datos, navigate, tipoNormalizado]);
+
+  if (
+    !datos.tienePermisos ||
+    datos.username === "" ||
+    tipoNormalizado !== "administrador"
+  ) {
+    return null;
+  }
   const handleChange = (e) => {
     const { name, value } = e.target;
     let nuevoValor = value;

@@ -6,15 +6,16 @@ function PropsProductoPage() {
   const navigate = useNavigate();
   const { datos } = useContext(SeguridadContext);
 
+  const tipoNormalizado = datos.tipo.trim().toLowerCase();
   useEffect(() => {
     if (
       !datos.tienePermisos ||
       datos.username === "" ||
-      datos.tipo !== "admin"
+      tipoNormalizado !== "administrador"
     ) {
       navigate("/");
     }
-  }, [datos, navigate]);
+  }, [datos, navigate, tipoNormalizado]);
 
   if (!datos.tienePermisos || datos.username === "" || datos.tipo !== "admin") {
     return null;
