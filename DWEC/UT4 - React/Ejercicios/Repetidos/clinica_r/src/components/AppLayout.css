@@ -1,0 +1,100 @@
+/* Fondo general */
+body {
+  margin: 0;
+  padding: 0;
+  background: #f5f6fa;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  color: #333;
+}
+
+/* Contenedor principal del layout */
+.app-layout {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Títulos */
+.app-layout h1,
+.app-layout h2 {
+  margin-top: 0;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Párrafos */
+.app-layout p {
+  line-height: 1.6;
+}
+
+/* Botones */
+button {
+  padding: 8px 14px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Botón primario */
+button:first-of-type {
+  background: #0078ff;
+  color: white;
+}
+
+/* Botón de eliminar */
+button:last-of-type {
+  background: #ff4d4d;
+  color: white;
+}
+
+/* Cabeceras de listas */
+.cabecera {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  font-weight: bold;
+  padding: 10px 0;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
+/* Filas de datos */
+.fila {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.fila:hover {
+  background: #fafafa;
+}
+
+/* Columnas */
+.col {
+  padding: 4px 0;
+}
+
+/* Mensajes de error */
+.error-box {
+  padding: 12px;
+  background: #ffe5e5;
+  border: 1px solid #ff9b9b;
+  border-radius: 6px;
+  margin: 20px 0;
+  color: #b30000;
+  font-weight: 500;
+}
