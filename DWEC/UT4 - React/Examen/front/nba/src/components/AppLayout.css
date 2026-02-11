@@ -1,0 +1,81 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+}
+
+/* Tabla maquetada con div */
+.tabla {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Fila maquetada con div */
+.fila {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Fila de cabecera */
+.fila.cabecera {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* celda de cabecera */
+.fila.cabecera div {
+  text-align: center;
+}
+
+/* celda */
+.fila div {
+  flex: 1;
+  padding: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Para que aparezca la grilla */
+.fila:not(.cabecera) div {
+  border-right: 1px solid #eee;
+}
+
+/* Estilos formulario */
+/* Para que no se amontonen */
+form {
+  input,
+  select {
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  /* Mostrar checkbox en línea con su label */
+  input[type="checkbox"] {
+    display: inline-block;
+  }
+
+  border: 1px solid #000;
+  padding: 12px;
+  border-radius: 6px;
+  display: inline-block;
+  /* evita ocupar todo el ancho del contenedor */
+  width: fit-content;
+  /* se ajusta al contenido */
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilos para campos inválidos */
+input:invalid,
+select:invalid {
+  border-color: #d32f2f;
+  background-color: #ffebee;
+}
+
+button {
+  margin-right: 3px;
+}

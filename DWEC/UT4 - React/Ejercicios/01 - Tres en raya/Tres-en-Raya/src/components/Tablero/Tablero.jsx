@@ -29,6 +29,7 @@ function Tablero() {
     }
     setCeldas(siguienteCelda);
     setSiguiente(!siguiente);
+    setSiguiente(!siguiente);
   }
 
   const winner = calcularGanador(celdas);
