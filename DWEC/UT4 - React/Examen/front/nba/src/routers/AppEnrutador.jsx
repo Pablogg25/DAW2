@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "../components/AppLayout";
+import HomePage from "../pages/HomePage.jsx";
 import EquiposPage from "../pages/EquiposPage.jsx";
 import PartidosPage from "../pages/PartidosPage.jsx";
 import ClasificacionPage from "../pages/ClasificacionPage.jsx";
@@ -11,7 +12,8 @@ function AppEnrutador() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AppLayout />}>
-          <Route index element={<EquiposPage />} />
+          <Route index element={<HomePage />} />
+          <Route path="/equipos" element={<EquiposPage />} />
           <Route path="/partidos" element={<PartidosPage />} />
           <Route path="/clasificacion" element={<ClasificacionPage />} />
           <Route path="/partidos/:id" element={<PropsPartidoPage />} />

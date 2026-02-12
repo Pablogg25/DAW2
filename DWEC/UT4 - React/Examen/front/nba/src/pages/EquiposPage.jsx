@@ -29,7 +29,7 @@ function EquiposPage() {
     <>
       <div>EquiposPage</div>
       <ErrorMessage error={error} />
-
+      <button onClick={() => navigate("/equipos/0")}>Crear Equipo</button>
       <div className="tabla">
         {/* Cabecera */}
         <div className="fila cabecera">
