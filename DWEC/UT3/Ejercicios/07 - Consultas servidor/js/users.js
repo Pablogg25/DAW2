@@ -64,7 +64,7 @@ function pintarItem(u) {
   const div = document.createElement("div");
   div.innerHTML = `
     <p>${u.id} - ${u.name}</p>
-    <button onclick="location.href='./todos.html?userId=${u.id}'">Ver Pendientes</button>
+onclick="location.href='./todos.html?userId=${u.id}'"    <button >Ver Pendientes</button>
     <button onclick="location.href='./albums.html?userId=${u.id}'">Ver albumes</button>
     <button onclick="location.href='./posts.html?userId=${u.id}'">Ver posts</button>
 <button onclick="window.location.href='./formularioUsuario.html?userId=${u.id}'">Editar</button>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="formulario">
+      <form action="">
+        <label for="">Fecha</label>
+        <input id="fecha" type="date" />
+        <label for="">Equipo Local</label>
+        <input id="loc" type="text" />
+        <label for="">Puntos Equipo Local</label>
+        <input id="ploc" type="number" />
+        <label for="">Equipo Visitante</label>
+        <input id="vis" type="text" />
+        <label id="pvis" for="">Puntos Visitante</label>
+        <input type="number" />
+        <button>Volver</button>
+      </form>
+    </div>
+  </body>
+</html>
+<script>
+  const BASE_URL = "http://127.0.0.1:8000";
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("partidoId");
+  let partido;
+  async function cargarPartido(params) {
+    partido = await getPartido(id);
+    console.log(partido);
+  }
+
+  async function getPartido(id) {
+    let data;
+    const response = await fetch(BASE_URL + `/partidos/${id}`);
+    if (response.ok) {
+      data = await response.json();
+    }
+    return data;
+  }
+  function cargarDatosFomulario() {
+    const inputDate = document.getElementById("fecha");
+    inputDate.value = partido.fecha;
+  }
+  async function init() {
+    await cargarPartido();
+    cargarDatosFomulario();
+  }
+  init();
+</script>
