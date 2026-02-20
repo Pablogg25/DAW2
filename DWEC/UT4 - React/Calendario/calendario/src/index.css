@@ -1,0 +1,89 @@
+/* Fondo general blanco */
+body {
+  background: #f7f7f7;
+  font-family: "Inter", sans-serif;
+  color: #333;
+}
+
+/* Contenedor del calendario */
+.fc {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Cabecera del calendario */
+.fc-toolbar-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.fc-button {
+  background: #ffffff !important;
+  border: 1px solid #ddd !important;
+  color: #333 !important;
+  border-radius: 6px !important;
+  padding: 6px 12px !important;
+  transition: 0.2s;
+}
+
+.fc-button:hover {
+  background: #f0f0f0 !important;
+}
+
+/* Día actual */
+.fc-day-today {
+  background: #e8f0fe !important;
+}
+
+/* Eventos */
+.fc-event {
+  background: #4285f4 !important; /* azul Google */
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 2px 6px !important;
+  font-size: 0.85rem;
+  color: white !important;
+}
+
+/* Hover del evento */
+.fc-event:hover {
+  background: #3367d6 !important;
+}
+
+/* Celdas del calendario */
+.fc-daygrid-day {
+  background: #ffffff;
+}
+
+.fc-daygrid-day:hover {
+  background: #fafafa;
+}
+
+/* Panel lateral */
+.panel-lateral {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.panel-lateral h3 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.panel-lateral ul {
+  list-style: none;
+  padding: 0;
+}
+
+.panel-lateral li {
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}

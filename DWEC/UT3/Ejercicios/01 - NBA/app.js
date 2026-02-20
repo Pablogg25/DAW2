@@ -122,28 +122,33 @@ async function cargarPartidos() {
     const tr = document.createElement("tr");
     const nombreEquipoLocal = await getNombreEquipo(p.equipoLocalId);
     const nombreEquipoVisitante = await getNombreEquipo(p.equipoLocalId);
-    // console.log(nombreEquipoLocal);
+
     tr.innerHTML = `
     <td>${p.fecha}</td>
     <td>${nombreEquipoLocal}</td>
     <td>${p.puntosLocal}</td>
     <td>${nombreEquipoVisitante}</td>
     <td>${p.puntosVisitante}</td>`;
+
     const tdAcciones = document.createElement("td");
+
     const btnVer = document.createElement("button");
     btnVer.textContent = "Ver";
     btnVer.addEventListener("click", () => {
       window.location.href = `./FormularioPartidos.html?partidoId=${p.partidoId}`;
     });
+
     const btnEliminar = document.createElement("button");
     btnEliminar.textContent = "Eliminar";
     btnEliminar.addEventListener("click", () => {
-      //   console.log(p.id);
       eliminarPartido(p.partidoId);
     });
+
     tdAcciones.appendChild(btnVer);
     tdAcciones.appendChild(btnEliminar);
+
     tr.append(tdAcciones);
+
     tabla.appendChild(tr);
   }
 

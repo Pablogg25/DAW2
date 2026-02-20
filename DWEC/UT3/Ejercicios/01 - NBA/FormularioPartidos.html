@@ -16,8 +16,8 @@
         <input id="ploc" type="number" />
         <label for="">Equipo Visitante</label>
         <input id="vis" type="text" />
-        <label id="pvis" for="">Puntos Visitante</label>
-        <input type="number" />
+        <label for="">Puntos Visitante</label>
+        <input id="pvis" type="number" />
         <button>Volver</button>
       </form>
     </div>
@@ -28,6 +28,7 @@
   const params = new URLSearchParams(window.location.search);
   const id = params.get("partidoId");
   let partido;
+
   async function cargarPartido(params) {
     partido = await getPartido(id);
     console.log(partido);
@@ -44,6 +45,14 @@
   function cargarDatosFomulario() {
     const inputDate = document.getElementById("fecha");
     inputDate.value = partido.fecha;
+    const inputEquipoLoc = document.getElementById("loc");
+    inputEquipoLoc.value = partido.equipoLocalId;
+    const inputPuntosLoc = document.getElementById("ploc");
+    inputPuntosLoc.value = partido.puntosLocal;
+    const inputEquivoVis = document.getElementById("vis");
+    inputEquivoVis.value = partido.equipoVisitanteId;
+    const inputPuntdosVis = document.getElementById("pvis");
+    inputPuntdosVis.value = partido.puntosVisitante;
   }
   async function init() {
     await cargarPartido();
