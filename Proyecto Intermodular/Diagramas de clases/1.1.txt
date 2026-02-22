@@ -1,0 +1,209 @@
+classDiagram
+    direction TB
+
+%% ============================
+%%        NAMESPACE: MODELOS
+%% ============================
+
+    namespace Modelos {
+
+        class Calendario {
+            +int eventoId
+            +string titulo
+            +string descripcion
+            +date fecha_inicio
+            +date fecha_fin
+            +int usuarioId
+            +int empleadoId
+            +int trabajoId
+        }
+
+        class ConsumosTrabajo {
+            +int id
+            +int trabajoId
+            +int itemId
+            +int cantidad_usada
+        }
+
+        class Facturas {
+            +int facturaId
+            +int usuarioId
+            +date fecha
+            +bool pagado
+            +float total_calculado
+            +trabajos()
+        }
+
+        class FacturaTrabajos {
+            +int id
+            +int facturaId
+            +int trabajoId
+        }
+
+        class Inventario {
+            +int itemId
+            +string nombre
+            +string descripcion
+            +int cantidad
+            +int stock_minimo
+        }
+
+        class Notificaciones {
+            +int notificacionId
+            +int receptorId
+            +int remitenteId
+            +int trabajoId
+            +string tipo
+            +string asunto
+            +string mensaje
+            +date fecha_envio
+            +tiposValidos()
+        }
+
+        class Prendas {
+            +int prendaId
+            +int usuarioId
+            +string tipo
+            +string descripcion
+            +string color
+            +string talla
+            +trabajos()
+        }
+
+        class Trabajos {
+            +int trabajoId
+            +int prendaId
+            +int empleadoId
+            +string descripcion
+            +date fecha_inicio
+            +date fecha_entrega
+            +string estado
+            +float precio
+            +consumos()
+            +facturas()
+        }
+
+        class Usuarios {
+            +int usuarioId
+            +string nombre
+            +string telefono
+            +string email
+            +string direccion
+            +string username
+            +string password (hidden)
+            +string rol
+            +setPasswordAttribute()
+            +getRolAttribute()
+        }
+    }
+
+%% ============================
+%%     NAMESPACE: CONTROLADORES
+%% ============================
+
+    namespace Controladores {
+
+        class CalendarioController {
+            +index(Request)
+            +show(int)
+            +store(Request)
+            +update(Request, int)
+            +destroy(int)
+        }
+
+        class FacturasController {
+            +index(Request)
+            +show(int)
+            +store(Request)
+            +update(Request, int)
+            +destroy(int)
+            +asociarTrabajo(Request, int)
+            +desasociarTrabajo(Request, int)
+            +calcularTotal(int)
+        }
+
+        class InventarioController {
+            +index(Request)
+            +show(int)
+            +bajoStock()
+            +store(Request)
+            +update(Request, int)
+            +destroy(int)
+        }
+
+        class NotificacionesController {
+            +index(Request)
+            +show(int)
+            +store(Request)
+            +update(Request, int)
+            +destroy(int)
+        }
+
+        class PrendasController {
+            +index(Request)
+            +show(int)
+            +store(Request)
+            +update(Request, int)
+            +destroy(int)
+        }
+
+        class TrabajosController {
+            +index(Request)
+            +show(int)
+            +store(Request)
+            +update(Request, int)
+            +destroy(int)
+            +consumos(int)
+            +asociarConsumo(Request, int)
+        }
+
+        class UsuariosController {
+            +index(Request)
+            +show(int)
+            +store(Request)
+            +update(Request, int)
+            +updatePassword(Request, int)
+            +destroy(int)
+            +checkPassword(Request)
+        }
+    }
+
+%% ============================
+%%     RELACIONES ENTRE MODELOS
+%% ============================
+
+    Calendario --> Usuarios : usuarioId
+    Calendario --> Usuarios : empleadoId
+    Calendario --> Trabajos : trabajoId
+
+    ConsumosTrabajo --> Trabajos : trabajoId
+    ConsumosTrabajo --> Inventario : itemId
+
+    Prendas --> Usuarios : usuarioId
+    Prendas --> Trabajos : "1..* trabajos"
+
+    Trabajos --> Prendas : prendaId
+    Trabajos --> Usuarios : empleadoId
+    Trabajos --> ConsumosTrabajo : "1..* consumos"
+
+    Trabajos --> Facturas : "many-to-many"
+    Facturas --> FacturaTrabajos : pivote
+    Trabajos --> FacturaTrabajos : pivote
+
+    Notificaciones --> Usuarios : receptorId
+    Notificaciones --> Usuarios : remitenteId
+    Notificaciones --> Trabajos : trabajoId
+
+%% ============================
+%%   RELACIONES CONTROLADORES → MODELOS
+%% ============================
+
+    Controladores.CalendarioController --> Modelos.Calendario
+    Controladores.FacturasController --> Modelos.Facturas
+    Controladores.FacturasController --> Modelos.Trabajos
+    Controladores.InventarioController --> Modelos.Inventario
+    Controladores.NotificacionesController --> Modelos.Notificaciones
+    Controladores.PrendasController --> Modelos.Prendas
+    Controladores.TrabajosController --> Modelos.Trabajos
+    Controladores.TrabajosController --> Modelos.ConsumosTrabajo
+    Controladores.UsuariosController --> Modelos.Usuarios
