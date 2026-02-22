@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tienda DOM</title>
+    <style>
+      body {
+        font-family: Arial;
+        padding: 20px;
+      }
+      .producto {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      #carrito {
+        margin-top: 20px;
+        border-top: 2px solid #000;
+        padding-top: 10px;
+      }
+      .linea {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tienda DOM</h1>
+
+    <!-- LOGIN -->
+    <section id="loginSection">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <input name="username" placeholder="Usuario" required />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          required
+        />
+        <button>Entrar</button>
+      </form>
+    </section>
+
+    <!-- PRODUCTOS + CARRITO -->
+    <section id="tiendaSection" style="display: none">
+      <h2>Productos</h2>
+
+      <input id="filtro" placeholder="Buscar por categoría..." />
+      <div id="listaProductos"></div>
+
+      <h2>Carrito</h2>
+      <div id="carrito"></div>
+      <button id="procesarPedidoBtn">Procesar pedido</button>
+    </section>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
