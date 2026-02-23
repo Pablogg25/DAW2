@@ -1,0 +1,34 @@
+Guía de estilos (breve)
+Colores
+css
+root {
+  --color-primario #1a3d6f;
+  --color-secundario #f2f2f2;
+  --color-acento #00a8e8;
+  --color-texto #222;
+}
+Tipografía
+Fuente principal Roboto, sans-serif
+
+Peso predominante 300  500  700
+
+Botones y menú
+Hover invertir colores (fondo ↔ texto)
+
+Bordes redondeados suaves (4px)
+
+Accesibilidad
+Contraste mínimo 4.51
+
+Tamaños fluidos
+
+Navegación clara y consistente
+
+Imágenes con alt=
+
+Usabilidad
+Secciones cortas
+
+Jerarquía visual clara
+
+Botones grandes y visibles

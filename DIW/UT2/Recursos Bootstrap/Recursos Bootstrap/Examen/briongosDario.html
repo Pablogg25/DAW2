@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examen Bootstrap - TST</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="briongosDario.css" />
+  </head>
+  <body>
+    <header class="custom-header py-3">
+      <div
+        class="container-xl d-flex flex-column flex-md-row justify-content-between align-items-center"
+      >
+        <img
+          src="../recursos/recursos_web/logo_TST.png"
+          alt="TST Logo"
+          class="logo-img mb-3 mb-md-0"
+        />
+
+        <nav class="d-flex align-items-center flex-wrap justify-content-center">
+          <ul class="nav me-3">
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white nav-custom-btn">TST</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white nav-custom-btn"
+                >SERVICIOS</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white nav-custom-btn"
+                >PRODUCTOS</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white nav-custom-btn">I+D</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white nav-custom-btn">BLOG</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white nav-custom-btn"
+                >CONTACTO</a
+              >
+            </li>
+          </ul>
+          <div class="d-flex align-items-center">
+            <img
+              src="../recursos/recursos_web/Bandera_Inglesa.png"
+              alt="EN"
+              class="me-3"
+              style="height: 15px"
+            />
+            <div class="search-box d-flex align-items-center bg-white px-2">
+              <input
+                type="text"
+                class="form-control border-0 p-0 shadow-none"
+                style="width: 100px"
+              />
+              <img
+                src="../recursos/recursos_web/Lupa.png"
+                alt="Search"
+                style="height: 15px"
+              />
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <section
+      class="hero text-center text-white d-flex flex-column justify-content-center align-items-center"
+    >
+      <h2 class="h6 fw-light letter-spacing">
+        C O N T A C T A , C O N E C T A
+      </h2>
+      <h1 class="display-4 my-4">Y COMENCEMOS ALGO GRANDE</h1>
+      <img
+        src="../recursos/recursos_web/Boton.png"
+        alt="Scroll"
+        class="mt-4 mouse-icon"
+      />
+    </section>
+
+    <main class="container-fluid container-xl-custom my-5">
+      <div class="text-center mb-5">
+        <p class="small text-muted mb-1">
+          COMBINAMOS DISEÑO + FABRICACIÓN + INGENIERÍA
+        </p>
+        <h2 class="fw-bold mb-4">Somos expertos en IoT</h2>
+        <p class="text-muted mx-auto" style="max-width: 700px">
+          Llevamos más de 10 años haciendo realidad el IoT, ofreciendo
+          soluciones de gestión de residuos, gestión de recursos hídricos e
+          Industria 4.0.
+        </p>
+      </div>
+
+      <hr class="my-5" />
+
+      <div class="row g-4 mb-5">
+        <div class="col-12 col-md-6 d-flex align-items-start px-4">
+          <img
+            src="../recursos/recursos_web/Icono_1.png"
+            alt="Icono 1"
+            class="me-3"
+            style="width: 50px"
+          />
+          <div>
+            <h3 class="h6 fw-bold">
+              DISEÑO ELECTRÓNICO CON RADIOFRECUENCIA<br /><small
+                class="text-muted"
+                >Expertos en electrónica de RF</small
+              >
+            </h3>
+            <p class="small text-muted">
+              En un diseño de producto IoT la electrónica con RF es un
+              componente esencial que afecta a la compatibilidad
+              electromagnética y seguridad eléctrica del dispositivo. En TST
+              contamos con la instrumentación necesaria para realizar la
+              adaptación de las antenas a las bandas de frecuencia requeridas,
+              garantizando así una conectividad fiable y eficiente. Somos
+              expertos en programación embebida para múltiples plataformas HW y
+              diferentes protocolos de comunicación.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 d-flex align-items-start px-4">
+          <img
+            src="../recursos/recursos_web/Icono_2.png"
+            alt="Icono 2"
+            class="me-3"
+            style="width: 50px"
+          />
+          <div>
+            <h3 class="h6 fw-bold">
+              TECNOLOGÍAS DE COMUNICACIONES IoT<br /><small class="text-muted"
+                >Expertos en redes IoT</small
+              >
+            </h3>
+            <p class="small text-muted">
+              Las redes de comunicación han ido evolucionando para adaptarse a
+              las particularidades de las aplicaciones IoT, como son baja
+              velocidad, largo alcance, localización, seguridad y bajo consumo.
+              En TST diseñamos productos con sensórica integrada y con la
+              conectividad que mejor se adapta a cada aplicación, destacando las
+              redes IoT Sigfox, LoRa y NB-IoT, las tecnologías tradicionales
+              como son WiFi o Bluetooth y las tecnologías celulares (2G, 4G, y
+              ya preparándonos para el 5G). SMART WATER
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-5" />
+
+      <div class="row g-0 align-items-center mb-4">
+        <div class="col-12 col-md-6">
+          <div id="sliderWater" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  src="../recursos/recursos_web/Smart_Water_1.png"
+                  class="d-block w-100"
+                  alt="1"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../recursos/recursos_web/Smart_Water_2.png"
+                  class="d-block w-100"
+                  alt="2"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../recursos/recursos_web/Smart_Water_3.png"
+                  class="d-block w-100"
+                  alt="3"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 bg-light-custom p-5 text-center">
+          <h3 class="fw-bold">SMART WATER</h3>
+          <p class="small text-muted mt-3">
+            TST ha desarrollado varios productos para la monitorización de
+            parámetros de calidad de agua, monitorización de calidad de agua en
+            ríos, piscinas o red de saneamiento, control de variaciones de
+            presión en tuberías o control de nivel de agua en ríos.
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="row g-0 align-items-center mb-5 flex-column-reverse flex-md-row"
+      >
+        <div class="col-12 col-md-6 bg-light-custom p-5 text-center">
+          <h3 class="fw-bold">SMART WASTE</h3>
+          <p class="small text-muted mt-3">
+            TST ha desarrollado para MOBA una gama de sensores para el control
+            de nivel llenado de contenedores. El producto MOBA FLS2 permite
+            monitorizar, a través de tecnología ultrasónica, el nivel y estado
+            de cualquier contenedor. Soporta varios modos de conectividad, entre
+            ellos GPRS y NB-IoT. La información está disponible en tiempo real
+            posibilitando una optimización en la planificación de rutas y un
+            ahorro importante de costes y emisiones de CO2 a la atmósfera.
+          </p>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="waste-image-container">
+            <img
+              src="../recursos/recursos_web/Smart_Waster.png"
+              class="img-fluid w-100 img-color"
+              alt="Smart Waste"
+            />
+            <img
+              src="../recursos/recursos_web/Smart_Waster_BN.png"
+              class="img-fluid w-100 img-bn"
+              alt="Smart Waste BN"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12 mb-4">
+          <img
+            src="../recursos/recursos_web/mapa.png"
+            alt="Mapa"
+            class="img-fluid w-100"
+          />
+        </div>
+        <div class="col-12 px-4">
+          <form class="row g-3">
+            <div class="col-12">
+              <label class="form-label small">Nombre *</label
+              ><input type="text" class="form-control" />
+            </div>
+            <div class="col-12">
+              <label class="form-label small">Motivo de Contacto *</label
+              ><select class="form-select">
+                <option>Consulta General</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label small">Empresa</label
+              ><input type="text" class="form-control" />
+            </div>
+            <div class="col-12">
+              <label class="form-label small"
+                >Dirección de Correo Electrónico *</label
+              ><input type="email" class="form-control" />
+            </div>
+            <div class="col-12">
+              <label class="form-label small">Mensaje</label
+              ><textarea class="form-control" rows="4"></textarea>
+            </div>
+            <div class="col-12 text-center mt-4">
+              <div class="form-check d-inline-block">
+                <input class="form-check-input" type="checkbox" /><label
+                  class="form-check-label small"
+                  >He leído y acepto la <b>política de privacidad</b></label
+                >
+              </div>
+            </div>
+            <div class="col-12 text-center mt-3">
+              <button type="submit" class="btn btn-dark-custom me-2">
+                Enviar
+              </button>
+              <button type="reset" class="btn btn-outline-custom">
+                Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

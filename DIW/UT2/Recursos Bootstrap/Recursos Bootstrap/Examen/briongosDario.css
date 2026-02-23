@@ -1,0 +1,100 @@
+:root {
+  --primary-grey: #5c5c5c;
+  --light-grey: #f4f4f4;
+  --text-dark: #333333;
+}
+
+body {
+  font-family: sans-serif;
+  color: var(--text-dark);
+}
+
+/* Header & Hero */
+.custom-header,
+.hero {
+  background-color: var(--primary-grey);
+}
+
+.hero {
+  min-height: 400px;
+}
+
+.logo-img {
+  height: 45px;
+}
+
+.letter-spacing {
+  letter-spacing: 5px;
+}
+
+/* Adaptación de Contenedores */
+@media (min-width: 1200px) {
+  .container-xl-custom {
+    max-width: 1000px; /* Márgenes del boceto XL */
+  }
+}
+
+/* Efectos Hover Menú y Botones */
+.nav-custom-btn,
+.btn-dark-custom,
+.btn-outline-custom {
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+}
+
+.nav-custom-btn:hover {
+  background-color: white !important;
+  color: var(--primary-grey) !important;
+}
+
+.btn-dark-custom {
+  background-color: #777;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+}
+
+.btn-dark-custom:hover {
+  background-color: white;
+  color: #777;
+  border: 1px solid #777;
+}
+
+.btn-outline-custom {
+  background-color: white;
+  color: #777;
+  border: 1px solid #777;
+  padding: 10px 30px;
+}
+
+.btn-outline-custom:hover {
+  background-color: #777;
+  color: white;
+}
+
+/* Smart Waste Hover Effect */
+.waste-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-bn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.waste-image-container:hover .img-bn {
+  opacity: 1;
+}
+
+/* Utilidades */
+.bg-light-custom {
+  background-color: var(--light-grey);
+}
+
+.mouse-icon {
+  width: 25px;
+}

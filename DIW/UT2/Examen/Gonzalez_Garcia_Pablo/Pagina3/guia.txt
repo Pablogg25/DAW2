@@ -1,0 +1,37 @@
+⭐ PÁGINA 3 — Diseño Alternativo (Menú lateral + hero superpuesto)
+Guía de estilos (breve)
+🎨 Colores
+css
+:root {
+  --primario: #123456;
+  --secundario: #f4f4f4;
+  --acento: #ffb703;
+  --texto: #222;
+}
+🔤 Tipografía
+Fuente: Poppins
+
+Pesos: 300 / 500 / 700
+
+🧭 Menú y botones
+Menú lateral en XL
+
+Hover: invertir colores
+
+Botones con borde redondeado 5px
+
+♿ Accesibilidad
+Contraste alto
+
+Navegación clara
+
+Imágenes con alt
+
+Tamaños fluidos
+
+🧩 Usabilidad
+Hero con mensaje claro
+
+Tarjetas horizontales para lectura rápida
+
+Secciones alternas para separar contenido

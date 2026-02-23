@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TST – Página 1</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --color-primario: #1a3d6f;
+        --color-secundario: #f2f2f2;
+        --color-acento: #00a8e8;
+        --color-texto: #222;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+
+      /* NAV */
+      .nav-link {
+        color: white;
+        padding: 10px 15px;
+        transition: 0.3s;
+      }
+      .nav-link:hover {
+        background: white;
+        color: var(--color-primario);
+      }
+
+      /* HERO */
+      .hero {
+        background: var(--color-primario);
+        color: white;
+        padding: 80px 20px;
+      }
+
+      /* LÍNEA */
+      .linea {
+        width: 60%;
+        margin: 30px auto;
+        border-top: 2px solid var(--color-acento);
+      }
+
+      /* SMART WASTE hover */
+      .bw:hover {
+        filter: grayscale(100%);
+      }
+
+      /* BOTONES */
+      .btn-custom {
+        background: var(--color-primario);
+        color: white;
+        transition: 0.3s;
+      }
+      .btn-custom:hover {
+        background: white;
+        color: var(--color-primario);
+        border: 1px solid var(--color-primario);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark py-3">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="./recursos/recursos_web/logo_TST.png" height="40" />
+        </a>
+
+        <button
+          class="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target="#menu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse text-center" id="menu">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Productos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">I+D</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+          </ul>
+
+          <input
+            class="form-control w-25 d-none d-md-block"
+            placeholder="Buscar"
+          />
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero text-center">
+      <div class="container">
+        <h1 class="fw-bold">TECNOLOGÍA QUE TRANSFORMA</h1>
+        <p class="mt-3">Soluciones IoT para un mundo conectado</p>
+        <button class="btn btn-custom mt-3">Saber más</button>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="py-5 text-center">
+      <div class="container">
+        <h2>Innovación + Ingeniería + IoT</h2>
+        <p class="mt-3">
+          Más de 10 años desarrollando soluciones inteligentes para ciudades y
+          empresas.
+        </p>
+        <div class="linea"></div>
+      </div>
+    </section>
+
+    <!-- DOS COLUMNAS -->
+    <section class="container py-5">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="d-flex gap-3">
+            <img src="./recursos/recursos_web/Icono_1.png" />
+            <div>
+              <h5>Diseño Electrónico</h5>
+              <p><strong>Especialistas en RF</strong></p>
+            </div>
+          </div>
+          <p>Desarrollamos electrónica avanzada para dispositivos IoT.</p>
+        </div>
+
+        <div class="col-md-6">
+          <div class="d-flex gap-3">
+            <img src="./recursos/recursos_web/Icono_2.png" />
+            <div>
+              <h5>Comunicaciones IoT</h5>
+              <p><strong>Redes inteligentes</strong></p>
+            </div>
+          </div>
+          <p>Soluciones de conectividad adaptadas a cada entorno.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SMART WATER SLIDER -->
+    <section class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div id="slider" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  src="./recursos/recursos_web/Smart_Water_1.png"
+                  class="d-block w-100"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="./recursos/recursos_web/Smart_Water_2.png"
+                  class="d-block w-100"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="./recursos/recursos_web/Smart_Water_3.png"
+                  class="d-block w-100"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>SMART WATER</h4>
+          <p>Monitorización avanzada de recursos hídricos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SMART WASTE -->
+    <section class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h4>SMART WASTE</h4>
+          <p>Sensores inteligentes para la gestión de residuos.</p>
+        </div>
+
+        <div class="col-md-6">
+          <img
+            src="./recursos/recursos_web/Smart_Waster.png"
+            class="img-fluid bw"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPA -->
+    <section>
+      <img src="./recursos/recursos_web/mapa.png" class="w-100" />
+    </section>
+
+    <!-- FORMULARIO -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <h3 class="mb-4">Contacto</h3>
+
+        <div class="mb-3">
+          <label>Nombre</label>
+          <input class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label>Motivo</label>
+          <select class="form-select">
+            <option>Consulta general</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>Correo</label>
+          <input class="form-control" />
+        </div>
+
+        <button class="btn btn-custom">Enviar</button>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

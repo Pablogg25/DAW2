@@ -1,0 +1,33 @@
+🎨 Colores
+css
+:root {
+  --primario: #0b3c49;
+  --secundario: #e8f1f2;
+  --acento: #00b8d4;
+  --texto: #222;
+}
+🔤 Tipografía
+Fuente: Montserrat
+
+Pesos: 300 / 500 / 700
+
+🧭 Menú y botones
+Hover: invertir colores (fondo ↔ texto)
+
+Bordes redondeados 3px
+
+♿ Accesibilidad
+Contraste alto
+
+Botones grandes
+
+Imágenes con alt
+
+Estructura clara por secciones
+
+🧩 Usabilidad
+Tarjetas para lectura rápida
+
+Secciones separadas por fondos alternos
+
+Hero dividido para destacar contenido
