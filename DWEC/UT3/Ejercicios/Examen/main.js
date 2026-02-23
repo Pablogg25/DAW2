@@ -1,23 +1,14 @@
 import API from "./api.js";
 
-const contenedor = document.getElementById("contenedor");
-
 let clientes = [];
 let clienteEditando = null;
 
-// -----------------------------
-// INICIO
-// -----------------------------
 cargar();
-
 async function cargar() {
   clientes = await API.getClientes();
   pintar();
 }
 
-// -----------------------------
-// PINTAR TODO
-// -----------------------------
 function pintar() {
   contenedor.innerHTML = "";
 
@@ -31,9 +22,6 @@ function pintar() {
   activarEventos();
 }
 
-// -----------------------------
-// FORMULARIO CREAR
-// -----------------------------
 function formularioCrear() {
   return `
     <h2>Crear cliente</h2>
@@ -62,43 +50,34 @@ function formularioCrear() {
   `;
 }
 
-// -----------------------------
-// TABLA
-// -----------------------------
 function tablaClientes() {
   let html = `
     <div class="tabla">
-      <div class="fila cabecera">
-        <div>Nombre</div>
-        <div>Teléfono</div>
-        <div>Tipo</div>
-        <div>Activo</div>
-        <div>Acciones</div>
-      </div>
-  `;
-
-  clientes.forEach((c) => {
-    html += `
-      <div class="fila">
-        <div>${c.nombre} ${c.apellidos}</div>
-        <div>${c.telefono}</div>
-        <div>${c.tipoCliente}</div>
-        <div>${c.activo ? "Sí" : "No"}</div>
-        <div>
-          <button class="editar" data-id="${c.id}">Editar</button>
-          <button class="borrar" data-id="${c.id}">Borrar</button>
+        <div class="fila cabecera">
+            <div>Nombre</div>
+            <div>Teléfono</div>
+            <div>Tipo</div>
+            <div>Activo</div>
+            <div>Acciones</div>
         </div>
-      </div>
     `;
-  });
 
-  html += `</div>`;
+  for (let c of clientes) {
+    html += `
+        <div class="fila">
+            <div>${c.nombre} ${c.apellidos}</div>
+            <div>${c.telefono}</div>
+            <div>${c.tipoCliente}</div>
+            <div>${c.activo ? "Si" : "No"}</div>
+            <div>
+                <button class="editar" data-id="${c.id}">Editar</button>
+                <button class="borrar" data-id="${c.id}">Eliminar</button>
+            </div>
+        </div>`;
+  }
   return html;
 }
 
-// -----------------------------
-// FORMULARIO EDITAR
-// -----------------------------
 function formularioEditar(c) {
   return `
     <h2>Editar cliente</h2>
@@ -126,11 +105,7 @@ function formularioEditar(c) {
   `;
 }
 
-// -----------------------------
-// EVENTOS
-// -----------------------------
 function activarEventos() {
-  // Crear
   document.getElementById("formCrear").onsubmit = async (e) => {
     e.preventDefault();
     const f = new FormData(e.target);
@@ -144,12 +119,10 @@ function activarEventos() {
       activo: f.get("activo") === "on",
       fechaNacimiento: f.get("fechaNacimiento"),
     };
-
     await API.crearCliente(nuevo);
     cargar();
   };
 
-  // Editar
   document.querySelectorAll(".editar").forEach((btn) => {
     btn.onclick = () => {
       clienteEditando = clientes.find((c) => c.id == btn.dataset.id);
@@ -157,7 +130,6 @@ function activarEventos() {
     };
   });
 
-  // Guardar edición
   const formEditar = document.getElementById("formEditar");
   if (formEditar) {
     formEditar.onsubmit = async (e) => {
@@ -180,9 +152,9 @@ function activarEventos() {
     };
   }
 
-  // Borrar
   document.querySelectorAll(".borrar").forEach((btn) => {
     btn.onclick = async () => {
+      confirm("¿Quieres eliminar");
       await API.borrarCliente(btn.dataset.id);
       cargar();
     };
