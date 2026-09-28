@@ -1,0 +1,54 @@
+body{
+    font-family:Arial;
+    background:#f3f3f3;
+}
+
+.contenedor{
+    max-width:900px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+}
+
+input,
+textarea, button{
+    width:100%;
+    padding:8px;
+    margin-bottom:10px;
+    box-sizing:border-box;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:10px;
+}
+
+#numero-pedido{
+    font-weight:bold;
+    color:blue;
+}
+
+.total{
+    font-size:1.4em;
+    font-weight:bold;
+    color:green;
+}
+
+input[type="checkbox"]{
+    width:auto;
+    display:inline-block;
+}
+
+label{
+    display:block;
+}
+
+label[for="urgente"]{
+    display:inline;
+} 
