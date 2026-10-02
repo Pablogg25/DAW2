@@ -1,19 +1,25 @@
 <?php
-require "datos.php";
 
+require "datos2.php";
 
+/* Directiva con constante y operadores a nivel de bit */
+$nivelErrores = E_ALL & ~E_NOTICE;
+error_reporting($nivelErrores);
+ini_set("display_errors", "1");
+
+/* Modo visual: ternario para clase y mensaje */
 $claseTema = $modoOscuro ? "modo-oscuro" : "modo-claro";
-$mensajeTema = $modoOscuro ? "Modo Oscuro Activdado" : "Modo Claro Activado";
+$mensajeTema = $modoOscuro ? "Modo oscuro activado." : "Modo claro activado.";
 
+/* Sesión: cambia el menú y el contenido de un único párrafo (sin duplicar sección) */
 $opcionSesion = $sesionIniciada ? "Logout" : "Login";
-$tituloSesion = $sesionIniciada ? "Área privada" : "Area participante";
-
-$contenidoSesión = $sesionIniciada
+$tituloSesion = $sesionIniciada ? "Área privada" : "Acceso de participante";
+$contenidoSesion = $sesionIniciada
     ? "Hola, " . $nombre . ". Tienes una reserva iniciada."
     : "Inicia sesión para acceder a tu zona privada.";
 
-
-$nombre ??= "";
+/* Inicializaciones por defecto en caso de venir a null */
+$nombre ??= "";        
 $email ??= "";
 $horas ??= "";
 $totalDeclarado ??= "";
@@ -26,9 +32,9 @@ $errorNombre =  empty($nombre)
     : "";
 
 $hoy = strtotime(date("Y-m-d"));
-$reserva = strtotime($fechaReserva !== "" ? $fechaReserva : date("1970-01-01"));
-//el valor tras los : es un valor por defecto que no influye para el siguiente cálculo, 
-//pero necesario para completar esta instrucción sin error. Podría ser cualquier date.
+$reserva = strtotime($fechaReserva !== "" ? $fechaReserva : date("1970-01-01")); 
+        //el valor tras los : es un valor por defecto que no influye para el siguiente cálculo, 
+        //pero necesario para completar esta instrucción sin error. Podría ser cualquier date.
 
 $errorFechaReserva = empty($fechaReserva)
     ? "Indica una fecha."
@@ -38,11 +44,12 @@ $errorFechaReserva = empty($fechaReserva)
 $totalCalculado = $precioBase + ((float)$horas * $precioPorHora);
 $epsilon = 0.00001;
 $errorTotal = !empty($horas) && !empty($totalDeclarado)
-    //&& ($totalCalculado == $totalDeclarado) esto no funcionaría por la precisión de los floats
+            //&& ($totalCalculado == $totalDeclarado) esto no funcionaría por la precisión de los floats
     && !(abs($totalCalculado - (float)$totalDeclarado) >= $epsilon)
     ? ""
-    : "El total no coincide con el cálculo.";
+    : "El total no coincide con el cálculo."; 
 ?>
+
 <!doctype html>
 <html lang="es">
 
