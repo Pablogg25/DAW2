@@ -1,0 +1,173 @@
+*{
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    max-width:1100px;
+    margin:0 auto;
+    padding:20px;
+    background:#f4f6f9;
+    color:#333;
+}
+
+header{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    background:#1f4e79;
+    color:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    border:3px solid white;
+}
+
+header h1{
+    margin:0 0 10px 0;
+}
+
+header a{
+    color:white;
+    font-weight:bold;
+}
+
+main{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+section{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+section h2{
+    margin-top:0;
+    color:#1f4e79;
+}
+
+.correcto{
+    background:#e9f8ea;
+    border:2px solid #4caf50;
+}
+
+.error{
+    background:#ffe6e6;
+    border:2px solid #dc3545;
+}
+
+.mensaje-error{
+    color:#dc3545;
+    font-weight:bold;
+}
+
+.mensaje-ok{
+    color:#2e7d32;
+    font-weight:bold;
+}
+
+table{
+    border-collapse:collapse;
+    width:100%;
+    max-width:500px;
+}
+
+th{
+    background:#1f4e79;
+    color:white;
+}
+
+th,
+td{
+    border:1px solid #ccc;
+    padding:10px;
+}
+
+fieldset{
+    border:1px solid #ccc;
+    border-radius:5px;
+    padding:15px;
+}
+
+legend{
+    font-weight:bold;
+    padding:0 10px;
+}
+
+label{
+    display:block;
+    margin-top:10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"]{
+    width:350px;
+    max-width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+fieldset div.lista-modulos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:10px;
+}
+
+.lista-modulos label{
+    margin:0;
+}
+
+fieldset p.modalidades{
+    font-weight:bold;
+    color:#1f4e79;
+    background:#eef5ff;
+    padding:10px;
+    border-radius:5px;
+}
+
+fieldset section p{
+    font-weight:normal;
+    color:#333;
+    font-style: italic;
+}
+
+.acciones{
+    display:flex;
+    gap:15px;
+}
+
+button{
+    display:inline-block;
+    text-decoration:none;
+    color:white;
+    padding:12px 20px;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+button.confirmar{
+    background:#28a745;
+}
+
+button.modificar{
+    background:#0d6efd;
+}
+
+footer{
+    text-align:center;
+    margin-top:20px;
+    color:#666;
+    font-size:0.9em;
+}
