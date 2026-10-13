@@ -1,0 +1,19 @@
+{
+    "name": "usuario/proyecto-password",
+    "description": "Proyecto para generar contraseñas",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pablogg25",
+            "email": "pgonzalezg12@educantabria.es"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "hackzilla/password-generator": "^1.7"
+    }
+}

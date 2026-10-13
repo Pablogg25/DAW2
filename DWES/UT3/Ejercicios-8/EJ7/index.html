@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><title>Ejercicio 7</title></head>
+<body>
+  <h1>Operaciones entre dos números</h1>
+  <form action="ejercicio7.php" method="post">
+    <label>Elige el primer número:
+      <input type="number" name="a" required step="1">
+    </label><br><br>
+    <label>Elige el segundo número:
+      <input type="number" name="b" required step="1">
+    </label><br><br>
+    <fieldset>
+      <legend>Seleccione la operación:</legend>
+      <label><input type="radio" name="op" value="suma" checked> Suma</label><br>
+      <label><input type="radio" name="op" value="resta"> Resta</label><br>
+      <label><input type="radio" name="op" value="producto"> Producto</label><br>
+      <label><input type="radio" name="op" value="cociente"> Cociente</label>
+    </fieldset><br>
+    <input type="submit" value="Enviar datos">
+  </form>
+</body>
+</html>
