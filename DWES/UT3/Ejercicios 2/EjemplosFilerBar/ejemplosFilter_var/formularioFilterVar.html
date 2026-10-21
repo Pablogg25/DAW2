@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Validación</title>
+</head>
+<body>
+
+<form action="validacionesFilterVar.php" method="post">
+
+    <p>
+        <label for="entero">Número entero par (0-100):</label><br>
+        <input type="number" name="entero" id="entero" min="0" max="100">
+    </p>
+
+    <p>
+        <label for="float">Número decimal:</label><br>
+        <input type="number" name="float" id="float" step="any">
+    </p>
+
+    <p>
+        <label for="boolean">Booleano:</label><br>
+        <select name="boolean" id="boolean">
+            <option>Seleccione...</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+        </select>
+    </p>
+
+    <p>
+        <label for="email">Correo electrónico:</label><br>
+        <input type="email" name="email" id="email">
+    </p>
+
+    <p>
+        <label for="codigo">
+            Código (1 número + 1 letra + hasta 8 caracteres más)
+        </label><br>
+        <input
+            type="text"
+            name="codigo"
+            id="codigo"
+            maxlength="10"
+            placeholder="1Axxxxxx">
+    </p>
+
+    <p>
+    <fieldset>
+        <legend>Array de enteros</legend>
+
+        <label>
+            <input type="checkbox" name="numeros[]" value="1">
+            1
+        </label>
+
+        <label>
+            <input type="checkbox" name="numeros[]" value="2">
+            2
+        </label>
+
+        <label>
+            <input type="checkbox" name="numeros[]" value="3">
+            3
+        </label>
+
+        <label>
+            <input type="checkbox" name="numeros[]" value="4">
+            4
+        </label>
+    </fieldset>
+    </p>
+
+    <p>
+    <label>Fecha:
+        <input type="date" name="fecha">
+    </label>
+    <br><br>
+    </p>
+
+    <p>
+    <input type="submit" >
+    </p>
+
+
+
+</form>
+
+</body>
+</html>
