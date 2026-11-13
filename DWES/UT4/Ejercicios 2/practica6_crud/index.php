@@ -4,8 +4,14 @@ require_once __DIR__ . '/producto_modelo.php';
 require_once __DIR__ . '/validaciones.php';
 
 $errores = [];
-$mensajeExito = '';
 $productoEditar = null;
+
+$mensajeExito = match ($_GET['ok'] ?? '') {
+    'insertado' => 'Producto añadido correctamente.',
+    'actualizado' => 'Producto actualizado correctamente.',
+    'eliminado' => 'Producto eliminado correctamente.',
+    default => ''
+};
 
 try {
     // 1. Procesar alta o edición (POST)
@@ -18,11 +24,20 @@ try {
         if (empty($errores)) {
             if ($id) {
                 actualizarProducto($conexion, $id, $datos['nombre'], $datos['precio'], $datos['unidades']);
-                $mensajeExito = 'Producto actualizado correctamente.';
+                header('Location: index.php?ok=actualizado');
+                exit;
             } else {
                 insertarProducto($conexion, $datos['nombre'], $datos['precio'], $datos['unidades']);
-                $mensajeExito = 'Producto añadido correctamente.';
+                header('Location: index.php?ok=insertado');
+                exit;
             }
+        } elseif ($id) {
+            $productoEditar = [
+                'id' => $id,
+                'nombre' => $_POST['nombre'] ?? '',
+                'precio' => $_POST['precio'] ?? '',
+                'unidades' => $_POST['unidades'] ?? ''
+            ];
         }
     }
 
@@ -32,7 +47,8 @@ try {
 
     if ($accion === 'eliminar' && $idGet) {
         eliminarProducto($conexion, $idGet);
-        $mensajeExito = 'Producto eliminado correctamente.';
+        header('Location: index.php?ok=eliminado');
+        exit;
     } elseif ($accion === 'editar' && $idGet) {
         $productoEditar = obtenerProductoPorId($conexion, $idGet);
     }
