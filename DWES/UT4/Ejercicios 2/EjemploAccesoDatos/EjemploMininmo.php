@@ -30,7 +30,7 @@ $filas = $conexion->exec(
 SET precio = 29.90
 WHERE id = 1'
 );
-echo '<br>Filas modificadas: ' . $filas;
+// echo '<br>Filas modificadas: ' . $filas;
 
 // Eliminar Registros
 
