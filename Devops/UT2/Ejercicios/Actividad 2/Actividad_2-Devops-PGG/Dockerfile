@@ -14,8 +14,8 @@ RUN mvn clean package
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-# Copiamos únicamente el archivo .jar generado en la Etapa 1
-COPY --from=builder /build/target/GestorTareas-1.0-SNAPSHOT.jar app.jar
+# Copiamos únicamente el archivo .jar generado en la Etapa 1 con el nuevo nombre
+COPY --from=builder /build/target/Actividad_2-Devops-PGG-1.0-SNAPSHOT.jar app.jar
 
 # Ejecutamos la aplicación Java
 CMD ["java", "-jar", "app.jar"]

@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <exec.mainClass>com.mycompany.actividad_2.devops.pgg.Actividad_2DevopsPGG</exec.mainClass>
     </properties>
     <!-- Dependencia JUnit 5 para los tests -->
@@ -42,7 +42,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.mycompany.gestortareas.App</mainClass>
+                            <mainClass>com.mycompany.actividad_2.devops.pgg.Actividad_2DevopsPGG</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
