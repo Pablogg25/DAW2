@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<title>Apache Status</title>
+</head><body>
+<h1>Apache Server Status for localhost (via ::1)</h1>
+
+<dl><dt>Server Version: Apache/2.4.66 (Ubuntu)</dt>
+<dt>Server MPM: event</dt>
+<dt>Server Built: 2026-11-12T12:57:38
+</dt></dl><hr /><dl>
+<dt>Current Time: Tuesday, 17-Nov-2026 17:13:22 UTC</dt>
+<dt>Restart Time: Tuesday, 17-Nov-2026 16:57:29 UTC</dt>
+<dt>Parent Server Config. Generation: 3</dt>
+<dt>Parent Server MPM Generation: 2</dt>
+<dt>Server uptime:  15 minutes 53 seconds</dt>
+<dt>Server load: 0.00 0.00 0.00</dt>
+<dt>Total accesses: 4 - Total Traffic: 2 kB - Total Duration: 0</dt>
+<dt>CPU Usage: u.05 s.07 cu0 cs.02 - .0147% CPU load</dt>
+<dt>.0042 requests/sec - 2 B/second - 512 B/request - 0 ms/request</dt>
+<dt>1 requests currently being processed, 0 workers gracefully restarting, 49 idle workers</dt>
+</dl>
+
+<table rules="all" cellpadding="1%">
+<tr><th rowspan="2">Slot</th><th rowspan="2">PID</th><th rowspan="2">Stopping</th><th colspan="2">Connections</th>
+<th colspan="3">Threads</th><th colspan="4">Async connections</th></tr>
+<tr><th>total</th><th>accepting</th><th>busy</th><th>graceful</th><th>idle</th><th>wait-io</th><th>writing</th><th>keep-alive</th><th>closing</th></tr>
+<tr><td>0</td><td>3484</td><td>no</td><td>0</td><td>yes</td><td>0</td><td>0</td><td>25</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>1</td><td>3485</td><td>no</td><td>0</td><td>yes</td><td>1</td><td>0</td><td>24</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Sum</td><td>2</td><td>0</td><td>0</td><td>&nbsp;</td><td>1</td><td>0</td><td>49</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+</table>
+<pre>___________________________W______________________..............
+................................................................
+......................</pre>
+<p>Scoreboard Key:<br />
+"<b><code>_</code></b>" Waiting for Connection, 
+"<b><code>S</code></b>" Starting up, 
+"<b><code>R</code></b>" Reading Request,<br />
+"<b><code>W</code></b>" Sending Reply, 
+"<b><code>K</code></b>" Keepalive (read), 
+"<b><code>D</code></b>" DNS Lookup,<br />
+"<b><code>C</code></b>" Closing connection, 
+"<b><code>L</code></b>" Logging, 
+"<b><code>G</code></b>" Gracefully finishing,<br /> 
+"<b><code>I</code></b>" Idle cleanup of worker, 
+"<b><code>.</code></b>" Open slot with no current process<br />
+</p>
+
+
+<table border="0"><tr><th>Srv</th><th>PID</th><th>Acc</th><th>M</th><th>CPU
+</th><th>SS</th><th>Req</th><th>Dur</th><th>Conn</th><th>Child</th><th>Slot</th><th>Client</th><th>Protocol</th><th>VHost</th><th>Request</th></tr>
+
+<tr><td><b>1-2</b></td><td>3485</td><td>0/1/2</td><td>_
+</td><td>0.00</td><td>58</td><td>0</td><td>0</td><td>0.0</td><td>0.00</td><td>0.00
+</td><td>::1</td><td>http/1.1</td><td nowrap>ip-172-31-18-54.ec2.internal:80</td><td nowrap>HEAD / HTTP/1.1</td></tr>
+
+<tr><td><b>1-2</b></td><td>3485</td><td>1/0/1</td><td><b>W</b>
+</td><td>0.00</td><td>0</td><td>0</td><td>0</td><td>0.0</td><td>0.00</td><td>0.00
+</td><td>::1</td><td>http/1.1</td><td nowrap>ip-172-31-18-54.ec2.internal:80</td><td nowrap>GET /server-status HTTP/1.1</td></tr>
+
+<tr><td><b>1-2</b></td><td>3485</td><td>0/0/1</td><td>_
+</td><td>0.00</td><td>58</td><td>0</td><td>0</td><td>0.0</td><td>0.00</td><td>0.00
+</td><td>213.96.236.200</td><td>http/1.1</td><td nowrap>ip-172-31-18-54.ec2.internal:80</td><td nowrap>GET /favicon.ico HTTP/1.1</td></tr>
+
+</table>
+ <hr /> <table>
+ <tr><th>Srv</th><td>Child Server number - generation</td></tr>
+ <tr><th>PID</th><td>OS process ID</td></tr>
+ <tr><th>Acc</th><td>Number of accesses this connection / this child / this slot</td></tr>
+ <tr><th>M</th><td>Mode of operation</td></tr>
+<tr><th>CPU</th><td>CPU usage, number of seconds</td></tr>
+<tr><th>SS</th><td>Seconds since beginning of most recent request</td></tr>
+ <tr><th>Req</th><td>Milliseconds required to process most recent request</td></tr>
+ <tr><th>Dur</th><td>Sum of milliseconds required to process all requests</td></tr>
+ <tr><th>Conn</th><td>Kilobytes transferred this connection</td></tr>
+ <tr><th>Child</th><td>Megabytes transferred this child</td></tr>
+ <tr><th>Slot</th><td>Total megabytes transferred this slot</td></tr>
+ </table>
+<hr />
+<address>Apache/2.4.66 (Ubuntu) Server at localhost Port 80</address>
+</body></html>
