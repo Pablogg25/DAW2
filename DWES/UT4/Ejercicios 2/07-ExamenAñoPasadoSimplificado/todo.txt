@@ -1,0 +1,7 @@
+faltaría:
+	- refactorizar para ajustarlo al modelo 3 capas (estructura de carpetas que hicimos en clase). 
+	- sacar el archivo de configuración.
+	- separar peliculas.php en peliculas.php y vistaPeliculas.php 
+	- revisar si están los patrones en condiciones como en el ejemplo (factoria del service, factoria estática 
+		en BD, DAO (interfaz + implementación), Decorator, Transacción.
+	- revisar si cumple todo lo de procedimental
