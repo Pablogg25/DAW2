@@ -2,13 +2,13 @@
 
 $productos = [
     [
-        "id" => 100,
+        "id" => 1,
         "nombre" => "PRODUCTO MEMORIA",
         "precio" => 999
     ]
 ];
 
-$ultimoId = 100;
+$ultimoId = 1;
 
 function obtenerOrigenDatos()
 {
