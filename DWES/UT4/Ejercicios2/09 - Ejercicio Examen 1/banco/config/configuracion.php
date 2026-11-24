@@ -2,6 +2,6 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'dwes_practica_banco');
 define('DB_USER', 'root');
-define('DB_PASS', 'r00tMy$ql');
+define('DB_PASS', 'mysql');
 define('DB_CHARSET', 'utf8mb4');
 ?>
