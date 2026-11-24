@@ -89,4 +89,4 @@ if (isset($_POST["reemplazar"])) {
 
 // Obtener productos
 
-require __DIR__ . "/presentacion/vista.php";
+// require __DIR__ . "/presentacion/vista.php";

@@ -1,0 +1,4 @@
+1. Crear BBDD
+2. Establecer Conexión y comprobarlo con un if en el index.php
+3. Crear la clase Producto.php o lo que sea
+4. Crear interfaz que establece las funciones del crud ProductoDAO.php
