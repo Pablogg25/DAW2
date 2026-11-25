@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -22,34 +21,17 @@
     <h2>Nuevo producto</h2>
 
     <form action="index.php" method="post">
-
         <label>
             Nombre:
-            <input
-                type="text"
-                name="nombre"
-                required>
+            <input type="text" name="nombre" required>
         </label>
-
         <br><br>
-
         <label>
             Precio:
-            <input
-                type="number"
-                step="0.01"
-                name="precio"
-                required>
+            <input type="number" step="0.01" name="precio" required>
         </label>
-
         <br><br>
-
-        <button
-            type="submit"
-            name="insertar">
-            Insertar
-        </button>
-
+        <button type="submit" name="insertar">Insertar</button>
     </form>
 
     <hr>
@@ -62,44 +44,22 @@
     </p>
 
     <form action="index.php" method="post">
-
         <label>
             Nombre del producto a sustituir:
-            <input
-                type="text"
-                name="nombreAntiguo"
-                required>
+            <input type="text" name="nombreAntiguo" required>
         </label>
-
         <br><br>
-
         <label>
             Nombre del nuevo producto:
-            <input
-                type="text"
-                name="nombreNuevo"
-                required>
+            <input type="text" name="nombreNuevo" required>
         </label>
-
         <br><br>
-
         <label>
             Precio del nuevo producto:
-            <input
-                type="number"
-                step="0.01"
-                name="precio"
-                required>
+            <input type="number" step="0.01" name="precio" required>
         </label>
-
         <br><br>
-
-        <button
-            type="submit"
-            name="reemplazar">
-            Reemplazar
-        </button>
-
+        <button type="submit" name="reemplazar">Reemplazar</button>
     </form>
 
     <hr>
@@ -107,7 +67,6 @@
     <h2>Listado de productos</h2>
 
     <table border="1" cellpadding="5">
-
         <tr>
             <th>ID</th>
             <th>Nombre</th>
@@ -116,60 +75,28 @@
             <th>Borrar</th>
         </tr>
 
-        <?php //foreach ($productos as $producto): ?>    
-
+        <?php foreach ($productos as $producto): ?>
             <tr>
-
                 <form action="index.php" method="post">
-
                     <td>
-                        <?= $producto->id ?>
-
-                        <input
-                            type="hidden"
-                            name="id"
-                            value="<?= $producto->id ?>">
+                        <?= $producto->getId() ?>
+                        <input type="hidden" name="id" value="<?= $producto->getId() ?>">
                     </td>
-
                     <td>
-                        <input
-                            type="text"
-                            name="nombre"
-                            value="<?= $producto->nombre ?>"
-                            required>
+                        <input type="text" name="nombre" value="<?= htmlspecialchars($producto->getNombre()) ?>" required>
                     </td>
-
                     <td>
-                        <input
-                            type="number"
-                            name="precio"
-                            step="0.01"
-                            value="<?= $producto->precio ?>"
-                            required>
+                        <input type="number" name="precio" step="0.01" value="<?= $producto->getPrecio() ?>" required>
                     </td>
-
                     <td>
-                        <button
-                            type="submit"
-                            name="actualizar">
-                            Actualizar
-                        </button>
+                        <button type="submit" name="actualizar">Actualizar</button>
                     </td>
-
                     <td>
-                        <button
-                            type="submit"
-                            name="borrar">
-                            Borrar
-                        </button>
+                        <button type="submit" name="borrar">Borrar</button>
                     </td>
-
                 </form>
-
             </tr>
-
-        <?php//endforeach; ?>
-
+        <?php endforeach; ?>
     </table>
 
 </body>
