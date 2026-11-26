@@ -1,9 +1,10 @@
 <?php
-
 // requires
+// require_once __DIR__ . '/../App/datos/ConexionBD.php';
+require_once __DIR__ . '/../App/config/FactoriaAplicacion.php';
 
 // crear el service
-
+$servicio =  FactoriaAplicacion::crearComponenteService();
 $error = null;
 $mensaje = null;
 
@@ -15,11 +16,15 @@ if (isset($_GET['sustituido'])) {
  * INSERT
  */
 if (isset($_POST['insertar'])) {
-    $componente = new Componente(0, $_POST['nombre'],
-        (float) $_POST['precio']);
+    $componente = new Componente(
+        0,
+        $_POST['nombre'],
+        (float) $_POST['precio']
+    );
 
     // Alta de componente
-
+    $servicio->save($componente);
+    // var_dump($creado);
     header('Location: index.php');
     exit();
 }
@@ -29,12 +34,13 @@ if (isset($_POST['insertar'])) {
  */
 if (isset($_POST['actualizar'])) {
     $componente = new Componente(
-        (int) $_POST['id'], $_POST['nombre'],
+        (int) $_POST['id'],
+        $_POST['nombre'],
         (float) $_POST['precio']
     );
 
     // Actualización de componente
-
+    $servicio->update($componente->id, $componente);
     header('Location: index.php');
     exit();
 }
@@ -44,7 +50,7 @@ if (isset($_POST['actualizar'])) {
  */
 if (isset($_POST['borrar'])) {
     // Borrado de componente
-
+    $servicio->delete($_POST['id']);
     header('Location: index.php');
     exit();
 }
@@ -56,8 +62,9 @@ if (isset($_POST['sustituir'])) {
     try {
         /*
          * Llamada al servicio para sustituir componente:
-         * $_POST['nombreAntiguo'], $_POST['nombreNuevo'], (float)$_POST['precio']
+        * $_POST['nombreAntiguo'], $_POST['nombreNuevo'], (float)$_POST['precio']
          */
+        $servicio->sustituirComponente($_POST['nombreAntiguo'], $_POST['nombreNuevo'], (float)$_POST['precio']);
         header('Location: index.php?sustituido=1');
         exit();
     } catch (Throwable $e) {
@@ -72,6 +79,8 @@ if (isset($_POST['sustituir'])) {
 /*
  * READ
  */
+$componentes = $servicio->listAll();
+
 
 // Obtener componentes ($componentes)
 
