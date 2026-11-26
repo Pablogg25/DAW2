@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 // requires
 require_once __DIR__ . '/../App/config/FactoriaAplicacion.php';
 // crear el service
@@ -7,7 +9,6 @@ $factoria = new FactoriaAplicacion();
 $servicio = $factoria->crearMotoService();
 $error = null;
 $mensaje = null;
-
 
 /*
  * - INSERT
@@ -67,9 +68,9 @@ if (isset($_POST['sustituir'])) {
          * - );
          */
         $servicio->sustituirMoto(
-            $_POST["modeloAntiguo"],
-            $_POST["modeloNuevo"],
-            (float) $_POST["precio"]
+            $_POST['modeloAntiguo'],
+            $_POST['modeloNuevo'],
+            (float) $_POST['precio']
         );
         header('Location: index.php?sustituida=1');
         exit();
