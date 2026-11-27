@@ -25,11 +25,11 @@ class MotoService
     }
     public function update(int $id, Moto $moto): ?Moto
     {
-        return null;
+        return $this->dao->update($id, $moto);
     }
-    public function delete(Moto $moto): ?Moto
+    public function delete(int $id): ?Moto
     {
-        return null;
+        return $this->dao->delete($id);
     }
     public function sustituirMoto(string $modeloMotoOriginl, string $modeloMotoNueva, string $precioMotoNueva): void {}
 }

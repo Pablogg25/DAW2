@@ -59,33 +59,57 @@ class MotoPDODAO implements MotoDAO
     public function save(Moto $moto): ?Moto
     {
         $sql = "INSERT INTO motos(modelo,precio) values(?,?);";
-        try{
+        try {
             $consulta = $this->conexion->prepare($sql);
-            $ok = $consulta->execute([$moto->modelo,$moto->precio]);
-            if($ok){
+            $ok = $consulta->execute([$moto->modelo, $moto->precio]);
+            if ($ok) {
                 $fila = $consulta->fetch();
-                if($fila){
+                if ($fila) {
                     return new Moto(
                         (int) $fila['id'],
                         $fila['modelo'],
                         (float)$fila['precio']
                     );
-                }else{
+                } else {
                     return null;
                 }
             }
             return null;
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
     public function update(int $id, Moto $moto): ?Moto
     {
-        return null;
+        $sql = "UPDATE motos set modelo=?, precio=? WHERE id=?;";
+        try {
+            $consulta = $this->conexion->prepare($sql);
+            $ok = $consulta->execute([$moto->modelo, $moto->precio, $id]);
+            if ($ok) {
+                $moto->id = $id;
+                return $moto;
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
-    public function delete(Moto $moto): ?Moto
+    public function delete(int $id): ?Moto
     {
-        return null;
+        $sql = "DELETE FROM motos WHERE id=?";
+        try {
+            $consulta = $this->conexion->prepare($sql);
+
+            $ok = $consulta->execute([$id]);
+            if ($ok) {
+                return $this->byId($id);
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
     public function sustituirMoto(string $modeloMotoOriginl, string $modeloMotoNueva, string $precioMotoNueva): void {}
 }

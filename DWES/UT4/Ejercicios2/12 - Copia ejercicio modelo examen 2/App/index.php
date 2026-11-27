@@ -39,7 +39,7 @@ if (isset($_POST['actualizar'])) {
     );
 
     // Actualización de motocicleta
-
+    $servicio->update((int) $_POST['id'], $moto);
     header('Location: index.php');
     exit();
 }
@@ -49,7 +49,7 @@ if (isset($_POST['actualizar'])) {
  */
 if (isset($_POST['borrar'])) {
     // Borrado de motocicleta
-
+    $servicio->delete((int) $_POST['id']);
     header('Location: index.php');
     exit();
 }

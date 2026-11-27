@@ -30,7 +30,7 @@ class MotoDAOLog implements MotoDAO
 
     public function listAll(): ?array
     {
-        return null;
+        return $this->dao->listAll();
     }
     public function byId(int $id): ?Moto
     {
@@ -39,11 +39,25 @@ class MotoDAOLog implements MotoDAO
 
     public function update(int $id, Moto $moto): ?Moto
     {
-        return null;
+        $nuevo = $this->dao->update($id, $moto);
+        if ($nuevo === null) {
+            $this->escribirLog("ERROR AL ACTUALIZAR");
+            return null;
+        } else {
+            $this->escribirLog("MOTO ACTUALIZAR");
+            return $nuevo;
+        }
     }
-    public function delete(Moto $moto): ?Moto
+    public function delete(int $id): ?Moto
     {
-        return null;
+        $nuevo = $this->dao->delete($id);
+        if ($nuevo === null) {
+            $this->escribirLog("ERROR AL BORRAR");
+            return null;
+        } else {
+            $this->escribirLog("MOTO BORRADA");
+            return $nuevo;
+        }
     }
     public function sustituirMoto(string $modeloMotoOriginl, string $modeloMotoNueva, string $precioMotoNueva): void {}
 }

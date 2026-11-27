@@ -6,6 +6,6 @@ interface MotoDAO
     public function byId(int $id): ?Moto;
     public function save(Moto $moto): ?Moto;
     public function update(int $id, Moto $moto): ?Moto;
-    public function delete(Moto $moto): ?Moto;
+    public function delete(int $id): ?Moto;
     public function sustituirMoto(string $modeloMotoOriginl, string $modeloMotoNueva, string $precioMotoNueva): void;
 }
