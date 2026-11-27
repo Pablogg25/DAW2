@@ -1,0 +1,18 @@
+CREATE DATABASE IF NOT EXISTS dwes_motos
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE dwes_motos;
+
+DROP TABLE IF EXISTS motos;
+
+CREATE TABLE motos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    modelo VARCHAR(150) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL
+) ENGINE=InnoDB;
+
+INSERT INTO motos (modelo, precio) VALUES
+('TM EN 125 2T', 4200.00),
+('KTM 300 EXC', 7850.00),
+('Husqvarna TE 250', 7400.00);

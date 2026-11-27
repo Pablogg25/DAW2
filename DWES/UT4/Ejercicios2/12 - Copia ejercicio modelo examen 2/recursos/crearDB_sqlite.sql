@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS motos;
+
+CREATE TABLE motos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    modelo TEXT NOT NULL,
+    precio REAL NOT NULL
+);
+
+INSERT INTO motos (modelo, precio) VALUES
+('TM EN 125 2T', 4200.00),
+('KTM 300 EXC', 7850.00),
+('Husqvarna TE 250', 7400.00);
